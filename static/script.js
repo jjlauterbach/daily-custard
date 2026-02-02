@@ -1,5 +1,5 @@
 // App configuration
-const API_BASE_URL = window.location.origin;
+const STATIC_FLAVORS_URL = '/static/data/flavors.json';
 
 // DOM elements
 const loadingEl = document.getElementById('loading');
@@ -26,24 +26,14 @@ function setCurrentDateToLocal() {
     currentDateEl.textContent = `${yyyy}-${mm}-${dd}`;
 }
 
-// Load flavors from API
+// Load flavors from static JSON
 async function loadFlavors() {
     showLoading();
     
     try {
-        const response = await fetch(`${API_BASE_URL}/api/flavors`);
+        const flavors = await fetchFlavorsFromStatic();
         
-        if (!response.ok) {
-            throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-        
-        const flavors = await response.json();
-        
-        if (!Array.isArray(flavors)) {
-            throw new Error('Invalid response format - expected array');
-        }
-        
-        if (flavors.length === 0) {
+        if (!flavors || flavors.length === 0) {
             showError('No flavors found for today. Please try again later.');
             return;
         }
@@ -57,6 +47,20 @@ async function loadFlavors() {
         console.error('Error loading flavors:', error);
         showError(`Failed to load flavors: ${error.message}`);
     }
+}
+
+// Fetch from static JSON file
+async function fetchFlavorsFromStatic() {
+    const response = await fetch(STATIC_FLAVORS_URL);
+    if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+    const data = await response.json();
+    if (data.flavors && Array.isArray(data.flavors)) {
+        console.log(`Loaded ${data.flavors.length} flavors from static JSON (generated: ${data.generated_at})`);
+        return data.flavors;
+    }
+    throw new Error('Invalid response format - expected flavors array');
 }
 
 // Show loading state

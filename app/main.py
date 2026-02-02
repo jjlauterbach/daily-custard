@@ -2,19 +2,11 @@
 
 import logging
 import os
-from datetime import datetime
 
 import yaml
-from apscheduler.schedulers.background import BackgroundScheduler
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
-
-from app.scrapers.bubbas import scrape_bubbas
-from app.scrapers.culvers import scrape_culvers
-from app.scrapers.kopps import scrape_kopps
-from app.scrapers.murfs import scrape_murfs
-from app.scrapers.oscars import scrape_oscars
 
 
 def load_config():
@@ -30,7 +22,7 @@ def load_config():
 
 
 # FastAPI app
-app = FastAPI(title="Daily Flavors API", description="Get daily custard flavors from shops")
+app = FastAPI(title="Daily Flavors", description="Daily custard flavors from local shops")
 
 # Configure static file serving
 static_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "static")
@@ -67,59 +59,21 @@ async def web_ui():
         return {"message": f"Web UI not found. Looking for: {index_file}"}
 
 
-# Daily cache for flavors
-flavors_cache = {"date": None, "data": None}  # YYYY-MM-DD string
+@app.get("/privacy")
+async def privacy_page():
+    """Serve the privacy policy page"""
+    privacy_file = os.path.join(static_dir, "privacy.html")
+    if os.path.exists(privacy_file):
+        return FileResponse(privacy_file, media_type="text/html")
+    else:
+        return {"message": "Privacy policy not found"}
 
 
-@app.get("/api/flavors")
-async def get_flavors():
-    """API endpoint for flavors (alternative to root) with daily cache"""
-    today = datetime.now().strftime("%Y-%m-%d")
-    if flavors_cache["date"] == today and flavors_cache["data"] is not None:
-        return flavors_cache["data"]
-    # Refresh cache
-    data = scrape_all()
-    flavors_cache["date"] = today
-    flavors_cache["data"] = data
-    return data
-
-
-def scrape_all():
-    flavors = []
-    scrapers = [scrape_culvers, scrape_kopps, scrape_murfs, scrape_oscars, scrape_bubbas]
-    for scraper in scrapers:
-        _safe_add_flavors(flavors, scraper)
-    return flavors
-
-
-def _safe_add_flavors(flavors, scraper_fn):
-    """Safely execute a scraper function and add results to flavors list"""
-    try:
-        flavors.extend(scraper_fn())
-    except Exception as err:
-        logger.error(f"Scraping error in {scraper_fn.__name__}", exc_info=err)
-
-
-def refresh_flavors_cache():
-    today = datetime.now().strftime("%Y-%m-%d")
-    logger.info(f"Refreshing flavors cache for {today}")
-    data = scrape_all()
-    flavors_cache["date"] = today
-    flavors_cache["data"] = data
-
-
-# Preload cache on startup
-refresh_flavors_cache()
-
-
-# Schedule daily cache refresh at configured time
-def schedule_cache_refresh():
-    refresh_time = config.get("cache_refresh_time", "08:00")
-    hour, minute = map(int, refresh_time.split(":"))
-    scheduler = BackgroundScheduler()
-    scheduler.add_job(refresh_flavors_cache, "cron", hour=hour, minute=minute)
-    scheduler.start()
-    logger.info(f"Scheduled daily cache refresh at {refresh_time}")
-
-
-schedule_cache_refresh()
+@app.get("/about")
+async def about_page():
+    """Serve the about page"""
+    about_file = os.path.join(static_dir, "about.html")
+    if os.path.exists(about_file):
+        return FileResponse(about_file, media_type="text/html")
+    else:
+        return {"message": "About page not found"}
