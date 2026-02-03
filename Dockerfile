@@ -8,10 +8,6 @@ RUN apt-get update && apt-get install -y \
     chromium-driver \
     && rm -rf /var/lib/apt/lists/*
 
-# Set environment variables for Selenium to find Chromium
-ENV CHROME_BIN=/usr/bin/chromium
-ENV CHROMEDRIVER_PATH=/usr/bin/chromedriver
- 
 COPY ./pyproject.toml /code/pyproject.toml
 
 RUN pip install --no-cache-dir --upgrade pip && pip install .[dev]
