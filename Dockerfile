@@ -18,5 +18,7 @@ RUN pip install --no-cache-dir --upgrade pip && pip install .[dev]
  
 COPY ./app /code/app
 COPY ./static /code/static
- 
-CMD ["uvicorn", "app.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "80"]
+
+# Serve static files with Python's built-in server
+EXPOSE 8000
+CMD ["python", "-m", "http.server", "--directory", "/code/static", "8000"]

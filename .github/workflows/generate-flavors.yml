@@ -2,7 +2,6 @@ name: Generate Daily Flavors
 
 on:
   schedule:
-    # Run at 8:00 AM US Central (14:00 UTC during CST, 13:00 UTC during CDT)
     - cron: '0 13 * * *'
   workflow_dispatch:  # Allow manual trigger
 

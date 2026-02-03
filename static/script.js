@@ -1,5 +1,5 @@
 // App configuration
-const STATIC_FLAVORS_URL = '/static/data/flavors.json';
+const STATIC_FLAVORS_URL = 'data/flavors.json';
 
 // DOM elements
 const loadingEl = document.getElementById('loading');

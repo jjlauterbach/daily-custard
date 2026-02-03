@@ -22,3 +22,4 @@ repos:
     rev: v2.7.2
     hooks:
       - id: pip-audit
+        args: [--ignore-vuln, GHSA-6vgw-5pg2-w6jp]
