@@ -1,4 +1,4 @@
-# Daily Flavors App 🍦
+# Daily Custard App 🍦
 
 A web scraper application that collects daily flavor information from frozen custard shops and displays them in a modern web UI.
 
@@ -26,8 +26,8 @@ A web scraper application that collects daily flavor information from frozen cus
 git clone <your-repo-url>
 cd daily-flavors-app
 
-# Build and run with Docker Compose
-docker-compose up --build
+# Run with Docker Compose
+docker compose up
 
 # Access the app in your browser
 open http://localhost:8080
@@ -43,17 +43,16 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 # Install dependencies
 pip install -e .[dev]
 
-# Install Chrome and ChromeDriver (for Selenium UI tests)
-brew install --cask google-chrome
-brew install chromedriver
+# Generate the static flavors data
+python scripts/generate_flavors.py
 
-# Run the application
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8080
+# Serve the static site
+python -m http.server --directory static 8080
 ```
 
 ## Testing & Quality
 
-- **Run all tests (including Selenium UI):**
+- **Run all tests:**
   ```bash
   pytest
   ```
@@ -84,36 +83,10 @@ pytest --ecosystem
 
 - GitHub Actions workflow runs on PRs and main branch:
   - Linting, formatting, security audit, and test coverage
-  - Brings up the app in Docker and runs Selenium UI tests
 
 ## Configuration
 
-The application uses a YAML configuration file located at `app/config.yaml`.
-
-### Configuration Options
-
-```yaml
-# Logging configuration
-logging:
-  debug: false  # Enable debug logging
-  level: INFO   # Log level (DEBUG, INFO, WARNING, ERROR)
-
-# Scraping configuration
-scraping:
-  timeout: 30           # HTTP request timeout in seconds
-  selenium_timeout: 10  # Selenium wait timeout in seconds
-  max_retries: 3        # Maximum retry attempts for failed requests
-
-# Application configuration
-app:
-  user_agent: "Mozilla/5.0 ..."  # User agent for HTTP requests
-```
-
-### Environment Variables
-
-You can also use environment variables to override configuration:
-
-- `DEBUG=true` - Enable debug logging
+Static content is served from the `static/` directory. The daily data file is generated at `static/data/flavors.json` by the scraper script.
 
 ## Docker Deployment
 
@@ -121,13 +94,13 @@ You can also use environment variables to override configuration:
 
 ```bash
 # Build the container (uses pyproject.toml, not requirements.txt)
-docker build -t daily-flavors-app .
+docker build -t daily-custard-app .
 
-# Run the container (default port 80 inside container)
-docker run -p 8080:80 daily-flavors-app
+# Run the container (serves static site on port 8000 inside container)
+docker run -p 8080:8000 daily-custard-app
 
 # Or use Docker Compose (recommended for local dev)
-docker-compose up --build
+docker compose up
 ```
 
 - The Dockerfile now uses `pyproject.toml` for dependency management. You do not need `requirements.txt`.

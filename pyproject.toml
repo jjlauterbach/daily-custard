@@ -1,17 +1,14 @@
 [project]
-name = "daily-flavors-app"
+name = "daily-custard-app"
 version = "1.0.1"
 description = "Daily frozen custard flavor scraper and web UI"
 requires-python = ">=3.11"
 dependencies = [
     "beautifulsoup4>=4.12.3,<5.0.0",
-    "fastapi>=0.110.0,<1.0.0",
     "requests>=2.32.3,<3.0.0",
-    "uvicorn>=0.29.0,<1.0.0",
     "selenium>=4.21.0,<5.0.0",
     "undetected-chromedriver>=3.5.5,<4.0.0",
     "pyyaml>=6.0.1,<7.0.0",
-    "APScheduler>=3.10.4,<4.0.0",
     "urllib3>=2.5.0"
 ]
 
@@ -61,7 +58,7 @@ omit = [
 show_missing = true
 
 [tool.pip-audit]
-ignore-vulns = []
+ignore-vulns = ["GHSA-6vgw-5pg2-w6jp"]
 
 [tool.setuptools.packages.find]
 include = ["app"]

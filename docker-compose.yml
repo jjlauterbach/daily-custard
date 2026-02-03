@@ -2,12 +2,6 @@ services:
   daily-flavors-app:
     build: .
     ports:
-      - 8080:80
-    develop:
-      watch: 
-        - action: sync+restart
-          path: ./app
-          target: /code/app
-        - action: sync+restart
-          path: ./static
-          target: /code/static
+      - 8080:8000
+    volumes:
+      - ./static:/code/static
