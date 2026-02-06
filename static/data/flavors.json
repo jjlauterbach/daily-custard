@@ -1,83 +1,83 @@
 {
-  "generated_at": "2026-02-05T08:02:14.432719-06:00",
-  "generated_date": "2026-02-05",
+  "generated_at": "2026-02-06T07:58:55.318171-06:00",
+  "generated_date": "2026-02-06",
   "flavor_count": 11,
   "flavors": [
     {
       "location": "Culvers (Capital)",
-      "flavor": "Caramel Turtle",
-      "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
-      "date": "2026-02-05",
+      "flavor": "Chocolate Caramel Twist",
+      "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
+      "date": "2026-02-06",
       "url": "https://www.culvers.com/restaurants/brookfield-capitol"
     },
     {
       "location": "Culvers (Waukesha Main St)",
-      "flavor": "Dark Chocolate Decadence",
-      "description": "Premium blend of cocoas for the ultimate chocolate experience.",
-      "date": "2026-02-05",
+      "flavor": "",
+      "description": "",
+      "date": null,
       "url": "https://www.culvers.com/restaurants/waukesha-hwy-164"
     },
     {
       "location": "Culvers (Waukesha Grandview)",
-      "flavor": "Butter Pecan",
-      "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
-      "date": "2026-02-05",
+      "flavor": "",
+      "description": "",
+      "date": null,
       "url": "https://www.culvers.com/restaurants/waukesha-grandview"
     },
     {
       "location": "Culvers (Sussex)",
-      "flavor": "Double Strawberry",
-      "description": "Our specially blended Strawberry Fresh Frozen Custard swirled with plump strawberries.",
-      "date": "2026-02-05",
+      "flavor": "",
+      "description": "",
+      "date": null,
       "url": "https://www.culvers.com/restaurants/sussex"
     },
     {
       "location": "Culvers (Elm Grove)",
-      "flavor": "Georgia Peach",
-      "description": "Our specially blended Peach Fresh Frozen Custard swirled with sweet peaches for a light, refreshing treat.",
-      "date": "2026-02-05",
+      "flavor": "",
+      "description": "",
+      "date": null,
       "url": "https://www.culvers.com/restaurants/elm-grove-wi"
     },
     {
       "location": "Culvers (124th)",
-      "flavor": "Dark Chocolate PB Crunch",
-      "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-      "date": "2026-02-05",
+      "flavor": "Snickers Swirl",
+      "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
+      "date": "2026-02-06",
       "url": "https://www.culvers.com/restaurants/brookfield-124th"
     },
     {
       "location": "Kopps",
-      "flavor": "Chocolate Chip Cookie Dough",
-      "description": "Tastes like chocolate chip cookie dough!  Made with Hershey’s chocolate chips and cookie dough chunks",
-      "date": "February 5, 2026",
+      "flavor": "Turtle Sundae",
+      "description": "Caramel flavored custard, loaded with pecans and swirls of caramel and fudge",
+      "date": "February 6, 2026",
       "url": "https://www.kopps.com/"
     },
     {
       "location": "Kopps",
-      "flavor": "Blueberry Cheesecake",
-      "description": "Cheesecake flavored custard, blueberries and New York cheesecake pieces",
-      "date": "February 5, 2026",
+      "flavor": "Strawberry",
+      "description": "A natural strawberry flavored custard with sliced strawberries",
+      "date": "February 6, 2026",
       "url": "https://www.kopps.com/"
     },
     {
       "location": "Murfs",
-      "flavor": "Snickers",
-      "description": "Vanilla frozen custard, Snickers candy bar pieces, smooth caramel swirl",
-      "date": "2026-02-05",
+      "flavor": "Oreo Mint",
+      "description": "Cool mint frozen custard, Oreo cookie pieces",
+      "date": "2026-02-06",
       "url": "https://www.murfsfrozencustard.com/flavorForecast"
     },
     {
       "location": "Oscars",
-      "flavor": "CHERRY AMARETTO CHEESECAKE",
-      "description": "A light cheesecake flavored custard with just a hint of Amaretto and swirls of cherry pie filling.",
-      "date": "2026-02-05",
+      "flavor": "HEATH BAR",
+      "description": "Toffee custard with chunks of Heath® Bar and swirls of fudge.",
+      "date": "2026-02-06",
       "url": "https://www.oscarscustard.com/index.php/flavors"
     },
     {
       "location": "Bubbas",
-      "flavor": "M&M Fudge Swirl",
-      "description": "Our malt-flavored custard with mini M&Ms and hot fudge.",
-      "date": "2026-02-05",
+      "flavor": "Chocolate Turtle",
+      "description": "Our chocolate custard added with pecan pieces and caramel.",
+      "date": "2026-02-06",
       "url": "https://www.bubbasfrozencustard.com/events#section-1332549"
     }
   ]
