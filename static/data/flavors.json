@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-02-06T07:58:55.318171-06:00",
+  "generated_at": "2026-02-06T09:48:55.650892-06:00",
   "generated_date": "2026-02-06",
   "flavor_count": 11,
   "flavors": [
@@ -12,30 +12,30 @@
     },
     {
       "location": "Culvers (Waukesha Main St)",
-      "flavor": "",
-      "description": "",
-      "date": null,
+      "flavor": "Caramel Fudge Cookie Dough",
+      "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
+      "date": "2026-02-06",
       "url": "https://www.culvers.com/restaurants/waukesha-hwy-164"
     },
     {
       "location": "Culvers (Waukesha Grandview)",
-      "flavor": "",
-      "description": "",
-      "date": null,
+      "flavor": "Caramel Chocolate Pecan",
+      "description": "Delicious Chocolate Fresh Frozen Custard enhanced with ribbons of old fashioned salted caramel, toasted pecan pieces and chopped Dove® Chocolate pieces.",
+      "date": "2026-02-06",
       "url": "https://www.culvers.com/restaurants/waukesha-grandview"
     },
     {
       "location": "Culvers (Sussex)",
-      "flavor": "",
-      "description": "",
-      "date": null,
+      "flavor": "Caramel Pecan",
+      "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
+      "date": "2026-02-06",
       "url": "https://www.culvers.com/restaurants/sussex"
     },
     {
       "location": "Culvers (Elm Grove)",
-      "flavor": "",
-      "description": "",
-      "date": null,
+      "flavor": "Caramel Cashew",
+      "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+      "date": "2026-02-06",
       "url": "https://www.culvers.com/restaurants/elm-grove-wi"
     },
     {
