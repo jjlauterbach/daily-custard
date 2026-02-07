@@ -1,83 +1,83 @@
 {
-  "generated_at": "2026-02-06T09:48:55.650892-06:00",
-  "generated_date": "2026-02-06",
+  "generated_at": "2026-02-07T07:39:21.817265-06:00",
+  "generated_date": "2026-02-07",
   "flavor_count": 11,
   "flavors": [
     {
       "location": "Culvers (Capital)",
-      "flavor": "Chocolate Caramel Twist",
-      "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-      "date": "2026-02-06",
+      "flavor": "Chocolate Covered Strawberry",
+      "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+      "date": "2026-02-07",
       "url": "https://www.culvers.com/restaurants/brookfield-capitol"
     },
     {
       "location": "Culvers (Waukesha Main St)",
-      "flavor": "Caramel Fudge Cookie Dough",
-      "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
-      "date": "2026-02-06",
+      "flavor": "Chocolate Covered Strawberry",
+      "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+      "date": "2026-02-07",
       "url": "https://www.culvers.com/restaurants/waukesha-hwy-164"
     },
     {
       "location": "Culvers (Waukesha Grandview)",
-      "flavor": "Caramel Chocolate Pecan",
-      "description": "Delicious Chocolate Fresh Frozen Custard enhanced with ribbons of old fashioned salted caramel, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-      "date": "2026-02-06",
+      "flavor": "Turtle Cheesecake",
+      "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
+      "date": "2026-02-07",
       "url": "https://www.culvers.com/restaurants/waukesha-grandview"
     },
     {
       "location": "Culvers (Sussex)",
-      "flavor": "Caramel Pecan",
-      "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
-      "date": "2026-02-06",
+      "flavor": "Chocolate Volcano",
+      "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
+      "date": "2026-02-07",
       "url": "https://www.culvers.com/restaurants/sussex"
     },
     {
       "location": "Culvers (Elm Grove)",
-      "flavor": "Caramel Cashew",
-      "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
-      "date": "2026-02-06",
+      "flavor": "Dark Chocolate PB Crunch",
+      "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
+      "date": "2026-02-07",
       "url": "https://www.culvers.com/restaurants/elm-grove-wi"
     },
     {
       "location": "Culvers (124th)",
-      "flavor": "Snickers Swirl",
-      "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-      "date": "2026-02-06",
+      "flavor": "Turtle Cheesecake",
+      "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
+      "date": "2026-02-07",
       "url": "https://www.culvers.com/restaurants/brookfield-124th"
     },
     {
       "location": "Kopps",
-      "flavor": "Turtle Sundae",
-      "description": "Caramel flavored custard, loaded with pecans and swirls of caramel and fudge",
-      "date": "February 6, 2026",
+      "flavor": "Wedding Cake",
+      "description": "Cake batter custard + frosting + sponge cake + raspberry + Bavarian cream",
+      "date": "February 7, 2026",
       "url": "https://www.kopps.com/"
     },
     {
       "location": "Kopps",
-      "flavor": "Strawberry",
-      "description": "A natural strawberry flavored custard with sliced strawberries",
-      "date": "February 6, 2026",
+      "flavor": "Maple Syrup & Pancakes",
+      "description": "The perfect breakfast!  Remember it’s the most important meal of the day.",
+      "date": "February 7, 2026",
       "url": "https://www.kopps.com/"
     },
     {
       "location": "Murfs",
-      "flavor": "Oreo Mint",
-      "description": "Cool mint frozen custard, Oreo cookie pieces",
-      "date": "2026-02-06",
+      "flavor": "Banana Cream Pie",
+      "description": "Banana frozen custard, shortbread pie crust pieces, smooth marshmallow topping, light chocolate flakes",
+      "date": "2026-02-07",
       "url": "https://www.murfsfrozencustard.com/flavorForecast"
     },
     {
       "location": "Oscars",
-      "flavor": "HEATH BAR",
-      "description": "Toffee custard with chunks of Heath® Bar and swirls of fudge.",
-      "date": "2026-02-06",
+      "flavor": "MINT CHOCOLATE CHIP",
+      "description": "Mint custard bursting with your favorite chocolate chips.",
+      "date": "2026-02-07",
       "url": "https://www.oscarscustard.com/index.php/flavors"
     },
     {
       "location": "Bubbas",
-      "flavor": "Chocolate Turtle",
-      "description": "Our chocolate custard added with pecan pieces and caramel.",
-      "date": "2026-02-06",
+      "flavor": "Mudd Pie",
+      "description": "Our signature light chocolate custard with chocolate syrup and crushed Oreos® mixed in.",
+      "date": "2026-02-07",
       "url": "https://www.bubbasfrozencustard.com/events#section-1332549"
     }
   ]
