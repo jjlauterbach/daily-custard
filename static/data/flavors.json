@@ -1,83 +1,83 @@
 {
-  "generated_at": "2026-02-08T07:40:52.468096-06:00",
-  "generated_date": "2026-02-08",
+  "generated_at": "2026-02-09T08:12:24.698078-06:00",
+  "generated_date": "2026-02-09",
   "flavor_count": 11,
   "flavors": [
     {
       "location": "Culvers (Capital)",
-      "flavor": "Dark Chocolate PB Crunch",
-      "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-      "date": "2026-02-08",
+      "flavor": "Chocolate Volcano",
+      "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
+      "date": "2026-02-09",
       "url": "https://www.culvers.com/restaurants/brookfield-capitol"
     },
     {
       "location": "Culvers (Waukesha Main St)",
-      "flavor": "Turtle Cheesecake",
-      "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
-      "date": "2026-02-08",
+      "flavor": "Devil's Food Cake",
+      "description": "Dark Chocolate Fresh Frozen Custard swirled with chocolate cake and novelty chocolate.",
+      "date": "2026-02-09",
       "url": "https://www.culvers.com/restaurants/waukesha-hwy-164"
     },
     {
       "location": "Culvers (Waukesha Grandview)",
-      "flavor": "Turtle",
-      "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-      "date": "2026-02-08",
+      "flavor": "OREO® Cookie Cheesecake",
+      "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
+      "date": "2026-02-09",
       "url": "https://www.culvers.com/restaurants/waukesha-grandview"
     },
     {
       "location": "Culvers (Sussex)",
-      "flavor": "Caramel Turtle",
-      "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
-      "date": "2026-02-08",
+      "flavor": "Really Reese's",
+      "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+      "date": "2026-02-09",
       "url": "https://www.culvers.com/restaurants/sussex"
     },
     {
       "location": "Culvers (Elm Grove)",
-      "flavor": "Turtle",
-      "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-      "date": "2026-02-08",
+      "flavor": "OREO® Cookie Overload",
+      "description": "Our delicious Chocolate Fresh Frozen Custard loaded with OREO® Cookies and streams of chocolate syrup.",
+      "date": "2026-02-09",
       "url": "https://www.culvers.com/restaurants/elm-grove-wi"
     },
     {
       "location": "Culvers (124th)",
-      "flavor": "Caramel Cashew",
-      "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
-      "date": "2026-02-08",
+      "flavor": "Chocolate Heath Crunch",
+      "description": "Our delicious Chocolate Fresh Frozen Custard with crunchy bits of Heath Bar. Kind of crunchy, kind of smooth, kind of incredible.",
+      "date": "2026-02-09",
       "url": "https://www.culvers.com/restaurants/brookfield-124th"
     },
     {
       "location": "Kopps",
-      "flavor": "Super Bowl Of Custard",
-      "description": "Chocolate custard with a rum caramel swirl, chocolate covered peanuts, chocolate chips and roasted almonds",
-      "date": "February 8, 2026",
+      "flavor": "Butter Pecan",
+      "description": "A butterscotch flavor and whole roasted pecans",
+      "date": "February 9, 2026",
       "url": "https://www.kopps.com/"
     },
     {
       "location": "Kopps",
-      "flavor": "Love Potion",
-      "description": "Strawberry custard + white chocolate custard + pomegranate ribbon + white chocolate curls",
-      "date": "February 8, 2026",
+      "flavor": "Little Devil",
+      "description": "Dark Chocolate Custard + Devil’s Food Cake + Cherry Whipped Cream + Maraschino Cherry Syrup",
+      "date": "February 9, 2026",
       "url": "https://www.kopps.com/"
     },
     {
       "location": "Murfs",
-      "flavor": "Pecan Toffee Crunch",
-      "description": "Toffee frozen custard, English toffee bits, roasted pecan pieces",
-      "date": "2026-02-08",
+      "flavor": "Temporarily Closed Mondays",
+      "description": "",
+      "date": "2026-02-09",
       "url": "https://www.murfsfrozencustard.com/flavorForecast"
     },
     {
       "location": "Oscars",
-      "flavor": "CARAMEL CASHEW",
-      "description": "Caramel custard with roasted cashew halves.",
-      "date": "2026-02-08",
+      "flavor": "BURGUNDY CHERRY",
+      "description": "Refreshing burgundy base with wild cherries.",
+      "date": "2026-02-09",
       "url": "https://www.oscarscustard.com/index.php/flavors"
     },
     {
       "location": "Bubbas",
-      "flavor": "Closing at 5:00pm tonight",
-      "description": "Enjoy the Super Bowl!",
-      "date": "2026-02-08",
+      "flavor": "Cookie Monster",
+      "description": "We start with our creamy vanilla custard, and mix in Oreo cookie pieces, cookie dough chunks, and hard shell.",
+      "date": "2026-02-09",
       "url": "https://www.bubbasfrozencustard.com/events#section-1332549"
     }
   ]
