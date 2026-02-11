@@ -1,106 +1,97 @@
-import json
-import logging
-from datetime import datetime
-from zoneinfo import ZoneInfo
+from app.scrapers.scraper_base import BaseScraper
 
-from app.scrapers.utils import daily_flavor, get_html
 
-CULVERS_LOCATIONS = [
-    ("Culvers (Capital)", "https://www.culvers.com/restaurants/brookfield-capitol"),
-    ("Culvers (Waukesha Main St)", "https://www.culvers.com/restaurants/waukesha-hwy-164"),
-    ("Culvers (Waukesha Grandview)", "https://www.culvers.com/restaurants/waukesha-grandview"),
-    ("Culvers (Sussex)", "https://www.culvers.com/restaurants/sussex"),
-    ("Culvers (Elm Grove)", "https://www.culvers.com/restaurants/elm-grove-wi"),
-    ("Culvers (124th)", "https://www.culvers.com/restaurants/brookfield-124th"),
-]
+class CulversScraper(BaseScraper):
+    """Scraper for Culver's locations using the locator API."""
+
+    API_URL = "https://www.culvers.com/api/locator/getLocations?lat=43.07970271852549&long=-88.22235303770586&radius=600000&limit=100"
+
+    def __init__(self):
+        super().__init__("culvers")
+
+    def scrape(self):
+        """Scrape all Culver's locations from the API."""
+        self.log_start()
+        flavors = []
+
+        try:
+            response = self.session.get(self.API_URL, timeout=10)
+            response.raise_for_status()
+            data = response.json()
+
+            geofences = data.get("data", {}).get("geofences", [])
+            self.logger.info(f"Found {len(geofences)} locations in Culver's API response")
+
+            for location in geofences:
+                try:
+                    metadata = location.get("metadata", {})
+                    flavor_name = metadata.get("flavorOfDayName")
+
+                    if not flavor_name:
+                        continue
+
+                    # Extract location details
+                    slug = metadata.get("slug")
+                    city = metadata.get("city")
+                    state = metadata.get("state")
+
+                    # Generate ID consistent with our format: culvers-<slug>
+                    location_id = f"culvers-{slug}"
+
+                    # Name formatting: "Culver's (City - Street)" or similar
+                    # The API has "description": "Brookfield, WI - W Capitol Dr"
+                    description_raw = location.get("description", "")
+                    location_name = f"Culver's ({description_raw})"
+
+                    flavor_description = metadata.get("flavorOfTheDayDescription")
+
+                    # Address construction
+                    street = metadata.get("street")
+                    postal_code = metadata.get("postalCode")
+                    address = f"{street}, {city}, {state} {postal_code}"
+
+                    # Coordinates
+                    # geometryCenter -> coordinates: [lng, lat]
+                    geo_center = location.get("geometryCenter", {}).get("coordinates", [])
+                    lng = geo_center[0] if len(geo_center) > 0 else None
+                    lat = geo_center[1] if len(geo_center) > 1 else None
+
+                    # URL construction
+                    # https://www.culvers.com/restaurants/brookfield-capitol
+                    url = f"https://www.culvers.com/restaurants/{slug}"
+
+                    # Create Flavor Entry
+                    # We pass the scraped location data directly instead of relying on locations.yaml
+                    flavor_entry = self.create_flavor(
+                        location_name,
+                        flavor_name,
+                        description=flavor_description,
+                        date=None,  # Defaults to today
+                        url=url,
+                        location_id=location_id,
+                        lat=lat,
+                        lng=lng,
+                        address=address,
+                    )
+
+                    flavors.append(flavor_entry)
+
+                except Exception as e:
+                    self.log_error(
+                        f"Error processing location {location.get('description', 'Unknown')}: {e}"
+                    )
+
+        except Exception as e:
+            self.log_error(f"Failed to fetch from API: {e}")
+
+        self.log_complete(len(flavors))
+        return flavors
+
+    def _scrape_location(self, url):
+        """Deprecated: Individual page scraping."""
 
 
 def scrape_culvers():
-    """Scrape multiple Culver's locations"""
-    logger = logging.getLogger(__name__)
-    logger.info("🚀 CULVERS: Starting scrape of all locations...")
-    flavors = []
-    for name, url in CULVERS_LOCATIONS:
-        try:
-            logger.info(f"📍 CULVERS: Scraping {name}...")
-            flavor, description, flavor_date = _scrape_culvers_location(url)
-            flavors.append(daily_flavor(name, flavor, description, flavor_date, url=url))
-            logger.info(f"🍨 CULVERS: {name} - {flavor} ({flavor_date})")
-        except Exception as e:
-            logger.error(f"❌ CULVERS: Failed to scrape {name}: {e}")
-    logger.info(f"✅ CULVERS: Completed - found {len(flavors)} location(s)")
-    return flavors
-
-
-def _scrape_culvers_location(url):
-    html = get_html(url)
-    script_tag = html.find("script", id="__NEXT_DATA__", type="application/json")
-    if not script_tag or not script_tag.string:
-        raise Exception("Could not find Culver's JSON data on the page.")
-    data = json.loads(script_tag.string)
-    # Try all plausible locations for the flavors array
-    flavors = None
-    pageProps = data.get("props", {}).get("pageProps", {})
-    # Try all known paths
-    paths = [
-        ["restaurantCalendar", "flavors"],
-        ["page", "customData", "flavorDetails", "flavors"],
-        ["customData", "flavorDetails", "flavors"],
-        ["flavorDetails", "flavors"],
-        ["page", "customData", "restaurantCalendar", "flavors"],  # <-- add this path
-    ]
-    for path in paths:
-        d = pageProps
-        for key in path:
-            if isinstance(d, dict) and key in d:
-                d = d[key]
-            else:
-                d = None
-                break
-        if isinstance(d, list):
-            flavors = d
-            break
-    if not flavors:
-        # Log available keys for debugging
-        import logging
-
-        logger = logging.getLogger(__name__)
-        logger.warning(f"CULVERS: Could not find flavors. pageProps keys: {list(pageProps.keys())}")
-        return "", "", None
-    # Use US/Central timezone for 'today'
-    tz = ZoneInfo("America/Chicago")
-    now_central = datetime.now(tz)
-    today = now_central.date()
-    # Collect all entries with valid dates
-    dated_entries = []
-    for entry in flavors:
-        date_str = entry.get("onDate") or entry.get("calendarDate")
-        if not date_str:
-            continue
-        try:
-            date = datetime.strptime(date_str[:10], "%Y-%m-%d").date()
-            dated_entries.append((date, entry))
-        except Exception:
-            continue
-    if not dated_entries:
-        return "", "", None
-    # Sort by date ascending
-    dated_entries.sort()
-    # Try to find today's flavor
-    for date, entry in dated_entries:
-        if date == today:
-            flavor = entry.get("title") or entry.get("name") or ""
-            description = entry.get("description") or ""
-            date_str = (entry.get("onDate") or entry.get("calendarDate") or "")[:10]
-            return flavor, description, date_str
-    # Try to find the next future flavor
-    for date, entry in dated_entries:
-        if date > today:
-            flavor = entry.get("title") or entry.get("name") or ""
-            description = entry.get("description") or ""
-            date_str = (entry.get("onDate") or entry.get("calendarDate") or "")[:10]
-            return flavor, description, date_str
-    flavor = entry.get("title") or entry.get("name") or ""
-    description = entry.get("description") or ""
-    date_str = (entry.get("onDate") or entry.get("calendarDate") or "")[:10]
-    return flavor, description, date_str
+    """Scrape Culver's - called by generate_flavors.py."""
+    scraper = CulversScraper()
+    return scraper.scrape()
