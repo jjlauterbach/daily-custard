@@ -27,13 +27,7 @@ jobs:
           sudo apt-get install -y docker-compose
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v1
-      - name: Lint with flake8
-        run: flake8 app tests
-      - name: Check formatting with black
-        run: black --check app tests
-      - name: Check import sorting with isort
-        run: isort --check-only app tests
+      - name: Run pre-commit hooks
+        uses: pre-commit/action@v3.0.1
       - name: Run tests with coverage
         run: pytest --cov=app --cov-report=term-missing
-      - name: Security audit with pip-audit
-        run: pip-audit

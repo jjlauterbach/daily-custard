@@ -1,0 +1,92 @@
+# Location Registry for Daily Custard App
+# Each location includes coordinates, address, and scraper details
+
+kopps:
+  - id: kopps-brookfield
+    name: "Kopp's Frozen Custard (Brookfield)"
+    brand: Kopps
+    address: "18880 W Bluemound Rd, Brookfield, WI 53045"
+    lat: 43.036675075390974
+    lng: -88.10396536602177
+    url: "https://www.kopps.com"
+    enabled: true
+    
+  - id: kopps-glendale
+    name: "Kopp's Frozen Custard (Glendale)"
+    brand: Kopps
+    address: "5373 N Port Washington Rd, Glendale, WI 53217"
+    lat: 43.13633307263394
+    lng: -87.92576544046896
+    url: "https://www.kopps.com"
+    enabled: true
+    
+  - id: kopps-greenfield
+    name: "Kopp's Frozen Custard (Greenfield)"
+    brand: Kopps
+    address: "7631 W Layton Ave, Greenfield, WI 53220"
+    lat: 42.97377252946846
+    lng: -88.0067896126453
+    url: "https://www.kopps.com"
+    enabled: true
+
+oscars:
+  - id: oscars-franklin
+    name: "Oscar's Frozen Custard (Franklin)"
+    brand: Oscars
+    address: "7041 S 27th St, Franklin, WI 53132"
+    lat: 42.928139916212025
+    lng: -87.94927236675031
+    url: "https://www.oscarscustard.com/index.php/flavors"
+    enabled: true
+    
+  - id: oscars-waukesha
+    name: "Oscar's Frozen Custard (Waukesha)"
+    brand: Oscars
+    address: "21165 E Moreland Blvd, Waukesha, WI 53186"
+    lat: 43.048866520029634
+    lng: -88.17456781376536
+    url: "https://www.oscarscustard.com/index.php/flavors"
+    enabled: false
+    
+  - id: oscars-milwaukee
+    name: "Oscar's Frozen Custard (West Allis)"
+    brand: Oscars
+    address: "2362 S 108th St, Milwaukee, WI 53227"
+    lat: 43.02397409803325
+    lng: -88.05275108950721
+    url: "https://www.oscarscustard.com/index.php/flavors"
+    enabled: true
+
+murfs:
+  - id: murfs-main
+    name: "Murf's Frozen Custard"
+    brand: Murfs
+    address: "12505 W Burleigh Rd, Brookfield, WI 53005"
+    lat: 43.07437219485065
+    lng: -88.06790991776157
+    url: "https://www.murfsfrozencustard.com/flavorForecast"
+    enabled: true
+
+bubbas:
+  - id: bubbas-main
+    name: "Bubba's Frozen Custard"
+    brand: Bubbas
+    address: "1276 Capitol Dr, Pewaukee, WI 53072"
+    lat: 43.08293313073564
+    lng: -88.23579148892487
+    url: "https://www.bubbasfrozencustard.com/"
+    enabled: true
+
+
+
+# Places to add
+# https://leducscustard.com/
+# https://gillesfrozencustard.com/?utm_source=google&utm_medium=gmb
+# https://leonsfrozencustardmke.com/
+# https://www.facebook.com/BigDealBurgers/  https://bigdealburgers.com/
+# https://www.fredsfrozencustard.com/
+# https://georgieporgies.com/georgies-flavor-forecast/
+# https://www.hefnerscustard.com/
+# https://jumbosfrozencustard.com/
+# https://www.kraverzcustard.com/
+# https://robertsfrozencustard.com/

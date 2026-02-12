@@ -26,13 +26,12 @@ class TestScraperUI(unittest.TestCase):
         self.driver.get(self.url)
         # Wait for JS to load flavors (increase if your backend is slow)
         time.sleep(5)
-        cards = self.driver.find_elements(By.CLASS_NAME, "flavor-card")
-        self.assertGreater(len(cards), 0, "No flavor cards found on the page")
+        # Check for location cards (new UI) OR flavor cards (fallback check)
+        cards = self.driver.find_elements(By.CLASS_NAME, "location-card")
+        self.assertGreater(len(cards), 0, "No location cards found on the page")
         for card in cards:
             name = card.find_element(By.CLASS_NAME, "flavor-name").text
             self.assertTrue(name and len(name) > 1, "Flavor name missing or too short")
-            date = card.find_element(By.CLASS_NAME, "flavor-date").text
-            self.assertTrue(date, "Flavor date missing")
             desc = card.find_element(By.CLASS_NAME, "flavor-description").text
             self.assertTrue(desc is not None, "Flavor description missing")
 

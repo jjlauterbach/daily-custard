@@ -1,7 +1,6 @@
-import re
 import unittest
 from datetime import datetime
-from unittest.mock import MagicMock, Mock, call, patch
+from unittest.mock import Mock, patch
 
 from app.scrapers.oscars import _extract_flavor_from_modal, scrape_oscars
 
@@ -18,9 +17,36 @@ class TestOscarsScraper(unittest.TestCase):
         self.mock_driver.quit = Mock()
         self.mock_driver.execute_script = Mock()
 
+        # Patch locations to ensure we always have 3 enabled locations for testing
+        self.locations_patcher = patch("app.scrapers.scraper_base.get_locations_for_brand")
+        self.mock_get_locations = self.locations_patcher.start()
+        self.mock_get_locations.return_value = [
+            {
+                "id": "test-oscar-1",
+                "name": "Oscar's 1",
+                "url": "http://test",
+                "enabled": True,
+            },
+            {
+                "id": "test-oscar-2",
+                "name": "Oscar's 2",
+                "url": "http://test",
+                "enabled": True,
+            },
+            {
+                "id": "test-oscar-3",
+                "name": "Oscar's 3",
+                "url": "http://test",
+                "enabled": True,
+            },
+        ]
+
+    def tearDown(self):
+        self.locations_patcher.stop()
+
     @patch("app.scrapers.oscars.webdriver.Chrome")
     @patch("app.scrapers.oscars.WebDriverWait")
-    @patch("app.scrapers.oscars._get_chrome_options")
+    @patch("app.scrapers.oscars.OscarsScraper._get_chrome_options")
     @patch("app.scrapers.oscars.get_central_time")
     @patch("app.scrapers.oscars.get_central_date_string")
     def test_multiple_flavors_with_or_separator(
@@ -120,35 +146,45 @@ class TestOscarsScraper(unittest.TestCase):
 
         # Assertions
         self.assertIsInstance(result, list)
-        self.assertEqual(len(result), 2, "Should return 2 flavors")
+        self.assertEqual(len(result), 6, "Should return 2 flavors × 3 locations = 6 entries")
 
-        # Check first flavor
+        # Check first location's first flavor (LEMON BERRY)
         self.assertEqual(result[0]["flavor"], "LEMON BERRY")
         self.assertEqual(
             result[0]["description"], "Red, ripe raspberries wrapped into lemon custard."
         )
 
-        # Check second flavor
+        # Check first location's second flavor (CHOCOLATE CHIP)
         self.assertEqual(result[1]["flavor"], "CHOCOLATE CHIP")
         self.assertEqual(
             result[1]["description"], "Chocolate chips blended with our creamy custard."
         )
+
+        # Verify that the same flavors are repeated for all 3 locations
+        # Flavors 0,1 are for location 1; 2,3 for location 2; 4,5 for location 3
+        for i in range(3):  # For each location
+            self.assertEqual(result[i * 2]["flavor"], "LEMON BERRY")
+            self.assertEqual(result[i * 2 + 1]["flavor"], "CHOCOLATE CHIP")
 
         # Verify both links were clicked
         self.assertEqual(self.mock_driver.execute_script.call_count, 2)
 
         # Verify extraction was called for both flavors
         self.assertEqual(mock_extract.call_count, 2)
-        mock_extract.assert_has_calls(
-            [call(self.mock_driver, "LEMON BERRY"), call(self.mock_driver, "CHOCOLATE CHIP")]
-        )
+        # Check that _extract_flavor_from_modal was called with the right parameters
+        # Note: The function signature includes location_name, location_url, and logger
+        calls = mock_extract.call_args_list
+        self.assertEqual(len(calls), 2)
+        # Verify the flavor names in the calls
+        self.assertEqual(calls[0][0][1], "LEMON BERRY")  # Second argument is flavor name
+        self.assertEqual(calls[1][0][1], "CHOCOLATE CHIP")
 
         # Verify modal close was called for both flavors
         self.assertEqual(mock_close.call_count, 2)
 
     @patch("app.scrapers.oscars.webdriver.Chrome")
     @patch("app.scrapers.oscars.WebDriverWait")
-    @patch("app.scrapers.oscars._get_chrome_options")
+    @patch("app.scrapers.oscars.OscarsScraper._get_chrome_options")
     @patch("app.scrapers.oscars.get_central_time")
     @patch("app.scrapers.oscars.get_central_date_string")
     def test_single_flavor_fallback(
@@ -205,8 +241,10 @@ class TestOscarsScraper(unittest.TestCase):
 
         # Assertions
         self.assertIsInstance(result, list)
-        self.assertEqual(len(result), 1, "Should return 1 flavor")
-        self.assertEqual(result[0]["flavor"], "VANILLA BEAN")
+        self.assertEqual(len(result), 3, "Should return 1 flavor × 3 locations = 3 entries")
+        # Check all 3 location entries have the same flavor
+        for i in range(3):
+            self.assertEqual(result[i]["flavor"], "VANILLA BEAN")
 
         # Verify single link was clicked
         self.assertEqual(self.mock_driver.execute_script.call_count, 1)
@@ -255,24 +293,19 @@ class TestOscarsScraper(unittest.TestCase):
         mock_p.get_text.return_value = "Test description for the flavor"
         mock_h4.find_next.return_value = mock_p
 
-        with patch("app.scrapers.oscars.daily_flavor") as mock_daily_flavor:
-            mock_daily_flavor.return_value = {
-                "flavor": "TEST FLAVOR",
-                "description": "Test description for the flavor",
-                "date": "2025-07-15",
-                "restaurant": "Oscars",
-                "url": "https://www.oscarscustard.com/index.php/flavors",
-            }
-
-            result = _extract_flavor_from_modal(mock_driver, "TEST FLAVOR")
+        # Call the function - it returns a dict with flavor data
+        result = _extract_flavor_from_modal(
+            mock_driver, "TEST FLAVOR", "Test Location", "https://example.com", None  # logger
+        )
 
         # Assertions
         self.assertIsNotNone(result)
-        mock_daily_flavor.assert_called_once()
+        self.assertEqual(result["flavor"], "TEST FLAVOR")
+        self.assertEqual(result["location_name"], "Test Location")
 
     @patch("app.scrapers.oscars.webdriver.Chrome")
     @patch("app.scrapers.oscars.WebDriverWait")
-    @patch("app.scrapers.oscars._get_chrome_options")
+    @patch("app.scrapers.oscars.OscarsScraper._get_chrome_options")
     @patch("app.scrapers.oscars.get_central_time")
     @patch("app.scrapers.oscars.get_central_date_string")
     @patch("app.scrapers.oscars._extract_flavor_from_modal")
@@ -368,6 +401,8 @@ class TestOscarsScraper(unittest.TestCase):
                             f"Scraper should have found flavors for '{cell_text}' when looking for {weekday} {day}",
                         )
                         if found_flavors:
+                            # Should have 3 location entries (one per Oscar's location)
+                            self.assertEqual(len(result), 3, "Should have 3 location entries")
                             self.assertEqual(result[0]["flavor"], "CHOCOLATE CHIP")
                     else:
                         self.assertFalse(
@@ -382,7 +417,7 @@ class TestOscarsScraper(unittest.TestCase):
                     # when it can't find the expected day format
 
     @patch("app.scrapers.oscars.webdriver.Chrome")
-    @patch("app.scrapers.oscars._get_chrome_options")
+    @patch("app.scrapers.oscars.OscarsScraper._get_chrome_options")
     @patch("app.scrapers.oscars.get_central_time")
     @patch("app.scrapers.oscars.get_central_date_string")
     @patch("app.scrapers.oscars._extract_flavor_from_modal")
@@ -515,6 +550,8 @@ class TestOscarsScraper(unittest.TestCase):
                                 f"Should have found flavors for scenario: {scenario['name']}",
                             )
                             if found_flavors:
+                                # Should have 3 location entries
+                                self.assertEqual(len(result), 3, "Should have 3 location entries")
                                 self.assertEqual(result[0]["flavor"], scenario["cell_text"])
                         else:
                             self.assertFalse(
@@ -529,7 +566,7 @@ class TestOscarsScraper(unittest.TestCase):
 
     @patch("app.scrapers.oscars.webdriver.Chrome")
     @patch("app.scrapers.oscars.WebDriverWait")
-    @patch("app.scrapers.oscars._get_chrome_options")
+    @patch("app.scrapers.oscars.OscarsScraper._get_chrome_options")
     @patch("app.scrapers.oscars.get_central_time")
     @patch("app.scrapers.oscars.get_central_date_string")
     @patch("app.scrapers.oscars._extract_flavor_from_modal")

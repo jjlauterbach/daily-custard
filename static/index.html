@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 </head>
 <body>
     <div class="container">
@@ -34,14 +38,84 @@
                 </button>
             </div>
 
+            <div class="filters-panel" id="filtersPanel" style="display: none;">
+                <div class="filters-controls">
+                    <div class="location-group">
+                        <button id="useLocationBtn" class="location-btn" title="Use current location">
+                            <i class="fas fa-location-arrow"></i>
+                        </button>
+                        <input type="text" id="locationInput" placeholder="Zip code or City, State" class="search-input location-input">
+                        <select id="radiusFilter" class="filter-select radius-select">
+                            <option value="1">1 mi</option>
+                            <option value="5">5 mi</option>
+                            <option value="10" selected>10 mi</option>
+                            <option value="25">25 mi</option>
+                            <option value="0">Any</option>
+                        </select>
+                    </div>
+                
+                    <div class="actions-group">
+                        <button id="openFiltersBtn" class="filter-btn">
+                            <i class="fas fa-filter"></i> <span>All Brands</span>
+                        </button>
+
+                        <button id="toggleMapBtn" class="toggle-btn" title="Show Map">
+                             <i class="fas fa-map"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="locationStatus" class="location-status"></div>
+            </div>
+
+            <div id="mapView" class="map-container" style="display: none;"></div>
+
             <div class="flavors-grid" id="flavorsGrid">
                 <!-- Flavor cards will be inserted here -->
             </div>
         </main>
 
         <footer class="footer">
-            <p>&copy; 2025 Daily Custard | Made with ❤️ for custard lovers | <a href="about.html">About</a></p>
+            <p>&copy; 2026 Daily Custard | Made with ❤️ for custard lovers | <a href="about.html">About</a></p>
         </footer>
+    </div>
+
+    <!-- Filter Modal -->
+    <div id="filterModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3>Filter Brands</h3>
+                <button id="closeModalBtn" class="close-modal-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="brand-grid" id="modalBrandGrid">
+                    <!-- Javascript will populate specific brands here -->
+                     <label class="brand-checkbox-card">
+                        <input type="checkbox" value="Culvers" checked>
+                        <span class="brand-name">Culver's</span>
+                    </label>
+                    <label class="brand-checkbox-card">
+                        <input type="checkbox" value="Kopps" checked>
+                        <span class="brand-name">Kopp's</span>
+                    </label>
+                    <label class="brand-checkbox-card">
+                        <input type="checkbox" value="Oscars" checked>
+                        <span class="brand-name">Oscar's</span>
+                    </label>
+                    <label class="brand-checkbox-card">
+                        <input type="checkbox" value="Murfs" checked>
+                        <span class="brand-name">Murf's</span>
+                    </label>
+                    <label class="brand-checkbox-card">
+                        <input type="checkbox" value="Bubbas" checked>
+                        <span class="brand-name">Bubba's</span>
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="modalSelectAllBtn" class="secondary-btn">Select All</button>
+                <button id="modalApplyBtn" class="primary-btn">Apply Filters</button>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
