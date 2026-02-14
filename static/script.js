@@ -181,6 +181,8 @@ function toggleMap() {
         toggleMapBtn.innerHTML = '<i class="fas fa-map"></i> Hide Map';
         localStorage.setItem('showMap', 'true');
         
+        trackEvent('map_toggle', { action: 'show' });
+        
         // Leaflet needs to know it became visible to render correctly
         if (!mapInstance) {
             initMap();
@@ -192,6 +194,8 @@ function toggleMap() {
         toggleMapBtn.classList.remove('active');
         toggleMapBtn.innerHTML = '<i class="fas fa-map"></i> Show Map';
         localStorage.setItem('showMap', 'false');
+        
+        trackEvent('map_toggle', { action: 'hide' });
     }
 }
 
@@ -218,6 +222,8 @@ async function geocodeLocation(query) {
             
             userLocation = { lat, lng, displayName };
             saveCityName(displayName);
+            
+            trackEvent('location_search', { search_type: 'manual', query: searchQuery });
             
             // Update map view if active
             if (mapInstance) {
@@ -287,6 +293,8 @@ function requestGeolocation() {
                 lng: lng, 
                 displayName: "Current Location" 
             };
+            
+            trackEvent('location_search', { search_type: 'gps' });
             
             if (mapInstance) {
                 mapInstance.setView([lat, lng], 12);
@@ -408,6 +416,14 @@ function applyFiltersAndDisplay() {
         return true;
     });
     
+    // Track filter application
+    trackEvent('filters_applied', {
+        radius_miles: radiusMiles,
+        brand_count: selectedBrands.size,
+        has_location: !!userLocation,
+        results_count: filteredGroups.length
+    });
+    
     // Sort logic
     // Default sort: Use nearby if available, otherwise brand
     if (userLocation) {
@@ -499,8 +515,8 @@ function createLocationCard(group) {
     if (group.url || group.address) {
         footerHtml = `
             <div class="card-footer">
-                ${group.url ? `<a href="${group.url}" target="_blank" class="flavor-link footer-link"><i class="fas fa-external-link-alt"></i> Website</a>` : ''}
-                ${group.address ? `<a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(group.address)}" target="_blank" class="flavor-link footer-link"><i class="fas fa-directions"></i> Directions</a>` : ''}
+                ${group.url ? `<a href="${group.url}" target="_blank" class="flavor-link footer-link" onclick="trackEvent('external_link', {link_type: 'website', brand: '${escapeHtml(group.brand)}'});"><i class="fas fa-external-link-alt"></i> Website</a>` : ''}
+                ${group.address ? `<a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(group.address)}" target="_blank" class="flavor-link footer-link" onclick="trackEvent('external_link', {link_type: 'directions', brand: '${escapeHtml(group.brand)}'});"><i class="fas fa-directions"></i> Directions</a>` : ''}
             </div>
         `;
     }
@@ -663,4 +679,11 @@ function escapeHtml(text) {
     const div = document.createElement('div');
     div.innerText = text;
     return div.innerHTML;
+}
+
+// Analytics helper
+function trackEvent(eventName, eventParams = {}) {
+    if (typeof gtag !== 'undefined') {
+        gtag('event', eventName, eventParams);
+    }
 }
