@@ -519,8 +519,8 @@ function createLocationCard(group) {
     if (group.url || group.address) {
         footerHtml = `
             <div class="card-footer">
-                ${group.url ? `<a href="${group.url}" target="_blank" class="flavor-link footer-link" onclick="trackEvent('external_link', {link_type: 'website', brand: '${escapeHtml(group.brand)}'});"><i class="fas fa-external-link-alt"></i> Website</a>` : ''}
-                ${group.address ? `<a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(group.address)}" target="_blank" class="flavor-link footer-link" onclick="trackEvent('external_link', {link_type: 'directions', brand: '${escapeHtml(group.brand)}'});"><i class="fas fa-directions"></i> Directions</a>` : ''}
+                ${group.url ? `<a href="${group.url}" target="_blank" rel="noopener noreferrer" class="flavor-link footer-link" onclick="trackEvent('external_link', {link_type: 'website', brand: '${escapeHtml(group.brand)}'});"><i class="fas fa-external-link-alt"></i> Website</a>` : ''}
+                ${group.address ? `<a href="https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(group.address)}" target="_blank" rel="noopener noreferrer" class="flavor-link footer-link" onclick="trackEvent('external_link', {link_type: 'directions', brand: '${escapeHtml(group.brand)}'});"><i class="fas fa-directions"></i> Directions</a>` : ''}
             </div>
         `;
     }
