@@ -223,7 +223,11 @@ async function geocodeLocation(query) {
             userLocation = { lat, lng, displayName };
             saveCityName(displayName);
             
-            trackEvent('location_search', { search_type: 'manual', query: searchQuery });
+            // Send only non-identifying metadata to analytics (avoid raw search query/PII)
+            trackEvent('location_search', { 
+                search_type: 'manual',
+                query_length: searchQuery.length
+            });
             
             // Update map view if active
             if (mapInstance) {
