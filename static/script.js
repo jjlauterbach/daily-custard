@@ -28,7 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadSavedCity();
     
     // Check if user wants map shown by default (from localStorage)
-    const showMap = localStorage.getItem('showMap') === 'true';
+    // Default to true for first-time visitors
+    const showMap = localStorage.getItem('showMap') !== 'false';
     if (showMap) {
         toggleMap();
     }
