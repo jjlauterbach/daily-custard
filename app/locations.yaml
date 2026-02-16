@@ -77,11 +77,21 @@ bubbas:
     url: "https://www.bubbasfrozencustard.com/"
     enabled: true
 
+gilles:
+  - id: gilles-main
+    name: "Gilles Frozen Custard"
+    brand: Gilles
+    address: "7515 W Bluemound Rd, Milwaukee, WI 53213"
+    lat: 43.03514241290648
+    lng: -88.00660788914804
+    url: "https://gillesfrozencustard.com/flavor-of-the-day"
+    enabled: true
+
+
 
 
 # Places to add
 # https://leducscustard.com/
-# https://gillesfrozencustard.com/?utm_source=google&utm_medium=gmb
 # https://leonsfrozencustardmke.com/
 # https://www.facebook.com/BigDealBurgers/  https://bigdealburgers.com/
 # https://www.fredsfrozencustard.com/

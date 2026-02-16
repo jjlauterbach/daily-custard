@@ -21,6 +21,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.scrapers.bubbas import scrape_bubbas  # noqa: E402
 from app.scrapers.culvers import scrape_culvers  # noqa: E402
+from app.scrapers.gilles import scrape_gilles  # noqa: E402
 from app.scrapers.kopps import scrape_kopps  # noqa: E402
 from app.scrapers.murfs import scrape_murfs  # noqa: E402
 from app.scrapers.oscars import scrape_oscars  # noqa: E402
@@ -78,7 +79,14 @@ def enrich_flavor_with_location(flavor, location_lookup):
 def scrape_all():
     """Run all scrapers and collect flavors."""
     flavors = []
-    scrapers = [scrape_culvers, scrape_kopps, scrape_murfs, scrape_oscars, scrape_bubbas]
+    scrapers = [
+        scrape_culvers,
+        scrape_kopps,
+        scrape_murfs,
+        scrape_oscars,
+        scrape_bubbas,
+        scrape_gilles,
+    ]
 
     # Load location data
     location_lookup = load_locations()
