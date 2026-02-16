@@ -587,7 +587,7 @@ body {
     font-size: 0.875rem;
     color: #4b5563;
     transition: all 0.2s;
-    min-width: 110px;
+    min-width: 130px;
 }
 
 .toggle-btn:hover {
