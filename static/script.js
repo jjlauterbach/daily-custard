@@ -68,6 +68,9 @@ function setFlavorsLoadedDate(dateString) {
     if (!currentDateEl || !dateString) return;
     
     const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+        return;
+    }
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     currentDateEl.textContent = date.toLocaleDateString('en-US', options);
 }
