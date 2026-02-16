@@ -84,6 +84,27 @@ pytest --ecosystem
 - GitHub Actions workflow runs on PRs and main branch:
   - Linting, formatting, security audit, and test coverage
 
+## Cloudflare Pages Deployment
+
+This project uses Cloudflare Pages for hosting. Preview deployments are automatically created for each pull request and cleaned up when the PR is merged or closed.
+
+### Setup Required Secrets
+
+To enable automatic cleanup of preview deployments, add these secrets to your GitHub repository (Settings → Secrets and variables → Actions):
+
+1. **CLOUDFLARE_API_TOKEN**: Create an API token in Cloudflare Dashboard
+   - Go to My Profile → API Tokens → Create Token
+   - Use "Edit Cloudflare Pages" template or custom token with:
+     - Account → Cloudflare Pages → Edit permissions
+   
+2. **CLOUDFLARE_ACCOUNT_ID**: Found in Cloudflare Dashboard
+   - Click on any site → Copy your Account ID from the right sidebar
+   
+3. **CLOUDFLARE_PROJECT_NAME**: Your Cloudflare Pages project name
+   - Example: `daily-flavors-app`
+
+The cleanup workflow automatically runs when pull requests are closed (merged or abandoned) and removes all associated preview deployments.
+
 ## Configuration
 
 Static content is served from the `static/` directory. The daily data file is generated at `static/data/flavors.json` by the scraper script.
