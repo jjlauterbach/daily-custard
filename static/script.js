@@ -11,39 +11,65 @@ let allLocations = [];
 let filteredLocations = [];
 let selectedBrands = new Set(['all']);
 
-// DOM elements
-const loadingEl = document.getElementById('loading');
-const errorEl = document.getElementById('error');
-const errorMessageEl = document.getElementById('errorMessage');
-const flavorsGridEl = document.getElementById('flavorsGrid');
-const currentDateEl = document.getElementById('currentDate');
-const locationStatusEl = document.getElementById('locationStatus');
-const mapViewEl = document.getElementById('mapView');
-const toggleMapBtn = document.getElementById('toggleMapBtn');
+// DOM elements (initialized in DOMContentLoaded to ensure DOM is ready)
+let loadingEl = null;
+let errorEl = null;
+let errorMessageEl = null;
+let flavorsGridEl = null;
+let currentDateEl = null;
+let locationStatusEl = null;
+let mapViewEl = null;
+let toggleMapBtn = null;
+let openFiltersBtn = null;
 
 // Initialize the app
-document.addEventListener('DOMContentLoaded', () => {
-    setCurrentDateToLocal();
-    initializeLocationControls();
-    loadSavedCity();
-    
-    // Check if user wants map shown by default (from localStorage)
-    // Default to true for first-time visitors
-    const showMap = localStorage.getItem('showMap') !== 'false';
-    if (showMap) {
-        toggleMap();
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        // Initialize DOM element references
+        loadingEl = document.getElementById('loading');
+        errorEl = document.getElementById('error');
+        errorMessageEl = document.getElementById('errorMessage');
+        flavorsGridEl = document.getElementById('flavorsGrid');
+        currentDateEl = document.getElementById('currentDate');
+        locationStatusEl = document.getElementById('locationStatus');
+        mapViewEl = document.getElementById('mapView');
+        toggleMapBtn = document.getElementById('toggleMapBtn');
+        openFiltersBtn = document.getElementById('openFiltersBtn');
+        
+        // 1. Set up event listeners
+        initializeLocationControls();
+        
+        // 2. Restore saved UI preferences (sets state but doesn't trigger filtering)
+        loadSavedBrands();   // Updates selectedBrands Set and button text
+        loadSavedRadius();   // Sets radius dropdown value
+        
+        // 3. Restore map visibility preference
+        const showMap = localStorage.getItem('showMap') !== 'false';
+        if (showMap) {
+            toggleMap();
+        }
+        
+        // 4. Load location data and display (calls applyFiltersAndDisplay)
+        await loadFlavors();
+        
+        // 5. Restore saved city location - intentionally not awaited
+        // This allows the UI to display immediately with saved brand/radius filters,
+        // then update with distance filtering once geocoding completes.
+        // geocodeLocation() will call applyFiltersAndDisplay() when done.
+        loadSavedCity();
+    } catch (err) {
+        console.error('Error during app initialization:', err);
+        showError('Failed to initialize app. Please refresh the page.');
     }
-    
-    loadFlavors();
 });
 
-// Set current date in header (simple localized version)
-function setCurrentDateToLocal() {
-    const now = new Date();
+// Set date in header to when flavors were loaded
+function setFlavorsLoadedDate(dateString) {
+    if (!currentDateEl || !dateString) return;
+    
+    const date = new Date(dateString);
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    if (currentDateEl) {
-        currentDateEl.textContent = now.toLocaleDateString('en-US', options);
-    }
+    currentDateEl.textContent = date.toLocaleDateString('en-US', options);
 }
 
 // Load flavors from static JSON
@@ -82,6 +108,12 @@ async function fetchFlavorsFromStatic() {
     }
     const data = await response.json();
     console.log(`Loaded ${data.locations.length} locations from static JSON (generated: ${data.generated_at})`);
+    
+    // Store and display the flavors loaded date
+    if (data.generated_at) {
+        setFlavorsLoadedDate(data.generated_at);
+    }
+    
     return data.locations;
 
 }
@@ -170,7 +202,9 @@ function updateMapMarkers(groups) {
         }
     });
 
-    if (mapMarkers.length > 0) {
+    // Only fit bounds when we have user location (and thus proper radius filtering)
+    // Otherwise keep the default map view until location is set
+    if (mapMarkers.length > 0 && userLocation) {
         mapInstance.fitBounds(bounds, { padding: [50, 50] });
     }
 }
@@ -230,9 +264,8 @@ async function geocodeLocation(query) {
                 query_length: searchQuery.length
             });
             
-            // Update map view if active
+            // Add user location marker (map view will be adjusted by applyFiltersAndDisplay)
             if (mapInstance) {
-                mapInstance.setView([lat, lng], 12);
                 addUserLocationMarker();
             }
             
@@ -301,8 +334,8 @@ function requestGeolocation() {
             
             trackEvent('location_search', { search_type: 'gps' });
             
+            // Add user location marker (map view will be adjusted by applyFiltersAndDisplay)
             if (mapInstance) {
-                mapInstance.setView([lat, lng], 12);
                 addUserLocationMarker();
             }
             applyFiltersAndDisplay();
@@ -533,6 +566,24 @@ function createLocationCard(group) {
 
 // --- Initialization Helpers ---
 
+function updateBrandButtonText() {
+    if (!openFiltersBtn) {
+        // This can happen if script runs before DOM is ready (e.g., in <head> without defer)
+        console.warn('updateBrandButtonText: openFiltersBtn not found');
+        return;
+    }
+    
+    const span = openFiltersBtn.querySelector('span');
+    if (!span) return;
+    
+    if (selectedBrands.has('all')) {
+        span.textContent = 'All Brands';
+    } else {
+        const count = selectedBrands.size;
+        span.textContent = `${count} Brand${count !== 1 ? 's' : ''}`;
+    }
+}
+
 function initializeLocationControls() {
     const useLocationBtn = document.getElementById('useLocationBtn');
     const locationInput = document.getElementById('locationInput');
@@ -574,7 +625,6 @@ function initializeLocationControls() {
     }
     
     // --- Filter Modal Logic ---
-    const openFiltersBtn = document.getElementById('openFiltersBtn');
     const filterModal = document.getElementById('filterModal');
     const closeModalBtn = document.getElementById('closeModalBtn');
     const modalSelectAllBtn = document.getElementById('modalSelectAllBtn');
@@ -631,6 +681,7 @@ function initializeLocationControls() {
                     checked.forEach(cb => selectedBrands.add(cb.value));
                 }
 
+                saveBrands();
                 updateBrandButtonText();
                 applyFiltersAndDisplay();
                 closeModal();
@@ -650,23 +701,56 @@ function initializeLocationControls() {
             }
         });
     }
-
-    function updateBrandButtonText() {
-        const span = openFiltersBtn.querySelector('span');
-        if (selectedBrands.has('all')) {
-            span.textContent = 'All Brands';
-        } else {
-            const count = selectedBrands.size;
-            span.textContent = `${count} Brand${count !== 1 ? 's' : ''}`;
-        }
-    }
     
     if (sortBy) {
         sortBy.addEventListener('change', () => applyFiltersAndDisplay());
     }
     
     if (radiusFilter) {
-        radiusFilter.addEventListener('change', () => applyFiltersAndDisplay());
+        radiusFilter.addEventListener('change', () => {
+            saveRadius(radiusFilter.value);
+            applyFiltersAndDisplay();
+        });
+    }
+}
+
+// Save and load radius preference
+function saveRadius(radius) {
+    localStorage.setItem('userRadius', radius);
+}
+
+function loadSavedRadius() {
+    const savedRadius = localStorage.getItem('userRadius');
+    const radiusFilter = document.getElementById('radiusFilter');
+    
+    if (savedRadius && radiusFilter) {
+        // Ensure the saved radius matches one of the available option values
+        const optionValues = Array.from(radiusFilter.options || []).map(option => option.value);
+        if (optionValues.includes(savedRadius)) {
+            // Only set UI state - filtering happens after locations are loaded
+            radiusFilter.value = savedRadius;
+        }
+    }
+}
+
+// Save and load brand preferences
+function saveBrands() {
+    const brandsArray = Array.from(selectedBrands);
+    localStorage.setItem('selectedBrands', JSON.stringify(brandsArray));
+}
+
+function loadSavedBrands() {
+    const savedBrands = localStorage.getItem('selectedBrands');
+    if (savedBrands) {
+        try {
+            const brandsArray = JSON.parse(savedBrands);
+            selectedBrands.clear();
+            brandsArray.forEach(brand => selectedBrands.add(brand));
+            // Update button text to reflect loaded brands
+            updateBrandButtonText();
+        } catch (e) {
+            console.error('Error loading saved brands:', e);
+        }
     }
 }
 
