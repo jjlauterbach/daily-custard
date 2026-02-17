@@ -151,9 +151,14 @@ class LeonsScraper(BaseScraper):
             if match:
                 flavor = match.group(1).strip()
                 # Clean up the flavor name
+                # Remove emojis and everything after them
+                # Covers: Emoticons, Transport/Map, Misc Symbols, Pictographs, Dingbats
                 flavor = re.sub(
-                    r"\s*[\U0001F300-\U0001F9FF]+.*$", "", flavor
-                )  # Remove emojis and after
+                    r"\s*[\U0001F600-\U0001F64F\U0001F680-\U0001F6FF\U0001F300-\U0001F5FF"
+                    r"\U0001F900-\U0001F9FF\U00002600-\U000026FF\U00002700-\U000027BF]+.*$",
+                    "",
+                    flavor,
+                )
                 flavor = flavor.split("!")[0].strip()
                 flavor = flavor.split("  ")[0].strip()  # Remove double space and after
 
