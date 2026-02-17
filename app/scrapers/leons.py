@@ -17,7 +17,9 @@ class LeonsScraper(BaseScraper):
     NAVIGATION_TIMEOUT = 60000  # 60 seconds for page navigation
     SELECTOR_TIMEOUT = 30000  # 30 seconds for selector wait
     MAX_RETRIES = 3  # Number of retry attempts for timeout errors
-    RETRY_BASE_DELAY = 2  # Base delay multiplied by 2^attempt (produces 2s, 4s, 8s delays)
+    RETRY_BASE_DELAY = (
+        2  # Base delay multiplied by 2^attempt (produces 2s, 4s delays for 3 total attempts)
+    )
 
     def __init__(self):
         super().__init__("leons")
@@ -139,6 +141,7 @@ class LeonsScraper(BaseScraper):
             Exception: For other errors
         """
         with sync_playwright() as p:
+            browser = None
             try:
                 # Launch browser in headless mode
                 browser = p.chromium.launch(headless=True)
@@ -178,10 +181,11 @@ class LeonsScraper(BaseScraper):
                 return None
 
             finally:
-                try:
-                    browser.close()
-                except Exception:
-                    pass
+                if browser:
+                    try:
+                        browser.close()
+                    except Exception:
+                        pass
 
     def _extract_flavor_name(self, text):
         """
