@@ -26,6 +26,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .[dev]
 
+      - name: Install Playwright browsers
+        run: playwright install chromium
+
       - name: Run ecosystem scraper test
         run: |
           pytest --ecosystem --log-level=DEBUG --log-file=ecosystem_test.log

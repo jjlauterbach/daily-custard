@@ -43,6 +43,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .
 
+      - name: Install Playwright browsers
+        run: playwright install chromium
+
       - name: Generate flavors.json
         run: python scripts/generate_flavors.py
 
