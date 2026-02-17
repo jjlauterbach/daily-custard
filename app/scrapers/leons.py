@@ -76,6 +76,7 @@ class LeonsScraper(BaseScraper):
             str: Text content of the most recent flavor post, or None if not found
         """
         with sync_playwright() as p:
+            browser = None
             try:
                 # Launch browser in headless mode
                 browser = p.chromium.launch(headless=True)
@@ -117,10 +118,11 @@ class LeonsScraper(BaseScraper):
                 self.logger.error(f"Error with Playwright: {e}")
                 return None
             finally:
-                try:
-                    browser.close()
-                except Exception:
-                    pass
+                if browser:
+                    try:
+                        browser.close()
+                    except Exception:
+                        pass
 
     def _extract_flavor_name(self, text):
         """
