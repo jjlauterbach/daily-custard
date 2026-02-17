@@ -3,6 +3,7 @@
 import re
 import time
 
+from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
 
@@ -86,11 +87,17 @@ class LeonsScraper(BaseScraper):
             try:
                 return self._scrape_facebook_page_attempt(url, attempt)
             except PlaywrightTimeoutError as e:
+                # Timeout errors are transient and should be retried
                 if not self._handle_retry(attempt, f"Timeout: {e}"):
                     return None
-            except Exception as e:
-                if not self._handle_retry(attempt, f"Error with Playwright: {e}"):
+            except PlaywrightError as e:
+                # Other Playwright errors (network, page crash, etc.) may be transient
+                if not self._handle_retry(attempt, f"Playwright error: {e}"):
                     return None
+            except Exception as e:
+                # Unexpected errors should not be retried
+                self.logger.error(f"Unexpected error on attempt {attempt + 1}: {e}", exc_info=True)
+                return None
         return None
 
     def _handle_retry(self, attempt, error_message):
@@ -112,9 +119,9 @@ class LeonsScraper(BaseScraper):
             )
             time.sleep(delay)
             return True
-        else:
-            self.logger.error(f"{error_message} after {self.MAX_RETRIES} attempts")
-            return False
+
+        self.logger.error(f"{error_message} after {self.MAX_RETRIES} attempts")
+        return False
 
     def _scrape_facebook_page_attempt(self, url, attempt):
         """
