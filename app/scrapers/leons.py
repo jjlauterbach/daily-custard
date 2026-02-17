@@ -1,6 +1,7 @@
 """Scraper for Leon's Frozen Custard using Playwright to scrape Facebook."""
 
 import re
+import time
 
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
@@ -10,6 +11,12 @@ from app.scrapers.scraper_base import BaseScraper
 
 class LeonsScraper(BaseScraper):
     """Scraper for Leon's Frozen Custard Facebook page."""
+
+    # Facebook page timeouts - configured for slow-loading pages with anti-bot measures
+    NAVIGATION_TIMEOUT = 60000  # 60 seconds for page navigation
+    SELECTOR_TIMEOUT = 30000  # 30 seconds for selector wait
+    MAX_RETRIES = 3  # Number of retry attempts for timeout errors
+    RETRY_BASE_DELAY = 2  # Base delay in seconds for exponential backoff
 
     def __init__(self):
         super().__init__("leons")
@@ -67,7 +74,7 @@ class LeonsScraper(BaseScraper):
 
     def _scrape_facebook_page(self, url):
         """
-        Use Playwright to scrape Leon's Facebook page.
+        Use Playwright to scrape Leon's Facebook page with retry logic.
 
         Args:
             url: Facebook page URL
@@ -75,7 +82,50 @@ class LeonsScraper(BaseScraper):
         Returns:
             str: Text content of the most recent flavor post, or None if not found
         """
+        for attempt in range(self.MAX_RETRIES):
+            try:
+                return self._scrape_facebook_page_attempt(url, attempt)
+            except PlaywrightTimeoutError as e:
+                if attempt < self.MAX_RETRIES - 1:
+                    # Calculate exponential backoff delay
+                    delay = self.RETRY_BASE_DELAY * (2**attempt)
+                    self.logger.warning(
+                        f"Timeout on attempt {attempt + 1}/{self.MAX_RETRIES}: {e}. "
+                        f"Retrying in {delay}s..."
+                    )
+                    time.sleep(delay)
+                else:
+                    self.logger.error(
+                        f"Timeout loading Facebook page after {self.MAX_RETRIES} attempts: {e}"
+                    )
+                    return None
+            except Exception as e:
+                self.logger.error(f"Error with Playwright on attempt {attempt + 1}: {e}")
+                if attempt < self.MAX_RETRIES - 1:
+                    delay = self.RETRY_BASE_DELAY * (2**attempt)
+                    self.logger.warning(f"Retrying in {delay}s...")
+                    time.sleep(delay)
+                else:
+                    return None
+        return None
+
+    def _scrape_facebook_page_attempt(self, url, attempt):
+        """
+        Single attempt to scrape Facebook page.
+
+        Args:
+            url: Facebook page URL
+            attempt: Current attempt number (0-indexed)
+
+        Returns:
+            str: Text content of the most recent flavor post, or None if not found
+
+        Raises:
+            PlaywrightTimeoutError: If page load or selector wait times out
+            Exception: For other errors
+        """
         with sync_playwright() as p:
+            browser = None
             try:
                 # Launch browser in headless mode
                 browser = p.chromium.launch(headless=True)
@@ -84,12 +134,16 @@ class LeonsScraper(BaseScraper):
                 )
                 page = context.new_page()
 
-                # Navigate to Facebook page
-                self.logger.debug(f"Loading Facebook page: {url}")
-                page.goto(url, wait_until="networkidle", timeout=30000)
+                # Navigate to Facebook page with extended timeout
+                self.logger.debug(
+                    f"Loading Facebook page (attempt {attempt + 1}): {url} "
+                    f"(timeout: {self.NAVIGATION_TIMEOUT}ms)"
+                )
+                page.goto(url, wait_until="networkidle", timeout=self.NAVIGATION_TIMEOUT)
 
-                # Wait for posts to load
-                page.wait_for_selector('[role="article"]', timeout=10000)
+                # Wait for posts to load with extended timeout
+                self.logger.debug(f"Waiting for posts to load (timeout: {self.SELECTOR_TIMEOUT}ms)")
+                page.wait_for_selector('[role="article"]', timeout=self.SELECTOR_TIMEOUT)
 
                 # Get all post articles
                 articles = page.query_selector_all('[role="article"]')
@@ -110,17 +164,12 @@ class LeonsScraper(BaseScraper):
                 self.logger.warning("No recent flavor post found in first 5 posts")
                 return None
 
-            except PlaywrightTimeoutError as e:
-                self.logger.error(f"Timeout loading Facebook page: {e}")
-                return None
-            except Exception as e:
-                self.logger.error(f"Error with Playwright: {e}")
-                return None
             finally:
-                try:
-                    browser.close()
-                except Exception:
-                    pass
+                if browser:
+                    try:
+                        browser.close()
+                    except Exception:
+                        pass
 
     def _extract_flavor_name(self, text):
         """
