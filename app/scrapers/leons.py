@@ -1,5 +1,6 @@
 """Scraper for Leon's Frozen Custard using Playwright to scrape Facebook."""
 
+import html
 import re
 
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
@@ -152,6 +153,8 @@ class LeonsScraper(BaseScraper):
             match = re.search(pattern, text, re.IGNORECASE | re.MULTILINE)
             if match:
                 flavor = match.group(1).strip()
+                # Decode HTML entities
+                flavor = html.unescape(flavor)
                 # Clean up the flavor name
                 # Remove emojis and everything after them
                 # Covers: Emoticons, Transport/Map, Misc Symbols, Pictographs, Dingbats
@@ -180,6 +183,8 @@ class LeonsScraper(BaseScraper):
                     if next_line and len(next_line) > 3 and len(next_line) < 100:
                         # Check if it looks like a flavor name (starts with capital)
                         if next_line[0].isupper():
+                            # Decode HTML entities
+                            next_line = html.unescape(next_line)
                             self.logger.debug(f"Extracted flavor from next line: {next_line}")
                             return next_line.split("!")[0].split(".")[0].strip()
 
@@ -188,6 +193,8 @@ class LeonsScraper(BaseScraper):
                     r".*?flavor(?:\s+of\s+the\s+day)?[\s:]*", "", line, flags=re.IGNORECASE
                 )
                 cleaned = cleaned.strip(" :,-!.")
+                # Decode HTML entities
+                cleaned = html.unescape(cleaned)
                 if cleaned and 3 < len(cleaned) < 100 and not cleaned.lower().startswith("is"):
                     self.logger.debug(f"Extracted flavor from same line: {cleaned}")
                     return cleaned.split("!")[0].split(".")[0].strip()
