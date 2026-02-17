@@ -16,7 +16,7 @@ class LeonsScraper(BaseScraper):
     NAVIGATION_TIMEOUT = 60000  # 60 seconds for page navigation
     SELECTOR_TIMEOUT = 30000  # 30 seconds for selector wait
     MAX_RETRIES = 3  # Number of retry attempts for timeout errors
-    RETRY_BASE_DELAY = 2  # Base delay in seconds for exponential backoff
+    RETRY_BASE_DELAY = 2  # Base delay multiplied by 2^attempt (produces 2s, 4s, 8s delays)
 
     def __init__(self):
         super().__init__("leons")
@@ -86,28 +86,35 @@ class LeonsScraper(BaseScraper):
             try:
                 return self._scrape_facebook_page_attempt(url, attempt)
             except PlaywrightTimeoutError as e:
-                if attempt < self.MAX_RETRIES - 1:
-                    # Calculate exponential backoff delay
-                    delay = self.RETRY_BASE_DELAY * (2**attempt)
-                    self.logger.warning(
-                        f"Timeout on attempt {attempt + 1}/{self.MAX_RETRIES}: {e}. "
-                        f"Retrying in {delay}s..."
-                    )
-                    time.sleep(delay)
-                else:
-                    self.logger.error(
-                        f"Timeout loading Facebook page after {self.MAX_RETRIES} attempts: {e}"
-                    )
+                if not self._handle_retry(attempt, f"Timeout: {e}"):
                     return None
             except Exception as e:
-                self.logger.error(f"Error with Playwright on attempt {attempt + 1}: {e}")
-                if attempt < self.MAX_RETRIES - 1:
-                    delay = self.RETRY_BASE_DELAY * (2**attempt)
-                    self.logger.warning(f"Retrying in {delay}s...")
-                    time.sleep(delay)
-                else:
+                if not self._handle_retry(attempt, f"Error with Playwright: {e}"):
                     return None
         return None
+
+    def _handle_retry(self, attempt, error_message):
+        """
+        Handle retry logic with exponential backoff.
+
+        Args:
+            attempt: Current attempt number (0-indexed)
+            error_message: Error message to log
+
+        Returns:
+            bool: True if should retry, False if max retries reached
+        """
+        if attempt < self.MAX_RETRIES - 1:
+            delay = self.RETRY_BASE_DELAY * (2**attempt)
+            self.logger.warning(
+                f"{error_message} on attempt {attempt + 1}/{self.MAX_RETRIES}. "
+                f"Retrying in {delay}s..."
+            )
+            time.sleep(delay)
+            return True
+        else:
+            self.logger.error(f"{error_message} after {self.MAX_RETRIES} attempts")
+            return False
 
     def _scrape_facebook_page_attempt(self, url, attempt):
         """
@@ -125,7 +132,6 @@ class LeonsScraper(BaseScraper):
             Exception: For other errors
         """
         with sync_playwright() as p:
-            browser = None
             try:
                 # Launch browser in headless mode
                 browser = p.chromium.launch(headless=True)
@@ -165,11 +171,10 @@ class LeonsScraper(BaseScraper):
                 return None
 
             finally:
-                if browser:
-                    try:
-                        browser.close()
-                    except Exception:
-                        pass
+                try:
+                    browser.close()
+                except Exception:
+                    pass
 
     def _extract_flavor_name(self, text):
         """
