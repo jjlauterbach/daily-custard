@@ -87,12 +87,22 @@ gilles:
     url: "https://gillesfrozencustard.com/flavor-of-the-day"
     enabled: true
 
+leons:
+  - id: leons-main
+    name: "Leon's Frozen Custard"
+    brand: Leons
+    address: "3131 S 27th St, Milwaukee, WI 53215"
+    lat: 42.987966729691806
+    lng: -87.94870377380806
+    url: "https://leonsfrozencustardmke.com/"
+    facebook: "https://www.facebook.com/LeonsCustard/"
+    enabled: true
+
 
 
 
 # Places to add
 # https://leducscustard.com/
-# https://leonsfrozencustardmke.com/
 # https://www.facebook.com/BigDealBurgers/  https://bigdealburgers.com/
 # https://www.fredsfrozencustard.com/
 # https://georgieporgies.com/georgies-flavor-forecast/
