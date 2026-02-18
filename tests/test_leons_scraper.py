@@ -139,14 +139,14 @@ Stop by and try it while supplies last. Open until 10pm.
         flavor = self.scraper._extract_flavor_name(text)
         self.assertIsNone(flavor)
 
-    def test_extract_flavor_starts_with_of_the_rejected(self):
-        """Test: Flavor starting with 'of the' is rejected."""
+    def test_extract_flavor_valid_and_too_short_cases(self):
+        """Test: Valid flavor is extracted and too-short flavor is rejected."""
         text = "CHOCOLATE is the flavor of the day"
         # This should extract correctly
         flavor = self.scraper._extract_flavor_name(text)
         self.assertEqual(flavor, "CHOCOLATE")
 
-        # Test that reasonable flavor names are extracted (length > 3, < 100)
+        # Test that too-short flavor names are rejected (length <= 3)
         text_short = "Flavor: Hi"  # Too short
         flavor = self.scraper._extract_flavor_name(text_short)
         self.assertIsNone(flavor)
