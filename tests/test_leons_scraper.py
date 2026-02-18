@@ -90,6 +90,20 @@ class TestLeonsFlavorExtraction(unittest.TestCase):
         flavor = self.scraper._extract_flavor_name(text)
         self.assertEqual(flavor, "Cookie Dough")
 
+    def test_extract_flavor_next_line_with_emoji(self):
+        """Test: Fallback next-line extraction with emoji removal."""
+        text = """what flavor do we have?
+Chocolate Chip 🍪 Best ever!
+Come visit us!"""
+        flavor = self.scraper._extract_flavor_name(text)
+        self.assertEqual(flavor, "Chocolate Chip")
+
+    def test_extract_flavor_same_line_with_emoji(self):
+        """Test: Fallback same-line extraction with emoji removal."""
+        text = "We have a great flavor - Vanilla Bean 🍦 Delicious!"
+        flavor = self.scraper._extract_flavor_name(text)
+        self.assertEqual(flavor, "Vanilla Bean")
+
     def test_extract_flavor_with_exclamation_mark(self):
         """Test: Exclamation mark handling."""
         text = "Flavor of the Day: Pumpkin Pie! Come get it today"
@@ -316,7 +330,7 @@ class TestLeonsFacebookScraping(unittest.TestCase):
 
         # Third article has both
         mock_article3 = Mock()
-        mock_article3.inner_text.return_value = "Flavor of the day: Mint Chip"
+        mock_article3.inner_text.return_value = "flavor of the day: Mint Chip"
 
         mock_page.query_selector_all.return_value = [mock_article1, mock_article2, mock_article3]
 
@@ -329,7 +343,7 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         result = self.scraper._scrape_facebook_page("https://facebook.com/test")
 
         # Should find third article
-        self.assertEqual(result, "Flavor of the day: Mint Chip")
+        self.assertEqual(result, "flavor of the day: Mint Chip")
 
     @patch("app.scrapers.leons.sync_playwright")
     def test_scrape_facebook_only_checks_first_5_posts(self, mock_playwright):
