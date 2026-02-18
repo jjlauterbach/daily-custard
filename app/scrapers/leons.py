@@ -172,8 +172,7 @@ class LeonsScraper(BaseScraper):
 
                     # Check if this post mentions flavor and is specifically about today/of the day
                     if "flavor" in text_lower and any(
-                        keyword in text_lower
-                        for keyword in ["today", "daily", "of the day"]
+                        keyword in text_lower for keyword in ["today", "daily", "of the day"]
                     ):
                         self.logger.debug(f"Found flavor post at index {i}")
                         return text_content
