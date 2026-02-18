@@ -172,8 +172,7 @@ class LeonsScraper(BaseScraper):
 
                     # Check if this post mentions flavor
                     if "flavor" in text_lower and any(
-                        keyword in text_lower
-                        for keyword in ["today", "day", "daily", "of the day"]
+                        keyword in text_lower for keyword in ["today", "day", "daily", "of the day"]
                     ):
                         self.logger.debug(f"Found flavor post at index {i}")
                         return text_content
@@ -187,6 +186,32 @@ class LeonsScraper(BaseScraper):
                         browser.close()
                     except Exception:
                         pass
+
+    def _sanitize_flavor_name(self, flavor):
+        """
+        Sanitize a flavor name by decoding HTML entities and removing emojis.
+
+        Args:
+            flavor: Raw flavor name extracted from text
+
+        Returns:
+            str: Sanitized flavor name
+        """
+        # Decode HTML entities
+        flavor = html.unescape(flavor)
+        # Remove emojis and everything after them
+        # Covers: Emoticons, Transport/Map, Misc Symbols, Pictographs, Dingbats
+        flavor = re.sub(
+            r"\s*[\U0001F600-\U0001F64F\U0001F680-\U0001F6FF\U0001F300-\U0001F5FF"
+            r"\U0001F900-\U0001F9FF\u2600-\u26FF\u2700-\u27BF]+.*$",
+            "",
+            flavor,
+        )
+        # Remove trailing punctuation and extra content
+        flavor = flavor.split("!")[0].strip()
+        flavor = flavor.split("  ")[0].strip()  # Remove double space and after
+        flavor = flavor.split(".")[0].strip()
+        return flavor
 
     def _extract_flavor_name(self, text):
         """
@@ -216,19 +241,7 @@ class LeonsScraper(BaseScraper):
             match = re.search(pattern, text, re.IGNORECASE | re.MULTILINE)
             if match:
                 flavor = match.group(1).strip()
-                # Decode HTML entities
-                flavor = html.unescape(flavor)
-                # Clean up the flavor name
-                # Remove emojis and everything after them
-                # Covers: Emoticons, Transport/Map, Misc Symbols, Pictographs, Dingbats
-                flavor = re.sub(
-                    r"\s*[\U0001F600-\U0001F64F\U0001F680-\U0001F6FF\U0001F300-\U0001F5FF"
-                    r"\U0001F900-\U0001F9FF\u2600-\u26FF\u2700-\u27BF]+.*$",
-                    "",
-                    flavor,
-                )
-                flavor = flavor.split("!")[0].strip()
-                flavor = flavor.split("  ")[0].strip()  # Remove double space and after
+                flavor = self._sanitize_flavor_name(flavor)
 
                 # Sanity check: make sure it's a reasonable flavor name
                 if 3 < len(flavor) < 100 and not flavor.lower().startswith("of the"):
@@ -246,21 +259,19 @@ class LeonsScraper(BaseScraper):
                     if next_line and len(next_line) > 3 and len(next_line) < 100:
                         # Check if it looks like a flavor name (starts with capital)
                         if next_line[0].isupper():
-                            # Decode HTML entities
-                            next_line = html.unescape(next_line)
+                            next_line = self._sanitize_flavor_name(next_line)
                             self.logger.debug(f"Extracted flavor from next line: {next_line}")
-                            return next_line.split("!")[0].split(".")[0].strip()
+                            return next_line
 
                 # Try to extract from the same line
                 cleaned = re.sub(
                     r".*?flavor(?:\s+of\s+the\s+day)?[\s:]*", "", line, flags=re.IGNORECASE
                 )
                 cleaned = cleaned.strip(" :,-!.")
-                # Decode HTML entities
-                cleaned = html.unescape(cleaned)
+                cleaned = self._sanitize_flavor_name(cleaned)
                 if cleaned and 3 < len(cleaned) < 100 and not cleaned.lower().startswith("is"):
                     self.logger.debug(f"Extracted flavor from same line: {cleaned}")
-                    return cleaned.split("!")[0].split(".")[0].strip()
+                    return cleaned
 
         self.logger.warning("Could not extract flavor name using any method")
         return None
