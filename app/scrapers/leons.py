@@ -197,8 +197,8 @@ class LeonsScraper(BaseScraper):
         Returns:
             str: Sanitized flavor name
         """
-        # Strip leading/trailing punctuation and whitespace
-        flavor = flavor.strip(" :,-!.")
+        # Strip leading/trailing whitespace and common leading punctuation
+        flavor = flavor.strip().lstrip(":,-")
         # Decode HTML entities
         flavor = html.unescape(flavor)
         # Remove emojis and everything after them
@@ -209,10 +209,9 @@ class LeonsScraper(BaseScraper):
             "",
             flavor,
         )
-        # Remove trailing punctuation and extra content (for non-emoji cases)
-        flavor = flavor.split("!")[0].strip()
-        flavor = flavor.split("  ")[0].strip()  # Remove double space and after
-        flavor = flavor.split(".")[0].strip()
+        # Remove content after common terminators (for non-emoji cases)
+        # Split on '!', double space, or '.' and take first part
+        flavor = re.split(r"[!.]|  ", flavor)[0].strip()
         return flavor
 
     def _extract_flavor_name(self, text):
