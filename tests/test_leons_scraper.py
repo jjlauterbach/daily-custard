@@ -92,7 +92,7 @@ class TestLeonsFlavorExtraction(unittest.TestCase):
 
     def test_extract_flavor_next_line_with_emoji(self):
         """Test: Fallback next-line extraction with emoji removal."""
-        text = """Today's Flavor
+        text = """what flavor do we have?
 Chocolate Chip 🍪 Best ever!
 Come visit us!"""
         flavor = self.scraper._extract_flavor_name(text)
@@ -100,7 +100,7 @@ Come visit us!"""
 
     def test_extract_flavor_same_line_with_emoji(self):
         """Test: Fallback same-line extraction with emoji removal."""
-        text = "Flavor of the day is Vanilla Bean 🍦 Delicious!"
+        text = "We have a great flavor - Vanilla Bean 🍦 Delicious!"
         flavor = self.scraper._extract_flavor_name(text)
         self.assertEqual(flavor, "Vanilla Bean")
 

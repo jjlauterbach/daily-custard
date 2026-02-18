@@ -189,7 +189,13 @@ class LeonsScraper(BaseScraper):
 
     def _sanitize_flavor_name(self, flavor):
         """
-        Sanitize a flavor name by decoding HTML entities and removing emojis.
+        Sanitize a flavor name by decoding HTML entities, removing emojis, and cleaning punctuation.
+
+        This method:
+        - Strips leading/trailing whitespace and common leading punctuation (:,-)
+        - Decodes HTML entities (e.g., &amp; → &)
+        - Removes emojis and truncates everything after the first emoji
+        - Truncates content after common terminators (!, ., double-space)
 
         Args:
             flavor: Raw flavor name extracted from text
