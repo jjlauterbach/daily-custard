@@ -168,6 +168,7 @@ class LeonsScraper(BaseScraper):
                 for i, article in enumerate(articles[:5]):  # Check first 5 posts
                     # Fetch inner text once to avoid duplicate cross-browser calls
                     text_content = article.inner_text()
+                    text_lower = text_content.lower()
 
                     # Check if this post mentions flavor and is specifically about today/of the day
                     if "flavor" in text_lower and any(
