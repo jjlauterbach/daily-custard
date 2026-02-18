@@ -17,7 +17,7 @@ class LeonsScraper(BaseScraper):
     # Facebook page timeouts - configured for slow-loading pages with anti-bot measures
     NAVIGATION_TIMEOUT = 60000  # 60 seconds for page navigation
     SELECTOR_TIMEOUT = 30000  # 30 seconds for selector wait
-    MAX_RETRIES = 3  # Number of retry attempts for timeout errors
+    MAX_RETRIES = 3  # Number of retry attempts for transient Playwright errors (including timeouts)
     RETRY_BASE_DELAY = (
         2  # Base delay multiplied by 2^attempt (produces 2s, 4s delays for 3 total attempts)
     )
