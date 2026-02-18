@@ -8,7 +8,7 @@ from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
 
-from app.scrapers.scraper_base import BaseScraper, USER_AGENT
+from app.scrapers.scraper_base import USER_AGENT, BaseScraper
 
 
 class LeonsScraper(BaseScraper):
