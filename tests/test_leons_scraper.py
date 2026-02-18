@@ -330,7 +330,7 @@ class TestLeonsFacebookScraping(unittest.TestCase):
 
         # Third article has both
         mock_article3 = Mock()
-        mock_article3.inner_text.return_value = "Flavor of the day: Mint Chip"
+        mock_article3.inner_text.return_value = "flavor of the day: Mint Chip"
 
         mock_page.query_selector_all.return_value = [mock_article1, mock_article2, mock_article3]
 
@@ -343,7 +343,7 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         result = self.scraper._scrape_facebook_page("https://facebook.com/test")
 
         # Should find third article
-        self.assertEqual(result, "Flavor of the day: Mint Chip")
+        self.assertEqual(result, "flavor of the day: Mint Chip")
 
     @patch("app.scrapers.leons.sync_playwright")
     def test_scrape_facebook_only_checks_first_5_posts(self, mock_playwright):
