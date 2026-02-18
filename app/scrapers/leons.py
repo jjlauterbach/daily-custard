@@ -8,7 +8,7 @@ from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
 
-from app.scrapers.scraper_base import BaseScraper
+from app.scrapers.scraper_base import BaseScraper, USER_AGENT
 
 
 class LeonsScraper(BaseScraper):
@@ -146,9 +146,7 @@ class LeonsScraper(BaseScraper):
             try:
                 # Launch browser in headless mode
                 browser = p.chromium.launch(headless=True)
-                context = browser.new_context(
-                    user_agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/145.0.0.0 Safari/537.36"
-                )
+                context = browser.new_context(user_agent=USER_AGENT)
                 page = context.new_page()
 
                 # Navigate to Facebook page with extended timeout
