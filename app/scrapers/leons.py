@@ -166,15 +166,17 @@ class LeonsScraper(BaseScraper):
 
                 # Look through recent posts for flavor information
                 for i, article in enumerate(articles[:5]):  # Check first 5 posts
-                    text_content = article.inner_text().lower()
+                    # Fetch inner text once to avoid duplicate cross-browser calls
+                    text_content = article.inner_text()
+                    text_lower = text_content.lower()
 
                     # Check if this post mentions flavor
-                    if "flavor" in text_content and any(
-                        keyword in text_content
+                    if "flavor" in text_lower and any(
+                        keyword in text_lower
                         for keyword in ["today", "day", "daily", "of the day"]
                     ):
                         self.logger.debug(f"Found flavor post at index {i}")
-                        return article.inner_text()
+                        return text_content
 
                 self.logger.warning("No recent flavor post found in first 5 posts")
                 return None
