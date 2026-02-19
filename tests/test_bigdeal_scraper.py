@@ -416,6 +416,41 @@ class TestBigDealFacebookScraping(unittest.TestCase):
 
     @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
     @patch("app.scrapers.bigdeal.sync_playwright")
+    def test_scrape_facebook_page_expands_see_more_buttons(self, mock_playwright, mock_is_today):
+        """Test: 'See more' buttons are clicked to expand truncated posts."""
+        mock_is_today.return_value = True
+
+        mock_browser = Mock()
+        mock_context = Mock()
+        mock_page = Mock()
+
+        # Setup a visible "See more" button
+        mock_see_more_btn = Mock()
+        mock_see_more_btn.is_visible.return_value = True
+
+        mock_article = Mock()
+        mock_article.inner_text.return_value = "Today's flavor is Vanilla Bean!"
+
+        # First call returns see_more buttons, second returns articles
+        mock_page.query_selector_all.side_effect = [
+            [mock_see_more_btn],
+            [mock_article],
+        ]
+
+        mock_context.new_page.return_value = mock_page
+        mock_browser.new_context.return_value = mock_context
+        mock_playwright.return_value.__enter__.return_value.chromium.launch.return_value = (
+            mock_browser
+        )
+
+        result = self.scraper._scrape_facebook_page("https://facebook.com/test")
+
+        # Verify "See more" button was clicked to expand truncated content
+        mock_see_more_btn.click.assert_called_once()
+        self.assertEqual(result, "Today's flavor is Vanilla Bean!")
+
+    @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
+    @patch("app.scrapers.bigdeal.sync_playwright")
     def test_scrape_facebook_browser_close_error(self, mock_playwright, mock_is_today):
         """Test: Browser close fails gracefully."""
         # Mock date validation to return True (post is from today)
