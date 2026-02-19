@@ -1,21 +1,62 @@
 # Daily Custard App 🍦
 
-A web scraper application that collects daily flavor information from frozen custard shops and displays them in a modern web UI.
+A web scraping application that collects daily flavor information from frozen custard shops in the Milwaukee area and displays them in a modern web UI.
+
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Tests](https://img.shields.io/badge/tests-pytest-green.svg)](https://docs.pytest.org/)
+
+## Table of Contents
+
+- [Technology Stack](#technology-stack)
+- [Supported Locations](#supported-locations)
+- [Features](#features)
+- [Quick Start](#quick-start)
+- [Testing & Quality](#testing--quality)
+- [Ecosystem Testing](#ecosystem-testing)
+- [Scraper Architecture](#scraper-architecture)
+- [Development Workflow](#development-workflow)
+- [Docker Deployment](#docker-deployment)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+
+## Technology Stack
+
+- **Language**: Python 3.12+
+- **Web Scraping**: 
+  - BeautifulSoup (static sites)
+  - Selenium with ChromeDriver (dynamic sites)
+  - Playwright (Facebook pages)
+- **Testing**: pytest with unittest, comprehensive mocking
+- **Code Quality**: black, flake8, isort, autoflake, pre-commit hooks
+- **CI/CD**: GitHub Actions with automated testing and deployment
+- **Deployment**: Docker, Docker Compose, Cloudflare Pages
+- **Package Management**: pip with pyproject.toml
 
 ## Supported Locations
 
-- **Bubba's**
+- **Bubba's Frozen Custard**
 - **Culver's**
+- **Gilles**
 - **Kopp's Frozen Custard**
-- **Oscar's Frozen Custard**
+- **Leon's Frozen Custard**
 - **Murf's Frozen Custard**
+- **Oscar's Frozen Custard**
 
 ## Features
-- Robust scrapers for each shop, extracting date, flavor, and description
-- Modern UI with date-anchored cards
-- Automated tests (unit, integration, and Selenium UI)
-- CI/CD with linting, formatting, security, and coverage checks
-- Pre-commit hooks for code quality
+- **Robust scrapers** for each shop using multiple strategies:
+  - BeautifulSoup for static sites (Kopp's, Bubba's, Murf's)
+  - Selenium for dynamic sites (Oscar's, Culver's)
+  - Playwright for Facebook pages (Leon's)
+- **Base scraper architecture** with common functionality and error handling
+- **Location registry** (locations.yaml) for easy configuration
+- **Modern UI** with date-anchored cards and interactive map
+- **Comprehensive testing**:
+  - Unit tests
+  - Integration tests
+  - Ecosystem tests against live sites
+- **CI/CD** with linting, formatting, security, and coverage checks
+- **Pre-commit hooks** for code quality
 
 ## Quick Start
 
@@ -52,20 +93,47 @@ python -m http.server --directory static 8080
 
 ## Testing & Quality
 
-- **Run all tests:**
+### Running Tests
+
+- **Run all unit tests:**
   ```bash
-  pytest
+  pytest tests/ -v
   ```
+  
+- **Run tests for a specific scraper:**
+  ```bash
+  pytest tests/test_leons_scraper.py -v
+  ```
+  
+- **Run with coverage:**
+  ```bash
+  pytest --cov=app tests/
+  ```
+
+### Code Quality
+
 - **Run pre-commit hooks manually:**
   ```bash
   pre-commit run --all-files
   ```
+  
 - **Install pre-commit hooks locally:**
   ```bash
   pre-commit install
   ```
-- **Lint, format, and security checks:**
-  - `flake8`, `black`, `isort`, `autoflake`, `pip-audit` are all run in CI and pre-commit
+  
+- **Format code:**
+  ```bash
+  black app/ tests/
+  isort app/ tests/
+  ```
+  
+- **Lint code:**
+  ```bash
+  flake8 app/ tests/
+  ```
+
+All checks (`flake8`, `black`, `isort`, `autoflake`, `pip-audit`) run automatically in CI and pre-commit hooks.
 
 ## Ecosystem Testing
 
@@ -75,9 +143,70 @@ A dedicated ecosystem test suite checks that all scrapers are working against li
 pytest --ecosystem
 ```
 
-- The ecosystem test is skipped by default unless you pass the `--ecosystem` flag.
-- The test will fail if any scraper fails to return a valid flavor for today.
-- The daily workflow will alert you if a site changes or breaks scraping.
+**Important Notes:**
+- The ecosystem test is **skipped by default** unless you pass the `--ecosystem` flag
+- Tests run against **live websites** - network connection required
+- Each scraper must return at least one valid flavor with all required fields
+- The daily workflow alerts you if a site changes or breaks scraping
+
+## Scraper Architecture
+
+All scrapers inherit from `BaseScraper` which provides common functionality:
+
+### Creating a New Scraper
+
+1. **Create scraper class**:
+   ```python
+   from app.scrapers.scraper_base import BaseScraper
+   
+   class MyNewScraper(BaseScraper):
+       def __init__(self):
+           super().__init__("brand_key")  # Must match locations.yaml
+       
+       def scrape(self):
+           self.log_start()
+           
+           if not self.locations:
+               self.log_error("No locations found")
+               return []
+           
+           results = []
+           # Scraping logic here
+           
+           self.log_complete(len(results))
+           return results
+   ```
+
+2. **Add locations to `app/locations.yaml`**:
+   ```yaml
+   brand_key:
+     - id: unique-location-id
+       name: "Display Name"
+       brand: BrandName
+       address: "123 Main St"
+       lat: 43.0
+       lng: -88.0
+       url: "https://website.com"
+       facebook: "https://facebook.com/page"  # Optional
+       enabled: true
+   ```
+
+3. **Write comprehensive unit tests** (`tests/test_brand_scraper.py`):
+   - Test flavor extraction with various patterns
+   - Mock external services (no real network calls)
+   - Cover edge cases and error handling
+   - Aim for 40+ test cases
+
+4. **Add to ecosystem test** (`tests/test_scraper_ecosystem.py`)
+
+5. **Test manually** with real data before committing
+
+### Base Scraper Methods
+
+- `self.create_flavor()` - Creates standardized flavor dict
+- `self.log_start()`, `self.log_complete()`, `self.log_error()` - Logging helpers
+- `self.locations` - Auto-loaded from locations.yaml
+- Built-in session management and user agents
 
 ## Continuous Integration
 
@@ -151,8 +280,73 @@ docker compose up
    - Enable debug logging to inspect HTML structure
    - Update selectors in the relevant scraper function
 
+5. **Facebook scraper issues (Leon's)**
+   - Posts may be truncated - scraper automatically clicks "See more" buttons
+   - Flavor announcements must match specific patterns (e.g., "is our flavor of the day")
+   - Check up to 10 recent posts for flavor announcements
+
+6. **Playwright browser issues**
+   ```bash
+   # Install Playwright browsers
+   playwright install chromium
+   ```
+
+## Development Workflow
+
+### Adding a New Scraper
+
+See the [Scraper Architecture](#scraper-architecture) section above for detailed instructions.
+
+**Quick checklist:**
+1. ✅ Create scraper class inheriting from `BaseScraper`
+2. ✅ Add location(s) to `locations.yaml`
+3. ✅ Write comprehensive unit tests
+4. ✅ Add to ecosystem test
+5. ✅ Update README with new location
+6. ✅ Test manually with real data
+7. ✅ Ensure all tests pass and code is formatted
+
+### Making Changes
+
+1. **Create a feature branch**:
+   ```bash
+   git checkout -b feature/my-changes
+   ```
+
+2. **Make your changes** following project conventions
+
+3. **Run tests and checks**:
+   ```bash
+   pytest tests/ -v                # Run unit tests
+   pytest --ecosystem             # Test against live sites
+   black app/ tests/              # Format code
+   flake8 app/ tests/             # Lint code
+   pre-commit run --all-files     # Run all hooks
+   ```
+
+4. **Commit with descriptive messages**:
+   ```bash
+   git commit -m "Add Leon's scraper with Facebook integration"
+   ```
+
+5. **Push and create PR**:
+   ```bash
+   git push origin feature/my-changes
+   ```
+
+### GitHub Copilot Instructions
+
+This project includes GitHub Copilot instructions at `.github/copilot-instructions.md` to help AI-assisted development follow project conventions.
+
 ## Contributing
 
-- Please run pre-commit and all tests before submitting a PR.
-- All code is auto-formatted and linted in CI.
+All contributions are welcome! Please follow these guidelines:
 
+- **Code Quality**: All code must pass linting (flake8), formatting (black, isort), and security checks (pip-audit)
+- **Testing**: Write comprehensive unit tests (40+ tests for new scrapers) and ensure all tests pass
+- **Documentation**: Update README and docstrings for any new features
+- **Feature Branches**: All changes must go through pull requests - no direct commits to main
+- **Commit Messages**: Use descriptive commit messages explaining what and why
+- **Pre-commit Hooks**: Install and run pre-commit hooks before committing
+
+Run `pre-commit install` to automatically check code quality before each commit.
