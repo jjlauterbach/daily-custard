@@ -346,23 +346,59 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         self.assertEqual(result, "flavor of the day: Mint Chip")
 
     @patch("app.scrapers.leons.sync_playwright")
-    def test_scrape_facebook_only_checks_first_5_posts(self, mock_playwright):
-        """Test: Only checks first 5 posts, not all posts."""
+    def test_scrape_facebook_filters_non_announcement_posts(self, mock_playwright):
+        """Test: Posts with 'flavor' and time keywords but no announcement pattern are filtered out."""
         mock_browser = Mock()
         mock_context = Mock()
         mock_page = Mock()
 
-        # Create 10 articles, flavor is in 6th
+        # First article: promotional content with 'flavor' and 'day' but not an announcement
+        mock_article1 = Mock()
+        mock_article1.inner_text.return_value = (
+            "A Taste of Yesterday Made Fresh Each Day. What's your favorite flavor?"
+        )
+
+        # Second article: actual flavor announcement
+        mock_article2 = Mock()
+        mock_article2.inner_text.return_value = "MINT OREO is our flavor of the day!!"
+
+        mock_page.query_selector_all.return_value = [mock_article1, mock_article2]
+
+        mock_context.new_page.return_value = mock_page
+        mock_browser.new_context.return_value = mock_context
+        mock_playwright.return_value.__enter__.return_value.chromium.launch.return_value = (
+            mock_browser
+        )
+
+        result = self.scraper._scrape_facebook_page("https://facebook.com/test")
+
+        # Should skip first article and find second
+        self.assertEqual(result, "MINT OREO is our flavor of the day!!")
+
+    @patch("app.scrapers.leons.sync_playwright")
+    def test_scrape_facebook_only_checks_first_10_posts(self, mock_playwright):
+        """Test: Only checks first 10 posts, not all posts."""
+        mock_browser = Mock()
+        mock_context = Mock()
+        mock_page = Mock()
+
+        # Create 15 articles, flavor is in 11th
         articles = []
-        for i in range(5):
+        for i in range(10):
             mock_article = Mock()
             mock_article.inner_text.return_value = f"Post {i}: No flavor here"
             articles.append(mock_article)
 
-        # 6th post has flavor (but should not be checked)
-        mock_article6 = Mock()
-        mock_article6.inner_text.return_value = "Today's flavor of the day: Butterscotch"
-        articles.append(mock_article6)
+        # 11th post has flavor (but should not be checked)
+        mock_article11 = Mock()
+        mock_article11.inner_text.return_value = "Today's flavor of the day: Butterscotch"
+        articles.append(mock_article11)
+
+        # Add more articles
+        for i in range(4):
+            mock_article = Mock()
+            mock_article.inner_text.return_value = f"Post {i+11}: More content"
+            articles.append(mock_article)
 
         mock_page.query_selector_all.return_value = articles
 
@@ -374,7 +410,7 @@ class TestLeonsFacebookScraping(unittest.TestCase):
 
         result = self.scraper._scrape_facebook_page("https://facebook.com/test")
 
-        # Should not find flavor in 6th post
+        # Should not find flavor in 11th post
         self.assertIsNone(result)
 
     @patch("app.scrapers.leons.sync_playwright")
