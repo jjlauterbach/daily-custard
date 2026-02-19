@@ -160,12 +160,33 @@ class BigDealScraper(BaseScraper):
                 self.logger.debug(f"Waiting for posts to load (timeout: {self.SELECTOR_TIMEOUT}ms)")
                 page.wait_for_selector('[role="article"]', timeout=self.SELECTOR_TIMEOUT)
 
-                # Get all post articles
+                # Scroll down to load more posts
+                try:
+                    page.evaluate("window.scrollTo(0, document.body.scrollHeight / 2)")
+                    page.wait_for_timeout(1000)  # Let posts load
+                except Exception:
+                    pass
+
+                # Expand "See more" links to reveal full post content
+                try:
+                    see_more_buttons = page.query_selector_all('text="See more"')
+                    self.logger.debug(f"Found {len(see_more_buttons)} 'See more' buttons to expand")
+                    for btn in see_more_buttons[:10]:  # Expand up to 10 posts
+                        try:
+                            if btn.is_visible():
+                                btn.click()
+                                page.wait_for_timeout(500)  # Wait for expansion
+                        except Exception:
+                            pass  # Continue if a button fails to click
+                except Exception as e:
+                    self.logger.debug(f"Could not expand 'See more' buttons: {e}")
+
+                # Get all post articles (after expansion)
                 articles = page.query_selector_all('[role="article"]')
                 self.logger.debug(f"Found {len(articles)} posts on Facebook page")
 
                 # Look through recent posts for flavor information
-                for i, article in enumerate(articles[:5]):  # Check first 5 posts
+                for i, article in enumerate(articles[:10]):  # Check first 10 posts
                     # Check if post is from today
                     if not is_facebook_post_from_today(article, self.logger):
                         self.logger.debug(f"Post {i} is not from today, skipping")
@@ -180,7 +201,7 @@ class BigDealScraper(BaseScraper):
                         self.logger.debug(f"Found flavor post at index {i}")
                         return text_content
 
-                self.logger.warning("No recent flavor post found in first 5 posts")
+                self.logger.warning("No recent flavor post found in first 10 posts")
                 return None
 
             finally:
