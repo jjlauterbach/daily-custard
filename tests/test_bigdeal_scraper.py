@@ -3,6 +3,7 @@
 import unittest
 from unittest.mock import Mock, patch
 
+from playwright.sync_api import Error as PlaywrightError
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 
 from app.scrapers.bigdeal import BigDealScraper
@@ -265,7 +266,7 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         # Verify
         self.assertEqual(result, "Today's flavor is Vanilla Bean!")
         mock_page.goto.assert_called_once()
-        mock_page.wait_for_selector.assert_called_once_with('[role="article"]', timeout=10000)
+        mock_page.wait_for_selector.assert_called_once_with('[role="article"]', timeout=30000)
 
     @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
     @patch("app.scrapers.bigdeal.sync_playwright")
@@ -350,48 +351,32 @@ class TestBigDealFacebookScraping(unittest.TestCase):
 
         self.assertIsNone(result)
 
-    @patch("app.scrapers.bigdeal.sync_playwright")
-    def test_scrape_facebook_timeout_error(self, mock_playwright):
-        """Test: Playwright timeout error handling."""
-        mock_browser = Mock()
-        mock_context = Mock()
-        mock_page = Mock()
-
-        # Simulate timeout when waiting for selector
-        mock_page.wait_for_selector.side_effect = PlaywrightTimeoutError("Timeout")
-
-        mock_context.new_page.return_value = mock_page
-        mock_browser.new_context.return_value = mock_context
-        mock_playwright.return_value.__enter__.return_value.chromium.launch.return_value = (
-            mock_browser
-        )
+    @patch("app.scrapers.bigdeal.time.sleep")
+    @patch.object(BigDealScraper, "_scrape_facebook_page_attempt")
+    def test_scrape_facebook_timeout_error(self, mock_attempt, mock_sleep):
+        """Test: Playwright timeout error handling with retries."""
+        # All attempts time out
+        mock_attempt.side_effect = PlaywrightTimeoutError("Timeout")
 
         result = self.scraper._scrape_facebook_page("https://facebook.com/test")
 
         self.assertIsNone(result)
-        mock_browser.close.assert_called_once()
+        # Should retry MAX_RETRIES times
+        self.assertEqual(mock_attempt.call_count, 3)
+        # Should sleep twice (before 2nd and 3rd attempts)
+        self.assertEqual(mock_sleep.call_count, 2)
 
-    @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
-    @patch("app.scrapers.bigdeal.sync_playwright")
-    def test_scrape_facebook_general_error(self, mock_playwright, mock_is_today):
-        """Test: General error handling."""
-        mock_browser = Mock()
-        mock_context = Mock()
-        mock_page = Mock()
-
-        # Simulate general error
-        mock_page.goto.side_effect = Exception("Network error")
-
-        mock_context.new_page.return_value = mock_page
-        mock_browser.new_context.return_value = mock_context
-        mock_playwright.return_value.__enter__.return_value.chromium.launch.return_value = (
-            mock_browser
-        )
+    @patch.object(BigDealScraper, "_scrape_facebook_page_attempt")
+    def test_scrape_facebook_general_error(self, mock_attempt):
+        """Test: General error handling (no retry on unexpected errors)."""
+        # Simulate general error - should not retry
+        mock_attempt.side_effect = Exception("Network error")
 
         result = self.scraper._scrape_facebook_page("https://facebook.com/test")
 
         self.assertIsNone(result)
-        mock_browser.close.assert_called_once()
+        # Should only attempt once (no retries for unexpected errors)
+        self.assertEqual(mock_attempt.call_count, 1)
 
     @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
     @patch("app.scrapers.bigdeal.sync_playwright")
@@ -456,6 +441,148 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         result = self.scraper._scrape_facebook_page("https://facebook.com/test")
 
         self.assertEqual(result, "Today's flavor: Strawberry")
+
+
+class TestBigDealRetryLogic(unittest.TestCase):
+    """Test the retry logic and error handling."""
+
+    def setUp(self):
+        """Set up test fixtures."""
+        self.locations_patcher = patch("app.scrapers.scraper_base.get_locations_for_brand")
+        self.mock_get_locations = self.locations_patcher.start()
+        self.mock_get_locations.return_value = [
+            {
+                "id": "test-bigdeal",
+                "name": "Big Deal Burgers",
+                "facebook": "https://www.facebook.com/test",
+                "enabled": True,
+            }
+        ]
+        self.scraper = BigDealScraper()
+
+    def tearDown(self):
+        """Clean up patches."""
+        self.locations_patcher.stop()
+
+    @patch("app.scrapers.bigdeal.time.sleep")
+    @patch.object(BigDealScraper, "_scrape_facebook_page_attempt")
+    def test_retry_on_timeout_error_succeeds_second_attempt(self, mock_attempt, mock_sleep):
+        """Test: Retry on TimeoutError, succeeds on second attempt."""
+        # First attempt times out, second succeeds
+        mock_attempt.side_effect = [
+            PlaywrightTimeoutError("Timeout waiting for selector"),
+            "Flavor: Vanilla",
+        ]
+
+        result = self.scraper._scrape_facebook_page("https://facebook.com/test")
+
+        self.assertEqual(result, "Flavor: Vanilla")
+        self.assertEqual(mock_attempt.call_count, 2)
+        mock_sleep.assert_called_once_with(2)  # 2^0 * 2 = 2 seconds
+
+    @patch("app.scrapers.bigdeal.time.sleep")
+    @patch.object(BigDealScraper, "_scrape_facebook_page_attempt")
+    def test_retry_on_timeout_error_max_retries_reached(self, mock_attempt, mock_sleep):
+        """Test: Max retries reached after multiple timeouts."""
+        # All attempts time out
+        mock_attempt.side_effect = PlaywrightTimeoutError("Timeout")
+
+        result = self.scraper._scrape_facebook_page("https://facebook.com/test")
+
+        self.assertIsNone(result)
+        self.assertEqual(mock_attempt.call_count, 3)  # MAX_RETRIES
+        self.assertEqual(mock_sleep.call_count, 2)  # Delays before 2nd and 3rd attempts
+        # Check exponential backoff: 2, 4 seconds
+        mock_sleep.assert_any_call(2)
+        mock_sleep.assert_any_call(4)
+
+    @patch("app.scrapers.bigdeal.time.sleep")
+    @patch.object(BigDealScraper, "_scrape_facebook_page_attempt")
+    def test_retry_on_playwright_error(self, mock_attempt, mock_sleep):
+        """Test: Retry on PlaywrightError."""
+        # First attempt has Playwright error, second succeeds
+        mock_attempt.side_effect = [
+            PlaywrightError("Browser disconnected"),
+            "Flavor: Chocolate",
+        ]
+
+        result = self.scraper._scrape_facebook_page("https://facebook.com/test")
+
+        self.assertEqual(result, "Flavor: Chocolate")
+        self.assertEqual(mock_attempt.call_count, 2)
+        mock_sleep.assert_called_once_with(2)
+
+    @patch.object(BigDealScraper, "_scrape_facebook_page_attempt")
+    def test_no_retry_on_unexpected_error(self, mock_attempt):
+        """Test: No retry on unexpected non-Playwright errors."""
+        # Unexpected error should not retry
+        mock_attempt.side_effect = ValueError("Invalid value")
+
+        result = self.scraper._scrape_facebook_page("https://facebook.com/test")
+
+        self.assertIsNone(result)
+        self.assertEqual(mock_attempt.call_count, 1)  # No retries
+
+    @patch("app.scrapers.bigdeal.time.sleep")
+    @patch.object(BigDealScraper, "_scrape_facebook_page_attempt")
+    def test_exponential_backoff_delay(self, mock_attempt, mock_sleep):
+        """Test: Exponential backoff delay calculation."""
+        # All attempts fail
+        mock_attempt.side_effect = PlaywrightTimeoutError("Timeout")
+
+        self.scraper._scrape_facebook_page("https://facebook.com/test")
+
+        # Verify delays: 2s (2^0 * 2), 4s (2^1 * 2)
+        calls = mock_sleep.call_args_list
+        self.assertEqual(len(calls), 2)
+        self.assertEqual(calls[0][0][0], 2)  # First delay: 2 seconds
+        self.assertEqual(calls[1][0][0], 4)  # Second delay: 4 seconds
+
+
+class TestBigDealHandleRetry(unittest.TestCase):
+    """Test the _handle_retry helper method."""
+
+    def setUp(self):
+        """Set up test fixtures."""
+        self.locations_patcher = patch("app.scrapers.scraper_base.get_locations_for_brand")
+        self.mock_get_locations = self.locations_patcher.start()
+        self.mock_get_locations.return_value = [
+            {
+                "id": "test-bigdeal",
+                "name": "Big Deal Burgers",
+                "facebook": "https://www.facebook.com/test",
+                "enabled": True,
+            }
+        ]
+        self.scraper = BigDealScraper()
+
+    def tearDown(self):
+        """Clean up patches."""
+        self.locations_patcher.stop()
+
+    @patch("app.scrapers.bigdeal.time.sleep")
+    def test_handle_retry_first_attempt(self, mock_sleep):
+        """Test: First attempt returns True and sleeps for 2 seconds."""
+        result = self.scraper._handle_retry(0, "Test error")
+
+        self.assertTrue(result)
+        mock_sleep.assert_called_once_with(2)
+
+    @patch("app.scrapers.bigdeal.time.sleep")
+    def test_handle_retry_second_attempt(self, mock_sleep):
+        """Test: Second attempt returns True and sleeps for 4 seconds."""
+        result = self.scraper._handle_retry(1, "Test error")
+
+        self.assertTrue(result)
+        mock_sleep.assert_called_once_with(4)
+
+    @patch("app.scrapers.bigdeal.time.sleep")
+    def test_handle_retry_max_retries(self, mock_sleep):
+        """Test: Max retries returns False and does not sleep."""
+        result = self.scraper._handle_retry(2, "Test error")  # Attempt 2 = 3rd attempt
+
+        self.assertFalse(result)
+        mock_sleep.assert_not_called()
 
 
 class TestBigDealScraperIntegration(unittest.TestCase):
