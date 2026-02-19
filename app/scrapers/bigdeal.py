@@ -101,12 +101,14 @@ class BigDealScraper(BaseScraper):
                         self.logger.debug(f"Post {i} is not from today, skipping")
                         continue
 
-                    text_content = article.inner_text().lower()
+                    # Fetch inner text once to avoid duplicate cross-browser calls
+                    text_content = article.inner_text()
+                    text_lower = text_content.lower()
 
                     # Check if this post mentions flavor or custard
-                    if any(keyword in text_content for keyword in ["flavor", "custard", "today"]):
+                    if any(keyword in text_lower for keyword in ["flavor", "custard", "today"]):
                         self.logger.debug(f"Found flavor post at index {i}")
-                        return article.inner_text()
+                        return text_content
 
                 self.logger.warning("No recent flavor post found in first 5 posts")
                 return None
