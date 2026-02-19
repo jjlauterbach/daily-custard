@@ -1,6 +1,7 @@
 import datetime
 import logging
 import os
+import re
 from zoneinfo import ZoneInfo
 
 import yaml
@@ -38,3 +39,79 @@ def get_central_time():
 
 def get_central_date_string():
     return get_central_time().strftime("%Y-%m-%d")
+
+
+def is_facebook_post_from_today(article, logger=None):
+    """
+    Check if a Facebook post is from today by examining its timestamp.
+
+    Facebook shows relative timestamps:
+    - "Just now", "Xm" (minutes), "Xh" (hours) = today
+    - "1d", "2d" (days) = not today
+    - Specific dates = not today
+
+    Args:
+        article: Playwright ElementHandle for the post article
+        logger: Optional logger for debug messages
+
+    Returns:
+        bool: True if post is from today, False otherwise
+    """
+    try:
+        # Get all text from the article's header area (usually contains timestamp)
+        # Facebook timestamps are typically in the first few lines of the post
+        article_text = article.inner_text()
+
+        # Look at the first 200 characters where timestamps typically appear
+        header_text = article_text[:200]
+
+        # Patterns that indicate the post is from today:
+        # - "Just now"
+        # - "Xm" or "X mins" (minutes ago)
+        # - "Xh" or "X hrs" or "X hours" (hours ago)
+        today_patterns = [
+            r"\bjust now\b",
+            r"\b\d+\s*m\b",  # "5m", "30 m"
+            r"\b\d+\s*min",  # "5 mins", "30 minutes"
+            r"\b\d+\s*h\b",  # "1h", "23 h"
+            r"\b\d+\s*hr",  # "1 hr", "2 hrs", "3 hours"
+        ]
+
+        # Patterns that indicate the post is NOT from today:
+        # - "Xd" or "X days" (days ago)
+        # - Month names (indicates specific date)
+        not_today_patterns = [
+            r"\b\d+\s*d\b",  # "1d", "2 d"
+            r"\b\d+\s*day",  # "1 day", "2 days"
+            r"\b(january|february|march|april|may|june|july|august|september|october|november|december)\b",
+            r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\b",
+        ]
+
+        header_lower = header_text.lower()
+
+        # Check for "not today" patterns first (more specific)
+        for pattern in not_today_patterns:
+            if re.search(pattern, header_lower):
+                if logger:
+                    logger.debug(f"Post timestamp indicates NOT today (matched: {pattern})")
+                return False
+
+        # Check for "today" patterns
+        for pattern in today_patterns:
+            if re.search(pattern, header_lower):
+                if logger:
+                    logger.debug(f"Post timestamp indicates today (matched: {pattern})")
+                return True
+
+        # If we can't find any recognizable timestamp, assume it might be today
+        # (better to check the post than skip it)
+        if logger:
+            logger.debug("Could not parse timestamp, assuming post might be from today")
+        return True
+
+    except Exception as e:
+        # If something goes wrong, assume the post might be from today
+        # (better to check than skip)
+        if logger:
+            logger.warning(f"Error checking post timestamp: {e}")
+        return True

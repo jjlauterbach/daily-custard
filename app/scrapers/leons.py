@@ -9,6 +9,7 @@ from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from playwright.sync_api import sync_playwright
 
 from app.scrapers.scraper_base import USER_AGENT, BaseScraper
+from app.scrapers.utils import is_facebook_post_from_today
 
 
 class LeonsScraper(BaseScraper):
@@ -187,6 +188,11 @@ class LeonsScraper(BaseScraper):
 
                 # Look through recent posts for flavor information
                 for i, article in enumerate(articles[:10]):  # Check first 10 posts
+                    # Check if post is from today
+                    if not is_facebook_post_from_today(article, self.logger):
+                        self.logger.debug(f"Post {i} is not from today, skipping")
+                        continue
+
                     # Fetch inner text once to avoid duplicate cross-browser calls
                     text_content = article.inner_text()
                     text_lower = text_content.lower()

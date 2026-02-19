@@ -19,6 +19,7 @@ import yaml
 # Add the project root to the path so we can import app modules
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from app.scrapers.bigdeal import scrape_bigdeal  # noqa: E402
 from app.scrapers.bubbas import scrape_bubbas  # noqa: E402
 from app.scrapers.culvers import scrape_culvers  # noqa: E402
 from app.scrapers.gilles import scrape_gilles  # noqa: E402
@@ -88,6 +89,7 @@ def scrape_all():
         scrape_bubbas,
         scrape_gilles,
         scrape_leons,
+        scrape_bigdeal,
     ]
 
     # Load location data

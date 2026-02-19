@@ -44,7 +44,7 @@ jobs:
         if: failure()
         run: |
           curl -H "Authorization: Bearer ${{ secrets.NTFY_TOKEN}}" \
-               -H "Title: Daily Flavors Scraper Ecosystem Test Failed" \
+               -H "Title: Daily Custard Scraper Ecosystem Test Failed" \
                -H "Priority: urgent" \
                -d "The daily scraper ecosystem test has failed. Check logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
                ${{ secrets.NTFY_TOPIC_URL }}

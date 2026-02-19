@@ -37,8 +37,6 @@ class OscarsScraper(BaseScraper):
             location_name = location.get("name", "Oscar's Frozen Custard")
             location_url = location.get("url")
 
-            self.log_location(location_name)
-
             driver.execute_cdp_cmd(
                 "Page.addScriptToEvaluateOnNewDocument",
                 {

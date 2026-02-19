@@ -206,9 +206,13 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         """Clean up patches."""
         self.locations_patcher.stop()
 
+    @patch("app.scrapers.leons.is_facebook_post_from_today")
     @patch("app.scrapers.leons.sync_playwright")
-    def test_scrape_facebook_success_first_post(self, mock_playwright):
+    def test_scrape_facebook_success_first_post(self, mock_playwright, mock_is_today):
         """Test: Successfully scrape flavor from first post."""
+        # Mock date validation to return True (post is from today)
+        mock_is_today.return_value = True
+
         # Setup mocks
         mock_browser = Mock()
         mock_context = Mock()
@@ -238,9 +242,13 @@ class TestLeonsFacebookScraping(unittest.TestCase):
             '[role="article"]', timeout=self.scraper.SELECTOR_TIMEOUT
         )
 
+    @patch("app.scrapers.leons.is_facebook_post_from_today")
     @patch("app.scrapers.leons.sync_playwright")
-    def test_scrape_facebook_success_third_post(self, mock_playwright):
+    def test_scrape_facebook_success_third_post(self, mock_playwright, mock_is_today):
         """Test: Find flavor in third post (skips first two)."""
+        # Mock date validation to return True (post is from today)
+        mock_is_today.return_value = True
+
         mock_browser = Mock()
         mock_context = Mock()
         mock_page = Mock()
@@ -287,9 +295,13 @@ class TestLeonsFacebookScraping(unittest.TestCase):
 
         self.assertIsNone(result)
 
+    @patch("app.scrapers.leons.is_facebook_post_from_today")
     @patch("app.scrapers.leons.sync_playwright")
-    def test_scrape_facebook_no_flavor_post(self, mock_playwright):
+    def test_scrape_facebook_no_flavor_post(self, mock_playwright, mock_is_today):
         """Test: Posts found but none contain flavor information."""
+        # Mock date validation to return True (post is from today)
+        mock_is_today.return_value = True
+
         mock_browser = Mock()
         mock_context = Mock()
         mock_page = Mock()
@@ -313,9 +325,13 @@ class TestLeonsFacebookScraping(unittest.TestCase):
 
         self.assertIsNone(result)
 
+    @patch("app.scrapers.leons.is_facebook_post_from_today")
     @patch("app.scrapers.leons.sync_playwright")
-    def test_scrape_facebook_checks_keywords(self, mock_playwright):
+    def test_scrape_facebook_checks_keywords(self, mock_playwright, mock_is_today):
         """Test: Post must contain both 'flavor' and time keywords."""
+        # Mock date validation to return True (post is from today)
+        mock_is_today.return_value = True
+
         mock_browser = Mock()
         mock_context = Mock()
         mock_page = Mock()
@@ -345,9 +361,13 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         # Should find third article
         self.assertEqual(result, "flavor of the day: Mint Chip")
 
+    @patch("app.scrapers.leons.is_facebook_post_from_today")
     @patch("app.scrapers.leons.sync_playwright")
-    def test_scrape_facebook_filters_non_announcement_posts(self, mock_playwright):
+    def test_scrape_facebook_filters_non_announcement_posts(self, mock_playwright, mock_is_today):
         """Test: Posts with 'flavor' and time keywords but no announcement pattern are filtered out."""
+        # Mock date validation to return True (post is from today)
+        mock_is_today.return_value = True
+
         mock_browser = Mock()
         mock_context = Mock()
         mock_page = Mock()
@@ -375,9 +395,13 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         # Should skip first article and find second
         self.assertEqual(result, "MINT OREO is our flavor of the day!!")
 
+    @patch("app.scrapers.leons.is_facebook_post_from_today")
     @patch("app.scrapers.leons.sync_playwright")
-    def test_scrape_facebook_only_checks_first_10_posts(self, mock_playwright):
+    def test_scrape_facebook_only_checks_first_10_posts(self, mock_playwright, mock_is_today):
         """Test: Only checks first 10 posts, not all posts."""
+        # Mock date validation to return True (post is from today)
+        mock_is_today.return_value = True
+
         mock_browser = Mock()
         mock_context = Mock()
         mock_page = Mock()
@@ -434,6 +458,42 @@ class TestLeonsFacebookScraping(unittest.TestCase):
 
         # Browser close should still be called
         mock_browser.close.assert_called_once()
+
+    @patch("app.scrapers.leons.is_facebook_post_from_today")
+    @patch("app.scrapers.leons.sync_playwright")
+    def test_scrape_facebook_skips_old_posts(self, mock_playwright, mock_is_today):
+        """Test: Old posts (not from today) are skipped."""
+        # First two posts are old (return False), third is today (return True)
+        mock_is_today.side_effect = [False, False, True]
+
+        mock_browser = Mock()
+        mock_context = Mock()
+        mock_page = Mock()
+
+        # Create 3 articles
+        mock_article1 = Mock()
+        mock_article1.inner_text.return_value = "Yesterday's daily flavor was Chocolate"
+
+        mock_article2 = Mock()
+        mock_article2.inner_text.return_value = "Old post about flavor of the day"
+
+        mock_article3 = Mock()
+        mock_article3.inner_text.return_value = "BUTTER PECAN is the flavor of the day!"
+
+        mock_page.query_selector_all.return_value = [mock_article1, mock_article2, mock_article3]
+
+        mock_context.new_page.return_value = mock_page
+        mock_browser.new_context.return_value = mock_context
+        mock_playwright.return_value.__enter__.return_value.chromium.launch.return_value = (
+            mock_browser
+        )
+
+        result = self.scraper._scrape_facebook_page("https://facebook.com/test")
+
+        # Should skip first two and find third
+        self.assertEqual(result, "BUTTER PECAN is the flavor of the day!")
+        # Verify date check was called 3 times
+        self.assertEqual(mock_is_today.call_count, 3)
 
 
 class TestLeonsRetryLogic(unittest.TestCase):

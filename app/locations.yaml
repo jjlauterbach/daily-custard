@@ -98,12 +98,22 @@ leons:
     facebook: "https://www.facebook.com/LeonsCustard/"
     enabled: true
 
+bigdeal:
+  - id: bigdeal-main
+    name: "Big Deal Burgers"
+    brand: Bigdeal
+    address: "1440 S 84th St, West Allis, WI 53214"
+    lat: 43.02475719719434
+    lng: -88.01325003913674
+    url: "https://bigdealburgers.com/"
+    facebook: "https://www.facebook.com/BigDealBurgers/"
+    enabled: true
+
 
 
 
 # Places to add
 # https://leducscustard.com/
-# https://www.facebook.com/BigDealBurgers/  https://bigdealburgers.com/
 # https://www.fredsfrozencustard.com/
 # https://georgieporgies.com/georgies-flavor-forecast/
 # https://www.hefnerscustard.com/
