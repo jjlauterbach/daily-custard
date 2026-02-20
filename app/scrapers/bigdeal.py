@@ -1,5 +1,6 @@
 """Scraper for Big Deal Burgers using Playwright to scrape Facebook."""
 
+import html
 import re
 import time
 
@@ -211,6 +212,39 @@ class BigDealScraper(BaseScraper):
                     except Exception:
                         pass
 
+    def _sanitize_flavor_name(self, flavor):
+        """
+        Sanitize a flavor name by decoding HTML entities, removing emojis, and cleaning punctuation.
+
+        This method:
+        - Strips leading/trailing whitespace and common leading punctuation (:,-)
+        - Decodes HTML entities (e.g., &amp; → &, &#39; → ')
+        - Removes emojis and truncates everything after the first emoji
+        - Truncates content after common terminators (!, ., double-space)
+
+        Args:
+            flavor: Raw flavor name extracted from text
+
+        Returns:
+            str: Sanitized flavor name
+        """
+        # Strip leading/trailing whitespace and common leading punctuation
+        flavor = flavor.strip().lstrip(":,-")
+        # Decode HTML entities
+        flavor = html.unescape(flavor)
+        # Remove emojis and everything after them
+        # Covers: Emoticons, Transport/Map, Misc Symbols, Pictographs, Dingbats
+        flavor = re.sub(
+            r"\s*[\U0001F600-\U0001F64F\U0001F680-\U0001F6FF\U0001F300-\U0001F5FF"
+            r"\U0001F900-\U0001F9FF\u2600-\u26FF\u2700-\u27BF]+.*$",
+            "",
+            flavor,
+        )
+        # Remove content after common terminators (for non-emoji cases)
+        # Split on '!', double space, or '.' and take first part
+        flavor = re.split(r"[!.]|  ", flavor)[0].strip()
+        return flavor
+
     def _extract_flavor_name(self, text):
         """
         Extract the flavor name and description from a Facebook post.
@@ -238,13 +272,7 @@ class BigDealScraper(BaseScraper):
         for pattern in patterns:
             match = re.search(pattern, text, re.IGNORECASE | re.MULTILINE)
             if match:
-                full_text = match.group(1).strip()
-                # Clean up
-                full_text = re.sub(
-                    r"\s*[\U0001F300-\U0001F9FF]+.*$", "", full_text
-                )  # Remove emojis and after
-                full_text = full_text.split("!")[0].strip()
-                full_text = full_text.split("  ")[0].strip()  # Remove double space and after
+                full_text = self._sanitize_flavor_name(match.group(1))
 
                 # Extract flavor and description (separated by dash)
                 description = None
@@ -271,7 +299,7 @@ class BigDealScraper(BaseScraper):
                     if next_line and len(next_line) > 3 and len(next_line) < 100:
                         # Check if it looks like a flavor name (starts with capital)
                         if next_line[0].isupper():
-                            extracted = next_line.split("!")[0].split(".")[0].strip()
+                            extracted = self._sanitize_flavor_name(next_line)
                             self.logger.debug(f"Extracted flavor from next line: {extracted}")
                             return (extracted, None)
 
@@ -281,7 +309,7 @@ class BigDealScraper(BaseScraper):
                 )
                 cleaned = cleaned.strip(" :,-!.")
                 if cleaned and 3 < len(cleaned) < 100 and not cleaned.lower().startswith("is"):
-                    extracted = cleaned.split("!")[0].split(".")[0].strip()
+                    extracted = self._sanitize_flavor_name(cleaned)
                     self.logger.debug(f"Extracted flavor from same line: {extracted}")
                     return (extracted, None)
 

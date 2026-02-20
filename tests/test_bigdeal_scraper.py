@@ -194,6 +194,42 @@ Comment"""
         self.assertEqual(flavor, "Cookies & Cream")
         self.assertIsNone(description)
 
+    def test_extract_flavor_html_entity_ampersand(self):
+        """Test: HTML-encoded ampersand (&amp;) is decoded to &."""
+        text = "Today's flavor: Cookies &amp; Cream"
+        flavor, description = self.scraper._extract_flavor_name(text)
+        self.assertEqual(flavor, "Cookies & Cream")
+        self.assertIsNone(description)
+
+    def test_extract_flavor_html_entity_apostrophe(self):
+        """Test: HTML-encoded apostrophe (&#39;) is decoded."""
+        text = "Flavor of the Day: S&#39;mores Delight"
+        flavor, description = self.scraper._extract_flavor_name(text)
+        self.assertEqual(flavor, "S'mores Delight")
+        self.assertIsNone(description)
+
+    def test_extract_flavor_html_entity_quote(self):
+        """Test: HTML-encoded double quote (&quot;) is decoded."""
+        text = "Flavor of the Day: Grandma&quot;s Peach"
+        flavor, description = self.scraper._extract_flavor_name(text)
+        self.assertEqual(flavor, 'Grandma"s Peach')
+        self.assertIsNone(description)
+
+    def test_sanitize_flavor_name_html_entities(self):
+        """Test: _sanitize_flavor_name decodes HTML entities."""
+        self.assertEqual(
+            self.scraper._sanitize_flavor_name("Cookies &amp; Cream"), "Cookies & Cream"
+        )
+        self.assertEqual(self.scraper._sanitize_flavor_name("S&#39;mores"), "S'mores")
+
+    def test_sanitize_flavor_name_removes_emojis(self):
+        """Test: _sanitize_flavor_name strips emojis and trailing content."""
+        self.assertEqual(self.scraper._sanitize_flavor_name("Cookie Dough 🍪 yum"), "Cookie Dough")
+
+    def test_sanitize_flavor_name_strips_punctuation(self):
+        """Test: _sanitize_flavor_name strips leading punctuation."""
+        self.assertEqual(self.scraper._sanitize_flavor_name(": Vanilla Bean"), "Vanilla Bean")
+
     def test_extract_flavor_newline_termination(self):
         """Test: Flavor extraction stops at newline."""
         text = "Flavor of the Day: Turtle Sundae\nCome try it today!"
@@ -442,19 +478,20 @@ class TestBigDealFacebookScraping(unittest.TestCase):
 
     @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
     @patch("app.scrapers.bigdeal.sync_playwright")
-    def test_scrape_facebook_expands_see_more_buttons(self, mock_playwright, mock_is_today):
-        """Test: 'See more' buttons are expanded before reading articles."""
+    def test_scrape_facebook_page_expands_see_more_buttons(self, mock_playwright, mock_is_today):
+        """Test: 'See more' buttons are clicked to expand truncated posts."""
         mock_is_today.return_value = True
 
         mock_browser = Mock()
         mock_context = Mock()
         mock_page = Mock()
 
+        # Setup a visible "See more" button
         mock_see_more_btn = Mock()
         mock_see_more_btn.is_visible.return_value = True
 
         mock_article = Mock()
-        mock_article.inner_text.return_value = "Today's flavor is Chocolate Chip!"
+        mock_article.inner_text.return_value = "Today's flavor is Vanilla Bean!"
 
         # Route query_selector_all calls by selector argument
         def selector_side_effect(selector):
@@ -463,6 +500,7 @@ class TestBigDealFacebookScraping(unittest.TestCase):
             return [mock_article]
 
         mock_page.query_selector_all.side_effect = selector_side_effect
+
         mock_context.new_page.return_value = mock_page
         mock_browser.new_context.return_value = mock_context
         mock_playwright.return_value.__enter__.return_value.chromium.launch.return_value = (
@@ -471,9 +509,9 @@ class TestBigDealFacebookScraping(unittest.TestCase):
 
         result = self.scraper._scrape_facebook_page("https://facebook.com/test")
 
-        self.assertEqual(result, "Today's flavor is Chocolate Chip!")
-        # Verify 'See more' button was clicked
+        # Verify "See more" button was clicked to expand truncated content
         mock_see_more_btn.click.assert_called_once()
+        self.assertEqual(result, "Today's flavor is Vanilla Bean!")
 
     @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
     @patch("app.scrapers.bigdeal.sync_playwright")
