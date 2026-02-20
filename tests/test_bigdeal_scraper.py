@@ -210,14 +210,16 @@ Comment"""
 
     def test_extract_flavor_html_entity_quote(self):
         """Test: HTML-encoded double quote (&quot;) is decoded."""
-        text = 'Flavor of the Day: Grandma&quot;s Peach'
+        text = "Flavor of the Day: Grandma&quot;s Peach"
         flavor, description = self.scraper._extract_flavor_name(text)
         self.assertEqual(flavor, 'Grandma"s Peach')
         self.assertIsNone(description)
 
     def test_sanitize_flavor_name_html_entities(self):
         """Test: _sanitize_flavor_name decodes HTML entities."""
-        self.assertEqual(self.scraper._sanitize_flavor_name("Cookies &amp; Cream"), "Cookies & Cream")
+        self.assertEqual(
+            self.scraper._sanitize_flavor_name("Cookies &amp; Cream"), "Cookies & Cream"
+        )
         self.assertEqual(self.scraper._sanitize_flavor_name("S&#39;mores"), "S'mores")
 
     def test_sanitize_flavor_name_removes_emojis(self):
@@ -450,6 +452,32 @@ class TestBigDealFacebookScraping(unittest.TestCase):
 
     @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
     @patch("app.scrapers.bigdeal.sync_playwright")
+    def test_scrape_facebook_scrolls_before_querying(self, mock_playwright, mock_is_today):
+        """Test: Page is scrolled before querying for articles."""
+        mock_is_today.return_value = True
+
+        mock_browser = Mock()
+        mock_context = Mock()
+        mock_page = Mock()
+        mock_article = Mock()
+        mock_article.inner_text.return_value = "Today's flavor is Vanilla Bean!"
+
+        mock_page.query_selector_all.return_value = [mock_article]
+        mock_context.new_page.return_value = mock_page
+        mock_browser.new_context.return_value = mock_context
+        mock_playwright.return_value.__enter__.return_value.chromium.launch.return_value = (
+            mock_browser
+        )
+
+        self.scraper._scrape_facebook_page("https://facebook.com/test")
+
+        # Verify page was scrolled down before articles were queried
+        mock_page.evaluate.assert_called_once_with(
+            "window.scrollTo(0, document.body.scrollHeight / 2)"
+        )
+
+    @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
+    @patch("app.scrapers.bigdeal.sync_playwright")
     def test_scrape_facebook_page_expands_see_more_buttons(self, mock_playwright, mock_is_today):
         """Test: 'See more' buttons are clicked to expand truncated posts."""
         mock_is_today.return_value = True
@@ -465,11 +493,13 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         mock_article = Mock()
         mock_article.inner_text.return_value = "Today's flavor is Vanilla Bean!"
 
-        # First call returns see_more buttons, second returns articles
-        mock_page.query_selector_all.side_effect = [
-            [mock_see_more_btn],
-            [mock_article],
-        ]
+        # Route query_selector_all calls by selector argument
+        def selector_side_effect(selector):
+            if selector == 'text="See more"':
+                return [mock_see_more_btn]
+            return [mock_article]
+
+        mock_page.query_selector_all.side_effect = selector_side_effect
 
         mock_context.new_page.return_value = mock_page
         mock_browser.new_context.return_value = mock_context
