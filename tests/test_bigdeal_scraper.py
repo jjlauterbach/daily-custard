@@ -194,6 +194,40 @@ Comment"""
         self.assertEqual(flavor, "Cookies & Cream")
         self.assertIsNone(description)
 
+    def test_extract_flavor_html_entity_ampersand(self):
+        """Test: HTML-encoded ampersand (&amp;) is decoded to &."""
+        text = "Today's flavor: Cookies &amp; Cream"
+        flavor, description = self.scraper._extract_flavor_name(text)
+        self.assertEqual(flavor, "Cookies & Cream")
+        self.assertIsNone(description)
+
+    def test_extract_flavor_html_entity_apostrophe(self):
+        """Test: HTML-encoded apostrophe (&#39;) is decoded."""
+        text = "Flavor of the Day: S&#39;mores Delight"
+        flavor, description = self.scraper._extract_flavor_name(text)
+        self.assertEqual(flavor, "S'mores Delight")
+        self.assertIsNone(description)
+
+    def test_extract_flavor_html_entity_quote(self):
+        """Test: HTML-encoded double quote (&quot;) is decoded."""
+        text = 'Flavor of the Day: Grandma&quot;s Peach'
+        flavor, description = self.scraper._extract_flavor_name(text)
+        self.assertEqual(flavor, 'Grandma"s Peach')
+        self.assertIsNone(description)
+
+    def test_sanitize_flavor_name_html_entities(self):
+        """Test: _sanitize_flavor_name decodes HTML entities."""
+        self.assertEqual(self.scraper._sanitize_flavor_name("Cookies &amp; Cream"), "Cookies & Cream")
+        self.assertEqual(self.scraper._sanitize_flavor_name("S&#39;mores"), "S'mores")
+
+    def test_sanitize_flavor_name_removes_emojis(self):
+        """Test: _sanitize_flavor_name strips emojis and trailing content."""
+        self.assertEqual(self.scraper._sanitize_flavor_name("Cookie Dough 🍪 yum"), "Cookie Dough")
+
+    def test_sanitize_flavor_name_strips_punctuation(self):
+        """Test: _sanitize_flavor_name strips leading punctuation."""
+        self.assertEqual(self.scraper._sanitize_flavor_name(": Vanilla Bean"), "Vanilla Bean")
+
     def test_extract_flavor_newline_termination(self):
         """Test: Flavor extraction stops at newline."""
         text = "Flavor of the Day: Turtle Sundae\nCome try it today!"
