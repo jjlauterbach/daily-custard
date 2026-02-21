@@ -30,7 +30,7 @@ from app.scrapers.oscars import scrape_oscars  # noqa: E402
 
 # Configure logging
 logging.basicConfig(
-    level=logging.DEBUG,
+    level=logging.INFO,
     format="%(asctime)s %(name)s %(levelname)s %(message)s",
 )
 logger = logging.getLogger(__name__)
