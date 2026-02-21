@@ -179,8 +179,7 @@ class BigDealScraper(BaseScraper):
                     # Check if this article is nested within another article
                     # by looking for a parent with role="article"
                     try:
-                        parent_article = article.evaluate(
-                            """(element) => {
+                        parent_article = article.evaluate("""(element) => {
                                 let parent = element.parentElement;
                                 while (parent) {
                                     if (parent.getAttribute('role') === 'article' && parent !== element) {
@@ -189,8 +188,7 @@ class BigDealScraper(BaseScraper):
                                     parent = parent.parentElement;
                                 }
                                 return false;
-                            }"""
-                        )
+                            }""")
                         if not parent_article:
                             top_level_articles.append(article)
                     except Exception:
@@ -283,7 +281,8 @@ class BigDealScraper(BaseScraper):
                         r"custard flavor",
                     ]
                     has_announcement_pattern = any(
-                        re.search(pattern, text_lower, re.IGNORECASE) for pattern in announcement_patterns
+                        re.search(pattern, text_lower, re.IGNORECASE)
+                        for pattern in announcement_patterns
                     )
 
                     if has_flavor_word and (has_time_word or has_announcement_pattern):
