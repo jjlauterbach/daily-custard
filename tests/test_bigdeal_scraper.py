@@ -527,10 +527,10 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         mock_article.inner_text.return_value = "Today's flavor is Vanilla Bean!"
         # Simulate top-level post (not nested in another article/comment)
         mock_article.evaluate.return_value = False
-        # Article returns a "See more" button when queried with per-article selector
-        mock_article.query_selector.return_value = mock_see_more_btn
 
         mock_page.query_selector_all.return_value = [mock_article]
+        # Article returns a "See more" button when queried with per-article selector
+        mock_article.query_selector.return_value = mock_see_more_btn
 
         mock_context.new_page.return_value = mock_page
         mock_browser.new_context.return_value = mock_context
