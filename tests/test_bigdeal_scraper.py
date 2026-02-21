@@ -270,6 +270,27 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         """Clean up patches."""
         self.locations_patcher.stop()
 
+    def _create_mock_article(self, text_content, is_nested=False):
+        """
+        Create a properly mocked article with all required methods.
+
+        Args:
+            text_content: The text content to return from inner_text()
+            is_nested: Whether this article is nested within another (i.e., a comment)
+
+        Returns:
+            Mock article object
+        """
+        mock_article = Mock()
+        mock_article.inner_text.return_value = text_content
+        # Mock evaluate() to return whether article is nested (False = top-level post)
+        mock_article.evaluate.return_value = is_nested
+        # Mock query_selector() to return None (no "See more" button)
+        mock_article.query_selector.return_value = None
+        # Mock is_visible() in case it's checked
+        mock_article.is_visible.return_value = True
+        return mock_article
+
     @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
     @patch("app.scrapers.bigdeal.sync_playwright")
     def test_scrape_facebook_success_first_post(self, mock_playwright, mock_is_today):
@@ -491,7 +512,7 @@ class TestBigDealFacebookScraping(unittest.TestCase):
     @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
     @patch("app.scrapers.bigdeal.sync_playwright")
     def test_scrape_facebook_page_expands_see_more_buttons(self, mock_playwright, mock_is_today):
-        """Test: 'See more' buttons are clicked to expand truncated posts."""
+        """Test: 'See more' buttons are expanded per-article (not page-wide)."""
         mock_is_today.return_value = True
 
         mock_browser = Mock()
@@ -507,13 +528,9 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         # Simulate top-level post (not nested in another article/comment)
         mock_article.evaluate.return_value = False
 
-        # Route query_selector_all calls by selector argument
-        def selector_side_effect(selector):
-            if selector == 'text="See more"':
-                return [mock_see_more_btn]
-            return [mock_article]
-
-        mock_page.query_selector_all.side_effect = selector_side_effect
+        mock_page.query_selector_all.return_value = [mock_article]
+        # Article returns a "See more" button when queried with per-article selector
+        mock_article.query_selector.return_value = mock_see_more_btn
 
         mock_context.new_page.return_value = mock_page
         mock_browser.new_context.return_value = mock_context
@@ -523,7 +540,7 @@ class TestBigDealFacebookScraping(unittest.TestCase):
 
         result = self.scraper._scrape_facebook_page("https://facebook.com/test")
 
-        # Verify "See more" button was clicked to expand truncated content
+        # Verify "See more" button was clicked per-article to expand truncated content
         mock_see_more_btn.click.assert_called_once()
         self.assertEqual(result, "Today's flavor is Vanilla Bean!")
 
