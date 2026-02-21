@@ -219,8 +219,21 @@ class BigDealScraper(BaseScraper):
                         self.logger.debug(f"Post {i} is not from today, skipping")
                         continue
 
-                    # Fetch inner text once to avoid duplicate cross-browser calls
-                    text_content = article.inner_text()
+                    # Fetch inner text once to avoid duplicate cross-browser calls.
+                    # This is wrapped in try/except to avoid crashing on malformed posts.
+                    try:
+                        text_content = article.inner_text()
+                    except PlaywrightError as e:
+                        self.logger.debug(f"Failed to extract text from post {i}: {e}")
+                        continue
+                    except Exception as e:
+                        # Catch any unexpected errors from Playwright DOM interaction.
+                        self.logger.debug(f"Unexpected error extracting text from post {i}: {e}")
+                        continue
+
+                    if not text_content or not text_content.strip():
+                        self.logger.debug(f"Post {i} has no text content, skipping")
+                        continue
                     text_lower = text_content.lower()
 
                     # Use a more precise heuristic to detect flavor announcements.
