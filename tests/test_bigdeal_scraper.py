@@ -542,6 +542,37 @@ class TestBigDealFacebookScraping(unittest.TestCase):
 
         self.assertEqual(result, "Today's flavor: Strawberry")
 
+    @patch("app.scrapers.bigdeal.is_facebook_post_from_today")
+    @patch("app.scrapers.bigdeal.sync_playwright")
+    def test_scrape_facebook_inner_text_error_continues_to_next_post(
+        self, mock_playwright, mock_is_today
+    ):
+        """Test: inner_text() error (e.g. detached element) skips post and continues."""
+        mock_is_today.return_value = True
+
+        mock_browser = Mock()
+        mock_context = Mock()
+        mock_page = Mock()
+
+        # First article raises PlaywrightError (detached/stale element)
+        mock_article1 = self._create_mock_article("")
+        mock_article1.inner_text.side_effect = PlaywrightError("Element is detached from DOM")
+
+        # Second article has valid flavor content
+        mock_article2 = self._create_mock_article("Today's flavor is Vanilla!")
+
+        mock_page.query_selector_all.return_value = [mock_article1, mock_article2]
+        mock_context.new_page.return_value = mock_page
+        mock_browser.new_context.return_value = mock_context
+        mock_playwright.return_value.__enter__.return_value.chromium.launch.return_value = (
+            mock_browser
+        )
+
+        # Should skip the bad element and return flavor from second article
+        result = self.scraper._scrape_facebook_page("https://facebook.com/test")
+
+        self.assertEqual(result, "Today's flavor is Vanilla!")
+
 
 class TestBigDealRetryLogic(unittest.TestCase):
     """Test the retry logic and error handling."""
