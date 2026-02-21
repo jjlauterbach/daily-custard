@@ -168,36 +168,107 @@ class LeonsScraper(BaseScraper):
                 except Exception:
                     pass
 
-                # Expand "See more" links to reveal full post content
-                try:
-                    see_more_buttons = page.query_selector_all('text="See more"')
-                    self.logger.debug(f"Found {len(see_more_buttons)} 'See more' buttons to expand")
-                    for btn in see_more_buttons[:10]:  # Expand up to 10 posts
-                        try:
-                            if btn.is_visible():
-                                btn.click()
-                                page.wait_for_timeout(500)  # Wait for expansion
-                        except Exception:
-                            pass  # Continue if a button fails to click
-                except Exception as e:
-                    self.logger.debug(f"Could not expand 'See more' buttons: {e}")
+                # Get all post articles first
+                all_articles = page.query_selector_all('[role="article"]')
+                self.logger.debug(f"Found {len(all_articles)} total articles (including comments)")
 
-                # Get all post articles (after expansion)
-                articles = page.query_selector_all('[role="article"]')
-                self.logger.debug(f"Found {len(articles)} posts on Facebook page")
+                # Filter out nested articles (comments) - only keep top-level posts
+                # Comments are article elements nested within post article elements
+                top_level_articles = []
+                for article in all_articles:
+                    # Check if this article is nested within another article
+                    # by looking for a parent with role="article"
+                    try:
+                        parent_article = article.evaluate(
+                            """(element) => {
+                                let parent = element.parentElement;
+                                while (parent) {
+                                    if (parent.getAttribute('role') === 'article' && parent !== element) {
+                                        return true;
+                                    }
+                                    parent = parent.parentElement;
+                                }
+                                return false;
+                            }"""
+                        )
+                        if not parent_article:
+                            top_level_articles.append(article)
+                    except Exception:
+                        # If evaluation fails, include the article to be safe
+                        top_level_articles.append(article)
+
+                self.logger.debug(
+                    f"Filtered to {len(top_level_articles)} top-level posts (excluding comments)"
+                )
+
+                # Now expand "See more" links ONLY in top-level posts to reveal full content
+                expanded_count = 0
+                for idx, article in enumerate(top_level_articles[:10]):  # Process first 10 posts
+                    try:
+                        # Look for "See more" button within this specific article
+                        # Try multiple selectors as Facebook structure can vary
+                        see_more = None
+                        selectors = [
+                            'div[role="button"]:has-text("See more")',
+                            '[role="button"]:has-text("See more")',
+                            'text="See more"',
+                        ]
+
+                        for selector in selectors:
+                            try:
+                                see_more = article.query_selector(selector)
+                                if see_more:
+                                    break
+                            except Exception:
+                                continue
+
+                        if see_more and see_more.is_visible():
+                            self.logger.debug(f"Expanding 'See more' in post {idx}")
+                            see_more.click()
+                            page.wait_for_timeout(500)  # Wait for expansion
+                            expanded_count += 1
+                        else:
+                            self.logger.debug(f"No 'See more' button found in post {idx}")
+                    except Exception as e:
+                        self.logger.debug(f"Could not expand 'See more' in article {idx}: {e}")
+                        pass  # Continue if expansion fails
+
+                self.logger.debug(
+                    f"Expanded {expanded_count} 'See more' buttons in top-level posts"
+                )
+
+                # Wait a bit longer after all expansions to let content fully render
+                if expanded_count > 0:
+                    page.wait_for_timeout(1000)
 
                 # Look through recent posts for flavor information
-                for i, article in enumerate(articles[:10]):  # Check first 10 posts
+                for i, article in enumerate(top_level_articles[:10]):  # Check first 10 posts
                     # Check if post is from today
                     if not is_facebook_post_from_today(article, self.logger):
                         self.logger.debug(f"Post {i} is not from today, skipping")
                         continue
 
                     # Fetch inner text once to avoid duplicate cross-browser calls
-                    text_content = article.inner_text()
+                    try:
+                        text_content = article.inner_text()
+                        if not text_content or text_content.strip() == "":
+                            self.logger.debug(f"Post {i}: Empty content, skipping")
+                            continue
+                    except Exception as e:
+                        self.logger.debug(f"Post {i}: Error getting text content: {e}")
+                        continue
+
                     text_lower = text_content.lower()
 
-                    self.logger.debug(f"Post {i}: {text_content[:100]}...")
+                    # Log a preview of the post content
+                    preview = text_content[:100].replace("\n", " ")
+                    self.logger.debug(f"Post {i}: {preview}...")
+
+                    # For debugging, log if the text seems unusually short
+                    if len(text_content) < 20:
+                        self.logger.debug(
+                            f"Post {i}: Unusually short content (length={len(text_content)}): {repr(text_content)}"
+                        )
 
                     # Check if this post mentions flavor and is specifically about today/of the day
                     if "flavor" in text_lower and any(

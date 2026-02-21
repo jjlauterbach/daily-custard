@@ -88,13 +88,13 @@ gilles:
     enabled: true
 
 leons:
-  - id: leons-main
+  - id: leons-fond-du-lac
     name: "Leon's Frozen Custard"
     brand: Leons
-    address: "3131 S 27th St, Milwaukee, WI 53215"
-    lat: 42.987966729691806
-    lng: -87.94870377380806
-    url: "https://leonsfrozencustardmke.com/"
+    address: "121 W Murdock Ave, Oshkosh, WI, United States, 54901"
+    lat: 44.080552821673784
+    lng: -88.53003838993757
+    url: "https://www.facebook.com/LeonsCustard/"
     facebook: "https://www.facebook.com/LeonsCustard/"
     enabled: true
 

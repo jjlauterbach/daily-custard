@@ -206,6 +206,27 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         """Clean up patches."""
         self.locations_patcher.stop()
 
+    def _create_mock_article(self, text_content, is_nested=False):
+        """
+        Create a properly mocked article with all required methods.
+
+        Args:
+            text_content: The text content to return from inner_text()
+            is_nested: Whether this article is nested within another (i.e., a comment)
+
+        Returns:
+            Mock article object
+        """
+        mock_article = Mock()
+        mock_article.inner_text.return_value = text_content
+        # Mock evaluate() to return whether article is nested (False = top-level post)
+        mock_article.evaluate.return_value = is_nested
+        # Mock query_selector() to return None (no "See more" button)
+        mock_article.query_selector.return_value = None
+        # Mock is_visible() in case it's checked
+        mock_article.is_visible.return_value = True
+        return mock_article
+
     @patch("app.scrapers.leons.is_facebook_post_from_today")
     @patch("app.scrapers.leons.sync_playwright")
     def test_scrape_facebook_success_first_post(self, mock_playwright, mock_is_today):
@@ -217,10 +238,9 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         mock_browser = Mock()
         mock_context = Mock()
         mock_page = Mock()
-        mock_article = Mock()
 
         # Setup article with flavor content
-        mock_article.inner_text.return_value = "Today's flavor of the day: VANILLA BEAN!"
+        mock_article = self._create_mock_article("Today's flavor of the day: VANILLA BEAN!")
 
         # Setup page to return one article
         mock_page.query_selector_all.return_value = [mock_article]
@@ -254,14 +274,9 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         mock_page = Mock()
 
         # Create 3 articles
-        mock_article1 = Mock()
-        mock_article1.inner_text.return_value = "Happy Monday everyone! Visit us today."
-
-        mock_article2 = Mock()
-        mock_article2.inner_text.return_value = "Check out our new hours!"
-
-        mock_article3 = Mock()
-        mock_article3.inner_text.return_value = "CHOCOLATE CHIP is our flavor of the day today!"
+        mock_article1 = self._create_mock_article("Happy Monday everyone! Visit us today.")
+        mock_article2 = self._create_mock_article("Check out our new hours!")
+        mock_article3 = self._create_mock_article("CHOCOLATE CHIP is our flavor of the day today!")
 
         mock_page.query_selector_all.return_value = [mock_article1, mock_article2, mock_article3]
 
@@ -309,9 +324,7 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         # Create articles without flavor content
         articles = []
         for i in range(5):
-            mock_article = Mock()
-            mock_article.inner_text.return_value = f"Post {i}: General information"
-            articles.append(mock_article)
+            articles.append(self._create_mock_article(f"Post {i}: General information"))
 
         mock_page.query_selector_all.return_value = articles
 
@@ -337,16 +350,13 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         mock_page = Mock()
 
         # First article has 'flavor' but no time keyword
-        mock_article1 = Mock()
-        mock_article1.inner_text.return_value = "We have amazing flavors! Visit us."
+        mock_article1 = self._create_mock_article("We have amazing flavors! Visit us.")
 
         # Second article has time keyword but no 'flavor'
-        mock_article2 = Mock()
-        mock_article2.inner_text.return_value = "Come see us today at our shop!"
+        mock_article2 = self._create_mock_article("Come see us today at our shop!")
 
         # Third article has both
-        mock_article3 = Mock()
-        mock_article3.inner_text.return_value = "flavor of the day: Mint Chip"
+        mock_article3 = self._create_mock_article("flavor of the day: Mint Chip")
 
         mock_page.query_selector_all.return_value = [mock_article1, mock_article2, mock_article3]
 
@@ -373,14 +383,12 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         mock_page = Mock()
 
         # First article: promotional content with 'flavor' and 'day' but not an announcement
-        mock_article1 = Mock()
-        mock_article1.inner_text.return_value = (
+        mock_article1 = self._create_mock_article(
             "A Taste of Yesterday Made Fresh Each Day. What's your favorite flavor?"
         )
 
         # Second article: actual flavor announcement
-        mock_article2 = Mock()
-        mock_article2.inner_text.return_value = "MINT OREO is our flavor of the day!!"
+        mock_article2 = self._create_mock_article("MINT OREO is our flavor of the day!!")
 
         mock_page.query_selector_all.return_value = [mock_article1, mock_article2]
 
@@ -409,20 +417,14 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         # Create 15 articles, flavor is in 11th
         articles = []
         for i in range(10):
-            mock_article = Mock()
-            mock_article.inner_text.return_value = f"Post {i}: No flavor here"
-            articles.append(mock_article)
+            articles.append(self._create_mock_article(f"Post {i}: No flavor here"))
 
         # 11th post has flavor (but should not be checked)
-        mock_article11 = Mock()
-        mock_article11.inner_text.return_value = "Today's flavor of the day: Butterscotch"
-        articles.append(mock_article11)
+        articles.append(self._create_mock_article("Today's flavor of the day: Butterscotch"))
 
         # Add more articles
         for i in range(4):
-            mock_article = Mock()
-            mock_article.inner_text.return_value = f"Post {i+11}: More content"
-            articles.append(mock_article)
+            articles.append(self._create_mock_article(f"Post {i+11}: More content"))
 
         mock_page.query_selector_all.return_value = articles
 
@@ -471,14 +473,9 @@ class TestLeonsFacebookScraping(unittest.TestCase):
         mock_page = Mock()
 
         # Create 3 articles
-        mock_article1 = Mock()
-        mock_article1.inner_text.return_value = "Yesterday's daily flavor was Chocolate"
-
-        mock_article2 = Mock()
-        mock_article2.inner_text.return_value = "Old post about flavor of the day"
-
-        mock_article3 = Mock()
-        mock_article3.inner_text.return_value = "BUTTER PECAN is the flavor of the day!"
+        mock_article1 = self._create_mock_article("Yesterday's daily flavor was Chocolate")
+        mock_article2 = self._create_mock_article("Old post about flavor of the day")
+        mock_article3 = self._create_mock_article("BUTTER PECAN is the flavor of the day!")
 
         mock_page.query_selector_all.return_value = [mock_article1, mock_article2, mock_article3]
 
