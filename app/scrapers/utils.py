@@ -41,7 +41,7 @@ def get_central_date_string():
     return get_central_time().strftime("%Y-%m-%d")
 
 
-def is_facebook_post_from_today(article, logger=None):
+def is_facebook_post_from_today(article, logger=None, article_text=None):
     """
     Check if a Facebook post is from today by examining its timestamp.
 
@@ -53,14 +53,17 @@ def is_facebook_post_from_today(article, logger=None):
     Args:
         article: Playwright ElementHandle for the post article
         logger: Optional logger for debug messages
+        article_text: Pre-fetched inner text of the article. When provided,
+            avoids an extra cross-process Playwright call.
 
     Returns:
         bool: True if post is from today, False otherwise
     """
     try:
-        # Get all text from the article's header area (usually contains timestamp)
-        # Facebook timestamps are typically in the first few lines of the post
-        article_text = article.inner_text()
+        # Use pre-fetched text if provided to avoid a duplicate cross-process call;
+        # fall back to fetching from the article element when not supplied.
+        if article_text is None:
+            article_text = article.inner_text()
 
         # Look at the first 200 characters where timestamps typically appear
         header_text = article_text[:200]

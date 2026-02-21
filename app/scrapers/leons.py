@@ -243,12 +243,7 @@ class LeonsScraper(BaseScraper):
 
                 # Look through recent posts for flavor information
                 for i, article in enumerate(top_level_articles[:10]):  # Check first 10 posts
-                    # Check if post is from today
-                    if not is_facebook_post_from_today(article, self.logger):
-                        self.logger.debug(f"Post {i} is not from today, skipping")
-                        continue
-
-                    # Fetch inner text once to avoid duplicate cross-browser calls
+                    # Fetch inner text once for both date validation and content processing
                     try:
                         text_content = article.inner_text()
                         if not text_content or text_content.strip() == "":
@@ -256,6 +251,11 @@ class LeonsScraper(BaseScraper):
                             continue
                     except Exception as e:
                         self.logger.debug(f"Post {i}: Error getting text content: {e}")
+                        continue
+
+                    # Check if post is from today using pre-fetched text
+                    if not is_facebook_post_from_today(article, self.logger, article_text=text_content):
+                        self.logger.debug(f"Post {i} is not from today, skipping")
                         continue
 
                     text_lower = text_content.lower()

@@ -243,12 +243,7 @@ class BigDealScraper(BaseScraper):
 
                 # Look through recent posts for flavor information
                 for i, article in enumerate(top_level_articles[:10]):  # Check first 10 posts
-                    # Check if post is from today
-                    if not is_facebook_post_from_today(article, self.logger):
-                        self.logger.debug(f"Post {i} is not from today, skipping")
-                        continue
-
-                    # Fetch inner text once to avoid duplicate cross-browser calls.
+                    # Fetch inner text once for both date validation and content processing.
                     # This is wrapped in try/except to avoid crashing on malformed posts.
                     try:
                         text_content = article.inner_text()
@@ -262,6 +257,11 @@ class BigDealScraper(BaseScraper):
 
                     if not text_content or not text_content.strip():
                         self.logger.debug(f"Post {i} has no text content, skipping")
+                        continue
+
+                    # Check if post is from today using pre-fetched text
+                    if not is_facebook_post_from_today(article, self.logger, article_text=text_content):
+                        self.logger.debug(f"Post {i} is not from today, skipping")
                         continue
                     text_lower = text_content.lower()
 
