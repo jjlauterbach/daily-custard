@@ -302,9 +302,12 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         mock_browser = Mock()
         mock_context = Mock()
         mock_page = Mock()
+        mock_article = Mock()
 
         # Setup article with flavor content
-        mock_article = self._create_mock_article("Today's flavor is Vanilla Bean!")
+        mock_article.inner_text.return_value = "Today's flavor is Vanilla Bean!"
+        # Simulate top-level post (not nested in another article/comment)
+        mock_article.evaluate.return_value = False
 
         # Setup page to return one article
         mock_page.query_selector_all.return_value = [mock_article]
@@ -336,9 +339,17 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         mock_page = Mock()
 
         # Create 3 articles - first two without flavor keywords
-        mock_article1 = self._create_mock_article("Happy Monday everyone! Visit us soon.")
-        mock_article2 = self._create_mock_article("Check out our new hours!")
-        mock_article3 = self._create_mock_article("Today's custard flavor: CHOCOLATE CHIP!")
+        mock_article1 = Mock()
+        mock_article1.inner_text.return_value = "Happy Monday everyone! Visit us soon."
+        mock_article1.evaluate.return_value = False
+
+        mock_article2 = Mock()
+        mock_article2.inner_text.return_value = "Check out our new hours!"
+        mock_article2.evaluate.return_value = False
+
+        mock_article3 = Mock()
+        mock_article3.inner_text.return_value = "Today's custard flavor: CHOCOLATE CHIP!"
+        mock_article3.evaluate.return_value = False
 
         mock_page.query_selector_all.return_value = [mock_article1, mock_article2, mock_article3]
 
@@ -386,7 +397,11 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         # Create articles without flavor content
         articles = []
         for i in range(5):
-            articles.append(self._create_mock_article(f"General post {i} about our restaurant."))
+            mock_article = Mock()
+            mock_article.inner_text.return_value = f"General post {i} about our restaurant."
+            # Simulate top-level post (not nested in another article/comment)
+            mock_article.evaluate.return_value = False
+            articles.append(mock_article)
 
         mock_page.query_selector_all.return_value = articles
 
@@ -439,9 +454,17 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         mock_page = Mock()
 
         # Create 3 articles
-        mock_article1 = self._create_mock_article("Yesterday's flavor was Chocolate")
-        mock_article2 = self._create_mock_article("Old post about custard")
-        mock_article3 = self._create_mock_article("Today's flavor is Vanilla!")
+        mock_article1 = Mock()
+        mock_article1.inner_text.return_value = "Yesterday's flavor was Chocolate"
+        mock_article1.evaluate.return_value = False
+
+        mock_article2 = Mock()
+        mock_article2.inner_text.return_value = "Old post about custard"
+        mock_article2.evaluate.return_value = False
+
+        mock_article3 = Mock()
+        mock_article3.inner_text.return_value = "Today's flavor is Vanilla!"
+        mock_article3.evaluate.return_value = False
 
         mock_page.query_selector_all.return_value = [mock_article1, mock_article2, mock_article3]
 
@@ -467,7 +490,10 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         mock_browser = Mock()
         mock_context = Mock()
         mock_page = Mock()
-        mock_article = self._create_mock_article("Today's flavor is Vanilla Bean!")
+        mock_article = Mock()
+        mock_article.inner_text.return_value = "Today's flavor is Vanilla Bean!"
+        # Simulate top-level post (not nested in another article/comment)
+        mock_article.evaluate.return_value = False
 
         mock_page.query_selector_all.return_value = [mock_article]
         mock_context.new_page.return_value = mock_page
@@ -497,8 +523,11 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         mock_see_more_btn = Mock()
         mock_see_more_btn.is_visible.return_value = True
 
+        mock_article = Mock()
+        mock_article.inner_text.return_value = "Today's flavor is Vanilla Bean!"
+        # Simulate top-level post (not nested in another article/comment)
+        mock_article.evaluate.return_value = False
         # Article returns a "See more" button when queried with per-article selector
-        mock_article = self._create_mock_article("Today's flavor is Vanilla Bean!")
         mock_article.query_selector.return_value = mock_see_more_btn
 
         mock_page.query_selector_all.return_value = [mock_article]
@@ -526,7 +555,10 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         mock_context = Mock()
         mock_page = Mock()
 
-        mock_article = self._create_mock_article("Today's flavor: Strawberry")
+        mock_article = Mock()
+        mock_article.inner_text.return_value = "Today's flavor: Strawberry"
+        # Simulate top-level post (not nested in another article/comment)
+        mock_article.evaluate.return_value = False
 
         mock_page.query_selector_all.return_value = [mock_article]
         mock_context.new_page.return_value = mock_page
@@ -555,11 +587,14 @@ class TestBigDealFacebookScraping(unittest.TestCase):
         mock_page = Mock()
 
         # First article raises PlaywrightError (detached/stale element)
-        mock_article1 = self._create_mock_article("")
+        mock_article1 = Mock()
         mock_article1.inner_text.side_effect = PlaywrightError("Element is detached from DOM")
+        mock_article1.evaluate.return_value = False
 
         # Second article has valid flavor content
-        mock_article2 = self._create_mock_article("Today's flavor is Vanilla!")
+        mock_article2 = Mock()
+        mock_article2.inner_text.return_value = "Today's flavor is Vanilla!"
+        mock_article2.evaluate.return_value = False
 
         mock_page.query_selector_all.return_value = [mock_article1, mock_article2]
         mock_context.new_page.return_value = mock_page
