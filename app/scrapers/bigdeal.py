@@ -184,10 +184,36 @@ class BigDealScraper(BaseScraper):
 
                 # Get all post articles (after expansion)
                 articles = page.query_selector_all('[role="article"]')
-                self.logger.debug(f"Found {len(articles)} posts on Facebook page")
+
+                # Filter out nested articles (comments) so we only process top-level posts.
+                # Facebook uses role="article" for both posts and comments. This logic mirrors
+                # the approach used in the Leon's scraper to avoid treating comments as posts.
+                top_level_articles = []
+                for article in articles:
+                    try:
+                        # In the page context, check if this node has an ancestor with role="article"
+                        # that is not itself. If it does, it's a nested article (e.g., a comment).
+                        has_parent_article = article.evaluate(
+                            """(node) => {
+                                if (!node || !node.parentElement) {
+                                    return false;
+                                }
+                                const parentArticle = node.parentElement.closest('[role="article"]');
+                                return parentArticle !== null && parentArticle !== node;
+                            }"""
+                        )
+                        if not has_parent_article:
+                            top_level_articles.append(article)
+                    except Exception:
+                        # If anything goes wrong during evaluation, fall back to keeping the article
+                        top_level_articles.append(article)
+
+                self.logger.debug(
+                    f"Found {len(articles)} total articles, {len(top_level_articles)} top-level posts on Facebook page"
+                )
 
                 # Look through recent posts for flavor information
-                for i, article in enumerate(articles[:10]):  # Check first 10 posts
+                for i, article in enumerate(top_level_articles[:10]):  # Check first 10 posts
                     # Check if post is from today
                     if not is_facebook_post_from_today(article, self.logger):
                         self.logger.debug(f"Post {i} is not from today, skipping")
