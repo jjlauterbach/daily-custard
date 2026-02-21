@@ -88,7 +88,7 @@ gilles:
     enabled: true
 
 leons:
-  - id: leons-fond-du-lac
+  - id: leons-oshkosh
     name: "Leon's Frozen Custard"
     brand: Leons
     address: "121 W Murdock Ave, Oshkosh, WI, United States, 54901"
