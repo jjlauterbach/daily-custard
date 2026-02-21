@@ -351,8 +351,8 @@ class BigDealScraper(BaseScraper):
             r"([A-Z][A-Z\s&]+?)\s+is\s+(?:our\s+)?(?:the\s+)?flavor(?:\s+of\s+the\s+day)?",
             # "Flavor of the Day: Chocolate" or "Flavor: Chocolate" - flavor comes AFTER
             r"flavor(?:\s+of\s+the\s+day)?[\s:]+(?:is\s+)?([A-Z][^\n.!?]+?)(?:\n|$|!|\.|  )",
-            # "Today's flavor: Chocolate"
-            r"today'?s?\s+flavor[\s:]+(?:is\s+)?([A-Z][^\n.!?]+?)(?:\n|$|!|\.|  )",
+            # "Today's flavor: Chocolate" (supports both ASCII ' and Unicode ’ apostrophes)
+            r"today['’]?s?\s+flavor[\s:]+(?:is\s+)?([A-Z][^\n.!?]+?)(?:\n|$|!|\.|  )",
             # "Today: Chocolate" or "Flavor Today: Chocolate"
             r"(?:flavor\s+)?today[\s:]+([A-Z][^\n.!?]+?)(?:\n|$|!|\.|  )",
         ]
