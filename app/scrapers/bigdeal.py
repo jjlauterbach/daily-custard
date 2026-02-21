@@ -223,8 +223,28 @@ class BigDealScraper(BaseScraper):
                     text_content = article.inner_text()
                     text_lower = text_content.lower()
 
-                    # Check if this post mentions flavor or custard
-                    if any(keyword in text_lower for keyword in ["flavor", "custard", "today"]):
+                    # Use a more precise heuristic to detect flavor announcements.
+                    # We require a flavor-related word and either a time-related word
+                    # or an explicit announcement pattern. This mirrors the stricter
+                    # approach used in other scrapers (e.g., Leon's) to avoid
+                    # matching generic posts that just mention "today" or "custard".
+                    has_flavor_word = "flavor" in text_lower or "custard" in text_lower
+                    time_keywords = ["today", "daily", "of the day", "tonight"]
+                    has_time_word = any(keyword in text_lower for keyword in time_keywords)
+
+                    announcement_patterns = [
+                        r"flavor of the day",
+                        r"today['’]s flavor",
+                        r"is our flavor",
+                        r"our flavor(?: of the day)? is",
+                        r"flavor:?[\s-]+",  # e.g., "Flavor of the day: ..."
+                        r"custard flavor",
+                    ]
+                    has_announcement_pattern = any(
+                        re.search(pattern, text_lower, re.IGNORECASE) for pattern in announcement_patterns
+                    )
+
+                    if has_flavor_word and (has_time_word or has_announcement_pattern):
                         self.logger.debug(f"Found flavor post at index {i}")
                         return text_content
 
