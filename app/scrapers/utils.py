@@ -82,12 +82,14 @@ def is_facebook_post_from_today(article, logger=None, article_text=None):
 
         # Patterns that indicate the post is NOT from today:
         # - "Xd" or "X days" (days ago)
-        # - Month names (indicates specific date)
+        # - Explicit calendar dates with month names or abbreviations
         not_today_patterns = [
             r"\b\d+\s*d\b",  # "1d", "2 d"
             r"\b\d+\s*day",  # "1 day", "2 days"
-            r"\b(january|february|march|april|may|june|july|august|september|october|november|december)\b",
-            r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\b",
+            # Full month name followed by a day number, e.g., "May 3"
+            r"\b(january|february|march|april|may|june|july|august|september|october|november|december)\s+\d{1,2}\b",
+            # Abbreviated month (optionally with a period) followed by a day number, e.g., "May 3", "Jan. 12"
+            r"\b(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)\.?\s+\d{1,2}\b",
         ]
 
         header_lower = header_text.lower()
