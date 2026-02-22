@@ -119,6 +119,20 @@ Special flavor announcement!"""
         # Logger should have been called
         self.assertTrue(logger.debug.called)
 
+    def test_pre_fetched_text_is_used_without_calling_inner_text(self):
+        """Test: When article_text is provided, inner_text() is not called."""
+        article = Mock()
+        result = is_facebook_post_from_today(article, article_text="Leon's\n2h\nFlavor info...")
+        self.assertTrue(result)
+        article.inner_text.assert_not_called()
+
+    def test_pre_fetched_text_not_today(self):
+        """Test: Pre-fetched text indicating old post returns False."""
+        article = Mock()
+        result = is_facebook_post_from_today(article, article_text="Leon's\n3d\nOld post...")
+        self.assertFalse(result)
+        article.inner_text.assert_not_called()
+
 
 if __name__ == "__main__":
     unittest.main()
