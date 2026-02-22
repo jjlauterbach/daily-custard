@@ -283,7 +283,8 @@ class BigDealScraper(BaseScraper):
                         r"custard flavor",
                     ]
                     has_announcement_pattern = any(
-                        re.search(pattern, text_lower, re.IGNORECASE) for pattern in announcement_patterns
+                        re.search(pattern, text_lower, re.IGNORECASE)
+                        for pattern in announcement_patterns
                     )
 
                     if has_flavor_word and (has_time_word or has_announcement_pattern):
