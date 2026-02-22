@@ -179,7 +179,8 @@ class BigDealScraper(BaseScraper):
                     # Check if this article is nested within another article
                     # by looking for a parent with role="article"
                     try:
-                        parent_article = article.evaluate("""(element) => {
+                        parent_article = article.evaluate(
+                            """(element) => {
                                 let parent = element.parentElement;
                                 while (parent) {
                                     if (parent.getAttribute('role') === 'article' && parent !== element) {
@@ -188,7 +189,8 @@ class BigDealScraper(BaseScraper):
                                     parent = parent.parentElement;
                                 }
                                 return false;
-                            }""")
+                            }"""
+                        )
                         if not parent_article:
                             top_level_articles.append(article)
                     except Exception:

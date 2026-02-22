@@ -38,9 +38,7 @@ class BaseScraper:
         """Load enabled locations for this brand from registry."""
         locations = get_locations_for_brand(self.brand_key)
         if not locations:
-            self.logger.warning(
-                f"⚠️ {self.brand_key.upper()}: No locations found in locations.yaml"
-            )
+            self.logger.warning(f"⚠️ {self.brand_key.upper()}: No locations found in locations.yaml")
         return locations
 
     def create_flavor(
