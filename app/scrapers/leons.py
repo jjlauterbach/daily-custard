@@ -179,8 +179,7 @@ class LeonsScraper(BaseScraper):
                     # Check if this article is nested within another article
                     # by looking for a parent with role="article"
                     try:
-                        parent_article = article.evaluate(
-                            """(element) => {
+                        parent_article = article.evaluate("""(element) => {
                                 let parent = element.parentElement;
                                 while (parent) {
                                     if (parent.getAttribute('role') === 'article' && parent !== element) {
@@ -189,8 +188,7 @@ class LeonsScraper(BaseScraper):
                                     parent = parent.parentElement;
                                 }
                                 return false;
-                            }"""
-                        )
+                            }""")
                         if not parent_article:
                             top_level_articles.append(article)
                     except Exception:
@@ -254,7 +252,9 @@ class LeonsScraper(BaseScraper):
                         continue
 
                     # Check if post is from today using pre-fetched text
-                    if not is_facebook_post_from_today(article, self.logger, article_text=text_content):
+                    if not is_facebook_post_from_today(
+                        article, self.logger, article_text=text_content
+                    ):
                         self.logger.debug(f"Post {i} is not from today, skipping")
                         continue
 
