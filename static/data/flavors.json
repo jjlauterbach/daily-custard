@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-02-22T07:40:06.468825-06:00",
+  "generated_at": "2026-02-22T22:32:13.424264-06:00",
   "generated_date": "2026-02-22",
-  "flavor_count": 113,
-  "location_count": 109,
+  "flavor_count": 112,
+  "location_count": 108,
   "locations": [
     {
       "id": "culvers-brookfield-capitol",
@@ -1748,22 +1748,6 @@
         {
           "name": "Strawberry",
           "description": "Today's Flavor of the Day is our luscious Strawberry custard!",
-          "date": "2026-02-22"
-        }
-      ]
-    },
-    {
-      "id": "leons-main",
-      "name": "Leon's Frozen Custard",
-      "address": "3131 S 27th St, Milwaukee, WI 53215",
-      "lat": 42.987966729691806,
-      "lng": -87.94870377380806,
-      "brand": "Leons",
-      "url": "https://leonsfrozencustardmke.com/",
-      "flavors": [
-        {
-          "name": "RICE KRISPIE TREAT",
-          "description": "",
           "date": "2026-02-22"
         }
       ]
