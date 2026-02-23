@@ -1,4 +1,4 @@
-"""Scraper for Leon's Frozen Custard using Playwright to scrape Facebook."""
+"""Scraper for Big Deal Burgers using Playwright to scrape Facebook."""
 
 import html
 import re
@@ -12,8 +12,8 @@ from app.scrapers.scraper_base import USER_AGENT, BaseScraper
 from app.scrapers.utils import is_facebook_post_from_today
 
 
-class LeonsScraper(BaseScraper):
-    """Scraper for Leon's Frozen Custard Facebook page."""
+class BigDealScraper(BaseScraper):
+    """Scraper for Big Deal Burgers Facebook page."""
 
     # Facebook page timeouts - configured for slow-loading pages with anti-bot measures
     NAVIGATION_TIMEOUT = 60000  # 60 seconds for page navigation
@@ -24,10 +24,10 @@ class LeonsScraper(BaseScraper):
     )
 
     def __init__(self):
-        super().__init__("leons")
+        super().__init__("bigdeal")
 
     def scrape(self):
-        """Scrape Leon's Facebook page for today's flavor."""
+        """Scrape Big Deal Burgers Facebook page for today's flavor."""
         self.log_start()
 
         if not self.locations:
@@ -35,7 +35,7 @@ class LeonsScraper(BaseScraper):
             return []
 
         location = self.locations[0]
-        location_name = location.get("name", "Leon's Frozen Custard")
+        location_name = location.get("name", "Big Deal Burgers")
         facebook_url = location.get("facebook")
 
         if not facebook_url:
@@ -47,14 +47,14 @@ class LeonsScraper(BaseScraper):
             flavor_text = self._scrape_facebook_page(facebook_url)
 
             if not flavor_text:
-                self.logger.warning("⚠️ LEONS: No flavor post found on Facebook")
+                self.logger.warning("⚠️ BIGDEAL: No flavor post found on Facebook")
                 return []
 
-            # Parse the flavor name from the post
-            flavor_name = self._extract_flavor_name(flavor_text)
+            # Parse the flavor name and description from the post
+            flavor_name, description = self._extract_flavor_name(flavor_text)
 
             if not flavor_name:
-                self.logger.warning(f"⚠️ LEONS: Could not parse flavor from: {flavor_text[:100]}")
+                self.logger.warning(f"⚠️ BIGDEAL: Could not parse flavor from: {flavor_text[:100]}")
                 return []
 
             self.log_flavor(location_name, flavor_name)
@@ -62,7 +62,7 @@ class LeonsScraper(BaseScraper):
             flavor_entry = self.create_flavor(
                 location_name=location_name,
                 flavor=flavor_name,
-                description=None,
+                description=description,
                 url=location.get("url"),
                 location_id=location.get("id"),
                 lat=location.get("lat"),
@@ -74,12 +74,12 @@ class LeonsScraper(BaseScraper):
             return [flavor_entry]
 
         except Exception as e:
-            self.log_error(f"Error scraping Leon's: {e}", exc_info=True)
+            self.log_error(f"Error scraping Big Deal Burgers: {e}", exc_info=True)
             return []
 
     def _scrape_facebook_page(self, url):
         """
-        Use Playwright to scrape Leon's Facebook page with retry logic.
+        Use Playwright to scrape Big Deal Burgers Facebook page with retry logic.
 
         Args:
             url: Facebook page URL
@@ -243,14 +243,20 @@ class LeonsScraper(BaseScraper):
 
                 # Look through recent posts for flavor information
                 for i, article in enumerate(top_level_articles[:10]):  # Check first 10 posts
-                    # Fetch inner text once for both date validation and content processing
+                    # Fetch inner text once for both date validation and content processing.
+                    # This is wrapped in try/except to avoid crashing on malformed posts.
                     try:
                         text_content = article.inner_text()
-                        if not text_content or text_content.strip() == "":
-                            self.logger.debug(f"Post {i}: Empty content, skipping")
-                            continue
+                    except PlaywrightError as e:
+                        self.logger.debug(f"Failed to extract text from post {i}: {e}")
+                        continue
                     except Exception as e:
-                        self.logger.debug(f"Post {i}: Error getting text content: {e}")
+                        # Catch any unexpected errors from Playwright DOM interaction.
+                        self.logger.debug(f"Unexpected error extracting text from post {i}: {e}")
+                        continue
+
+                    if not text_content or not text_content.strip():
+                        self.logger.debug(f"Post {i} has no text content, skipping")
                         continue
 
                     # Check if post is from today using pre-fetched text
@@ -259,42 +265,33 @@ class LeonsScraper(BaseScraper):
                     ):
                         self.logger.debug(f"Post {i} is not from today, skipping")
                         continue
-
                     text_lower = text_content.lower()
 
-                    # Log a preview of the post content
-                    preview = text_content[:100].replace("\n", " ")
-                    self.logger.debug(f"Post {i}: {preview}...")
+                    # Use a more precise heuristic to detect flavor announcements.
+                    # We require a flavor-related word and either a time-related word
+                    # or an explicit announcement pattern. This mirrors the stricter
+                    # approach used in other scrapers (e.g., Leon's) to avoid
+                    # matching generic posts that just mention "today" or "custard".
+                    has_flavor_word = "flavor" in text_lower or "custard" in text_lower
+                    time_keywords = ["today", "daily", "of the day", "tonight"]
+                    has_time_word = any(keyword in text_lower for keyword in time_keywords)
 
-                    # For debugging, log if the text seems unusually short
-                    if len(text_content) < 20:
-                        self.logger.debug(
-                            f"Post {i}: Unusually short content (length={len(text_content)}): {repr(text_content)}"
-                        )
+                    announcement_patterns = [
+                        r"flavor of the day",
+                        r"today['’]s flavor",
+                        r"is our flavor",
+                        r"our flavor(?: of the day)? is",
+                        r"flavor:?[\s-]+",  # e.g., "Flavor of the day: ..."
+                        r"custard flavor",
+                    ]
+                    has_announcement_pattern = any(
+                        re.search(pattern, text_lower, re.IGNORECASE)
+                        for pattern in announcement_patterns
+                    )
 
-                    # Check if this post mentions flavor and is specifically about today/of the day
-                    if "flavor" in text_lower and any(
-                        keyword in text_lower for keyword in ["today", "daily", "of the day"]
-                    ):
-                        # Additional check: make sure it's announcing a flavor, not just mentioning it
-                        # Look for patterns like "is our flavor", "is the flavor", "flavor of the day:"
-                        if any(
-                            pattern in text_lower
-                            for pattern in [
-                                "is our flavor",
-                                "is the flavor",
-                                "flavor of the day:",
-                                "flavor today:",
-                                "today's flavor",
-                                "daily flavor",
-                            ]
-                        ):
-                            self.logger.debug(f"Found flavor post at index {i}")
-                            return text_content
-                        else:
-                            self.logger.debug(
-                                f"Post {i} has 'flavor' but doesn't appear to be announcing one"
-                            )
+                    if has_flavor_word and (has_time_word or has_announcement_pattern):
+                        self.logger.debug(f"Found flavor post at index {i}")
+                        return text_content
 
                 self.logger.warning("No recent flavor post found in first 10 posts")
                 return None
@@ -312,7 +309,7 @@ class LeonsScraper(BaseScraper):
 
         This method:
         - Strips leading/trailing whitespace and common leading punctuation (:,-)
-        - Decodes HTML entities (e.g., &amp; → &)
+        - Decodes HTML entities (e.g., &amp; → &, &#39; → ')
         - Removes emojis and truncates everything after the first emoji
         - Truncates content after common terminators (!, ., double-space)
 
@@ -341,24 +338,24 @@ class LeonsScraper(BaseScraper):
 
     def _extract_flavor_name(self, text):
         """
-        Extract the flavor name from a Facebook post.
+        Extract the flavor name and description from a Facebook post.
 
         Args:
             text: Full text of the Facebook post
 
         Returns:
-            str: Extracted flavor name, or None if not found
+            tuple: (flavor_name, description) or (None, None) if not found
         """
         self.logger.debug(f"Extracting flavor from text: {text[:200]}")
 
         # Try various patterns to extract the flavor
         patterns = [
-            # "BUTTER PECAN is our flavor of the day" - flavor comes BEFORE
+            # "FLAVOR NAME is our flavor of the day" - flavor comes BEFORE
             r"([A-Z][A-Z\s&]+?)\s+is\s+(?:our\s+)?(?:the\s+)?flavor(?:\s+of\s+the\s+day)?",
             # "Flavor of the Day: Chocolate" or "Flavor: Chocolate" - flavor comes AFTER
             r"flavor(?:\s+of\s+the\s+day)?[\s:]+(?:is\s+)?([A-Z][^\n.!?]+?)(?:\n|$|!|\.|  )",
-            # "Today's flavor: Chocolate"
-            r"today'?s?\s+flavor[\s:]+(?:is\s+)?([A-Z][^\n.!?]+?)(?:\n|$|!|\.|  )",
+            # "Today's flavor: Chocolate" (supports both ASCII ' and Unicode ’ apostrophes)
+            r"today['’]?s?\s+flavor[\s:]+(?:is\s+)?([A-Z][^\n.!?]+?)(?:\n|$|!|\.|  )",
             # "Today: Chocolate" or "Flavor Today: Chocolate"
             r"(?:flavor\s+)?today[\s:]+([A-Z][^\n.!?]+?)(?:\n|$|!|\.|  )",
         ]
@@ -366,13 +363,21 @@ class LeonsScraper(BaseScraper):
         for pattern in patterns:
             match = re.search(pattern, text, re.IGNORECASE | re.MULTILINE)
             if match:
-                flavor = match.group(1).strip()
-                flavor = self._sanitize_flavor_name(flavor)
+                full_text = self._sanitize_flavor_name(match.group(1))
+
+                # Extract flavor and description (separated by dash)
+                description = None
+                if " - " in full_text:
+                    parts = full_text.split(" - ", 1)
+                    flavor = parts[0].strip()
+                    description = parts[1].strip() if len(parts) > 1 else None
+                else:
+                    flavor = full_text
 
                 # Sanity check: make sure it's a reasonable flavor name
                 if 3 < len(flavor) < 100 and not flavor.lower().startswith("of the"):
-                    self.logger.debug(f"Extracted flavor using pattern: {flavor}")
-                    return flavor
+                    self.logger.debug(f"Extracted flavor: {flavor}, description: {description}")
+                    return (flavor, description)
 
         # Fallback: Look for flavor name in a structured way
         lines = text.split("\n")
@@ -385,29 +390,30 @@ class LeonsScraper(BaseScraper):
                     if next_line and len(next_line) > 3 and len(next_line) < 100:
                         # Check if it looks like a flavor name (starts with capital)
                         if next_line[0].isupper():
-                            next_line = self._sanitize_flavor_name(next_line)
-                            self.logger.debug(f"Extracted flavor from next line: {next_line}")
-                            return next_line
+                            extracted = self._sanitize_flavor_name(next_line)
+                            self.logger.debug(f"Extracted flavor from next line: {extracted}")
+                            return (extracted, None)
 
                 # Try to extract from the same line
                 cleaned = re.sub(
                     r".*?flavor(?:\s+of\s+the\s+day)?[\s:]*", "", line, flags=re.IGNORECASE
                 )
-                cleaned = self._sanitize_flavor_name(cleaned)
+                cleaned = cleaned.strip(" :,-!.")
                 if cleaned and 3 < len(cleaned) < 100 and not cleaned.lower().startswith("is"):
-                    self.logger.debug(f"Extracted flavor from same line: {cleaned}")
-                    return cleaned
+                    extracted = self._sanitize_flavor_name(cleaned)
+                    self.logger.debug(f"Extracted flavor from same line: {extracted}")
+                    return (extracted, None)
 
         self.logger.warning("Could not extract flavor name using any method")
-        return None
+        return (None, None)
 
 
-def scrape_leons():
+def scrape_bigdeal():
     """
-    Standalone function to scrape Leon's Frozen Custard.
+    Standalone function to scrape Big Deal Burgers.
 
     Returns:
         list: List of flavor dicts
     """
-    scraper = LeonsScraper()
+    scraper = BigDealScraper()
     return scraper.scrape()

@@ -88,14 +88,25 @@ gilles:
     enabled: true
 
 leons:
-  - id: leons-main
+  - id: leons-oshkosh
     name: "Leon's Frozen Custard"
     brand: Leons
-    address: "3131 S 27th St, Milwaukee, WI 53215"
-    lat: 42.987966729691806
-    lng: -87.94870377380806
-    url: "https://leonsfrozencustardmke.com/"
+    address: "121 W Murdock Ave, Oshkosh, WI, United States, 54901"
+    lat: 44.080552821673784
+    lng: -88.53003838993757
+    url: "https://www.facebook.com/LeonsCustard/"
     facebook: "https://www.facebook.com/LeonsCustard/"
+    enabled: true
+
+bigdeal:
+  - id: bigdeal-main
+    name: "Big Deal Burgers"
+    brand: Bigdeal
+    address: "1440 S 84th St, West Allis, WI 53214"
+    lat: 43.02475719719434
+    lng: -88.01325003913674
+    url: "https://bigdealburgers.com/"
+    facebook: "https://www.facebook.com/BigDealBurgers/"
     enabled: true
 
 
@@ -103,7 +114,6 @@ leons:
 
 # Places to add
 # https://leducscustard.com/
-# https://www.facebook.com/BigDealBurgers/  https://bigdealburgers.com/
 # https://www.fredsfrozencustard.com/
 # https://georgieporgies.com/georgies-flavor-forecast/
 # https://www.hefnerscustard.com/

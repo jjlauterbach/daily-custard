@@ -2,8 +2,8 @@ name: Scraper Ecosystem Monitor
 
 on:
   schedule:
-    # 13:30 UTC = 8:30 AM US Central (CDT)
-    - cron: '30 13 * * *'
+    # 15:00 UTC = 10:00 AM US Central (CDT)
+    - cron: '0 15 * * *'
   workflow_dispatch:
 
 permissions:
@@ -44,7 +44,7 @@ jobs:
         if: failure()
         run: |
           curl -H "Authorization: Bearer ${{ secrets.NTFY_TOKEN}}" \
-               -H "Title: Daily Flavors Scraper Ecosystem Test Failed" \
+               -H "Title: Daily Custard Scraper Ecosystem Test Failed" \
                -H "Priority: urgent" \
                -d "The daily scraper ecosystem test has failed. Check logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
                ${{ secrets.NTFY_TOPIC_URL }}
