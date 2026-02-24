@@ -6,7 +6,7 @@ A web scraping application that collects daily frozen custard flavors from multi
 ## Technology Stack
 - **Language**: Python 3.12+
 - **Web Framework**: FastAPI (for future API endpoints)
-- **Scraping**: Playwright (Facebook), Selenium (dynamic sites), BeautifulSoup (static sites)
+- **Scraping**: Playwright (dynamic sites and Facebook), BeautifulSoup (static sites), Selenium (legacy only)
 - **Testing**: pytest with unittest
 - **Formatting**: black, flake8, isort, autoflake
 - **Package Management**: pip with pyproject.toml
@@ -74,13 +74,19 @@ static/              # Frontend files
        return []
    ```
 
-### Playwright (Facebook Scrapers)
+### Playwright (Preferred for Dynamic Sites)
+- **Always prefer Playwright over Selenium** for any scraper that requires a real browser
 - Use `sync_playwright` context manager
-- Set realistic user agent
-- Implement retry logic with exponential backoff
-- Click "See more" buttons to expand truncated posts
-- Always close browser in `finally` block
-- Use extended timeouts (60s navigation, 30s selectors)
+- Set realistic user agent via `browser.new_page(user_agent=USER_AGENT)` (import `USER_AGENT` from `scraper_base`)
+- Call `page.set_default_timeout(PAGE_TIMEOUT)` immediately after creating the page
+- Use `page.goto(url, wait_until="domcontentloaded")` then `page.wait_for_timeout(ms)` for JS to settle
+- Implement retry logic with exponential backoff for transient failures
+- Click "See more" buttons to expand truncated posts (Facebook scrapers)
+- Always close the browser in a `finally` block (or use the `with sync_playwright()` context manager)
+- Use `page.inner_text("body")` for clean text extraction free of HTML noise
+- Catch `PlaywrightTimeoutError` separately from generic `Exception` for cleaner error logging
+- Prefer `page.query_selector()` / `page.query_selector_all()` for DOM traversal
+- Define timeout constants at module level, e.g. `PAGE_TIMEOUT = 30000`
 
 ### Locations Configuration
 Add new locations to `app/locations.yaml`:
@@ -216,7 +222,7 @@ All scrapers return list of dicts:
 
 ## Special Considerations
 - **Facebook scrapers**: Posts may be truncated with "See more" - always expand
-- **Selenium**: Use headless mode, set window size, handle stale elements
+- **Selenium**: Legacy tool — do not use for new scrapers; migrate existing Selenium scrapers to Playwright when touched
 - **Time zones**: Use Central time for dates (custard shops are in Milwaukee)
 - **Rate limiting**: Be respectful, use appropriate delays between requests
 - **Error messages**: Log detailed info for debugging but don't expose to users

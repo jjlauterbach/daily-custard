@@ -4,7 +4,7 @@
 kopps:
   - id: kopps-brookfield
     name: "Kopp's Frozen Custard (Brookfield)"
-    brand: Kopps
+    brand: "Kopp's"
     address: "18880 W Bluemound Rd, Brookfield, WI 53045"
     lat: 43.036675075390974
     lng: -88.10396536602177
@@ -13,7 +13,7 @@ kopps:
     
   - id: kopps-glendale
     name: "Kopp's Frozen Custard (Glendale)"
-    brand: Kopps
+    brand: "Kopp's"
     address: "5373 N Port Washington Rd, Glendale, WI 53217"
     lat: 43.13633307263394
     lng: -87.92576544046896
@@ -22,7 +22,7 @@ kopps:
     
   - id: kopps-greenfield
     name: "Kopp's Frozen Custard (Greenfield)"
-    brand: Kopps
+    brand: "Kopp's"
     address: "7631 W Layton Ave, Greenfield, WI 53220"
     lat: 42.97377252946846
     lng: -88.0067896126453
@@ -32,7 +32,7 @@ kopps:
 oscars:
   - id: oscars-franklin
     name: "Oscar's Frozen Custard (Franklin)"
-    brand: Oscars
+    brand: "Oscar's"
     address: "7041 S 27th St, Franklin, WI 53132"
     lat: 42.928139916212025
     lng: -87.94927236675031
@@ -41,7 +41,7 @@ oscars:
     
   - id: oscars-waukesha
     name: "Oscar's Frozen Custard (Waukesha)"
-    brand: Oscars
+    brand: "Oscar's"
     address: "21165 E Moreland Blvd, Waukesha, WI 53186"
     lat: 43.048866520029634
     lng: -88.17456781376536
@@ -50,7 +50,7 @@ oscars:
     
   - id: oscars-milwaukee
     name: "Oscar's Frozen Custard (West Allis)"
-    brand: Oscars
+    brand: "Oscar's"
     address: "2362 S 108th St, Milwaukee, WI 53227"
     lat: 43.02397409803325
     lng: -88.05275108950721
@@ -60,7 +60,7 @@ oscars:
 murfs:
   - id: murfs-main
     name: "Murf's Frozen Custard"
-    brand: Murfs
+    brand: "Murf's"
     address: "12505 W Burleigh Rd, Brookfield, WI 53005"
     lat: 43.07437219485065
     lng: -88.06790991776157
@@ -70,7 +70,7 @@ murfs:
 bubbas:
   - id: bubbas-main
     name: "Bubba's Frozen Custard"
-    brand: Bubbas
+    brand: "Bubba's"
     address: "1276 Capitol Dr, Pewaukee, WI 53072"
     lat: 43.08293313073564
     lng: -88.23579148892487
@@ -90,7 +90,7 @@ gilles:
 bigdeal:
   - id: bigdeal-main
     name: "Big Deal Burgers"
-    brand: Bigdeal
+    brand: "Big Deal"
     address: "1440 S 84th St, West Allis, WI 53214"
     lat: 43.02475719719434
     lng: -88.01325003913674
@@ -98,11 +98,20 @@ bigdeal:
     facebook: "https://www.facebook.com/BigDealBurgers/"
     enabled: true
 
+leducs:
+  - id: leducs-wales
+    name: "LeDuc's Frozen Custard"
+    brand: "Le Ducs"
+    address: "240 W Summit Avenue, Wales, Wisconsin 53183"
+    lat: 43.0130779363353
+    lng: -88.38238235582266
+    url: "https://leducscustard.com/"
+    enabled: true
+
 
 
 
 # Places to add
-# https://leducscustard.com/
 # https://www.fredsfrozencustard.com/
 # https://georgieporgies.com/georgies-flavor-forecast/
 # https://www.hefnerscustard.com/
