@@ -87,17 +87,6 @@ gilles:
     url: "https://gillesfrozencustard.com/flavor-of-the-day"
     enabled: true
 
-leons:
-  - id: leons-oshkosh
-    name: "Leon's Frozen Custard"
-    brand: Leons
-    address: "121 W Murdock Ave, Oshkosh, WI, United States, 54901"
-    lat: 44.080552821673784
-    lng: -88.53003838993757
-    url: "https://www.facebook.com/LeonsCustard/"
-    facebook: "https://www.facebook.com/LeonsCustard/"
-    enabled: true
-
 bigdeal:
   - id: bigdeal-main
     name: "Big Deal Burgers"

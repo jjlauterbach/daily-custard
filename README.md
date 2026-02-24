@@ -39,15 +39,15 @@ A web scraping application that collects daily flavor information from frozen cu
 - **Culver's**
 - **Gilles**
 - **Kopp's Frozen Custard**
-- **Leon's Frozen Custard**
 - **Murf's Frozen Custard**
 - **Oscar's Frozen Custard**
+- **Big Deal Burgers**
 
 ## Features
 - **Robust scrapers** for each shop using multiple strategies:
   - BeautifulSoup for static sites (Kopp's, Bubba's, Murf's)
   - Selenium for dynamic sites (Oscar's, Culver's)
-  - Playwright for Facebook pages (Leon's)
+  - Playwright for Facebook pages (Big Deal Burgers)
 - **Base scraper architecture** with common functionality and error handling
 - **Location registry** (locations.yaml) for easy configuration
 - **Modern UI** with date-anchored cards and interactive map
@@ -102,7 +102,7 @@ python -m http.server --directory static 8080
   
 - **Run tests for a specific scraper:**
   ```bash
-  pytest tests/test_leons_scraper.py -v
+  pytest tests/test_bigdeal_scraper.py -v
   ```
   
 - **Run with coverage:**
@@ -280,7 +280,7 @@ docker compose up
    - Enable debug logging to inspect HTML structure
    - Update selectors in the relevant scraper function
 
-5. **Facebook scraper issues (Leon's)**
+5. **Facebook scraper issues (Big Deal Burgers)**
    - Posts may be truncated - scraper automatically clicks "See more" buttons
    - Flavor announcements must match specific patterns (e.g., "is our flavor of the day")
    - Check up to 10 recent posts for flavor announcements
@@ -326,7 +326,7 @@ See the [Scraper Architecture](#scraper-architecture) section above for detailed
 
 4. **Commit with descriptive messages**:
    ```bash
-   git commit -m "Add Leon's scraper with Facebook integration"
+   git commit -m "Add Big Deal Burgers scraper with Facebook integration"
    ```
 
 5. **Push and create PR**:

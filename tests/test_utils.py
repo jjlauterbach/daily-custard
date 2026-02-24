@@ -22,7 +22,7 @@ class TestIsFacebookPostFromToday(unittest.TestCase):
 
     def test_minutes_ago_is_today(self):
         """Test: 'Xm' format indicates today."""
-        article = self._create_mock_article("Leon's Custard\n15m\nFlavor of the day...")
+        article = self._create_mock_article("Big Deal Burgers\n15m\nFlavor of the day...")
         self.assertTrue(is_facebook_post_from_today(article))
 
     def test_hours_ago_is_today(self):
@@ -32,7 +32,7 @@ class TestIsFacebookPostFromToday(unittest.TestCase):
 
     def test_hours_with_space_is_today(self):
         """Test: '3 h' with space indicates today."""
-        article = self._create_mock_article("Leon's Custard\n5 h\nFlavor of the day...")
+        article = self._create_mock_article("Big Deal Burgers\n5 h\nFlavor of the day...")
         self.assertTrue(is_facebook_post_from_today(article))
 
     def test_minutes_spelled_out_is_today(self):
@@ -42,7 +42,7 @@ class TestIsFacebookPostFromToday(unittest.TestCase):
 
     def test_hours_spelled_out_is_today(self):
         """Test: '2 hours' spelled out indicates today."""
-        article = self._create_mock_article("Leon's\n2 hours ago\nToday's flavor...")
+        article = self._create_mock_article("Big Deal Burgers\n2 hours ago\nToday's flavor...")
         self.assertTrue(is_facebook_post_from_today(article))
 
     def test_one_day_ago_not_today(self):
@@ -52,7 +52,7 @@ class TestIsFacebookPostFromToday(unittest.TestCase):
 
     def test_multiple_days_ago_not_today(self):
         """Test: '3d' indicates not today."""
-        article = self._create_mock_article("Leon's Custard\n3d\nOld flavor post...")
+        article = self._create_mock_article("Big Deal Burgers\n3d\nOld flavor post...")
         self.assertFalse(is_facebook_post_from_today(article))
 
     def test_days_spelled_out_not_today(self):
@@ -62,7 +62,7 @@ class TestIsFacebookPostFromToday(unittest.TestCase):
 
     def test_month_name_not_today(self):
         """Test: Month name indicates specific date, not today."""
-        article = self._create_mock_article("Leon's Custard\nFebruary 15\nOld flavor...")
+        article = self._create_mock_article("Big Deal Burgers\nFebruary 15\nOld flavor...")
         self.assertFalse(is_facebook_post_from_today(article))
 
     def test_abbreviated_month_not_today(self):
@@ -92,7 +92,7 @@ All reactions: 15"""
 
     def test_realistic_old_post(self):
         """Test: Realistic old post with date."""
-        text = """Leon's Frozen Custard
+        text = """Big Deal Burgers & Custard
 February 10 at 2:30 PM
 ·
 Special flavor announcement!"""
@@ -122,14 +122,14 @@ Special flavor announcement!"""
     def test_pre_fetched_text_is_used_without_calling_inner_text(self):
         """Test: When article_text is provided, inner_text() is not called."""
         article = Mock()
-        result = is_facebook_post_from_today(article, article_text="Leon's\n2h\nFlavor info...")
+        result = is_facebook_post_from_today(article, article_text="Big Deal\n2h\nFlavor info...")
         self.assertTrue(result)
         article.inner_text.assert_not_called()
 
     def test_pre_fetched_text_not_today(self):
         """Test: Pre-fetched text indicating old post returns False."""
         article = Mock()
-        result = is_facebook_post_from_today(article, article_text="Leon's\n3d\nOld post...")
+        result = is_facebook_post_from_today(article, article_text="Big Deal\n3d\nOld post...")
         self.assertFalse(result)
         article.inner_text.assert_not_called()
 

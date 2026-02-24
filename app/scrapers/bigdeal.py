@@ -270,7 +270,7 @@ class BigDealScraper(BaseScraper):
                     # Use a more precise heuristic to detect flavor announcements.
                     # We require a flavor-related word and either a time-related word
                     # or an explicit announcement pattern. This mirrors the stricter
-                    # approach used in other scrapers (e.g., Leon's) to avoid
+                    # approach used in other Facebook-based scrapers to avoid
                     # matching generic posts that just mention "today" or "custard".
                     has_flavor_word = "flavor" in text_lower or "custard" in text_lower
                     time_keywords = ["today", "daily", "of the day", "tonight"]
