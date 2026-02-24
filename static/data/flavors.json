@@ -1732,22 +1732,6 @@
       ]
     },
     {
-      "id": "leons-oshkosh",
-      "name": "Leon's Frozen Custard",
-      "address": "121 W Murdock Ave, Oshkosh, WI, United States, 54901",
-      "lat": 44.080552821673784,
-      "lng": -88.53003838993757,
-      "brand": "Leons",
-      "url": "https://www.facebook.com/LeonsCustard/",
-      "flavors": [
-        {
-          "name": "DREAMSICLE",
-          "description": "",
-          "date": "2026-02-24"
-        }
-      ]
-    },
-    {
       "id": "bigdeal-main",
       "name": "Big Deal Burgers",
       "address": "1440 S 84th St, West Allis, WI 53214",

@@ -16,7 +16,7 @@ A web scraping application that collects daily frozen custard flavors from multi
 app/
   scrapers/          # Individual scraper implementations
     scraper_base.py  # Base class with common functionality
-    leons.py         # Facebook scraper example
+    bigdeal.py       # Facebook scraper example
     oscars.py        # Selenium scraper example
     kopps.py         # BeautifulSoup scraper example
   locations.yaml     # Location configuration registry

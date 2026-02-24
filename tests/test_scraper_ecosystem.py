@@ -20,7 +20,6 @@ class TestScraperEcosystem(unittest.TestCase):
             ("Oscars", scrape_oscars),
             ("Bubbas", scrape_bubbas),
             ("Gilles", scrape_gilles),
-            # ("Leons", scrape_leons), # not reliable daily
         ]
         for name, scraper in scrapers:
             with self.subTest(scraper=name):
