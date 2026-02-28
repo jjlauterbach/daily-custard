@@ -747,8 +747,27 @@ function loadSavedBrands() {
     if (savedBrands) {
         try {
             const brandsArray = JSON.parse(savedBrands);
+
+            // Determine which brands are still valid by reading the modal checkboxes
+            const modalBrandGrid = document.getElementById('modalBrandGrid');
+            const validBrands = modalBrandGrid
+                ? new Set(Array.from(modalBrandGrid.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value))
+                : null;
+
+            // Filter saved brands to only those that still exist (always keep 'all' sentinel)
+            const filteredBrands = validBrands
+                ? brandsArray.filter(brand => brand === 'all' || validBrands.has(brand))
+                : brandsArray;
+
             selectedBrands.clear();
-            brandsArray.forEach(brand => selectedBrands.add(brand));
+
+            if (filteredBrands.length === 0) {
+                // All previously-selected brands have been removed from the site; show everything
+                selectedBrands.add('all');
+            } else {
+                filteredBrands.forEach(brand => selectedBrands.add(brand));
+            }
+
             // Update button text to reflect loaded brands
             updateBrandButtonText();
         } catch (e) {
