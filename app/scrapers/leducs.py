@@ -105,6 +105,21 @@ class LeducsScraper(BaseScraper):
             return None
 
         candidate = match.group(1).strip()
+        lowered = candidate.lower()
+
+        # Detect closed/off-season wording and treat as "no flavor"
+        closed_markers = (
+            "closed",
+            "closed for the season",
+            "closed today",
+            "see you in",
+            "see you next",
+        )
+        if any(marker in lowered for marker in closed_markers):
+            self.logger.info(
+                f"🍨 LEDUCS: Closed-day text detected instead of flavor: {candidate!r}"
+            )
+            return None
         self.logger.info(f"🍨 LEDUCS: Flavor candidate: {candidate!r}")
 
         return candidate
