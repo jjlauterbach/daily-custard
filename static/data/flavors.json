@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-02-28T08:12:36.449504-06:00",
+  "generated_at": "2026-02-28T23:45:30.709387-06:00",
   "generated_date": "2026-02-28",
-  "flavor_count": 113,
-  "location_count": 109,
+  "flavor_count": 114,
+  "location_count": 110,
   "locations": [
     {
       "id": "culvers-brookfield-capitol",
@@ -1758,12 +1758,28 @@
       "address": "1440 S 84th St, West Allis, WI 53214",
       "lat": 43.02475719719434,
       "lng": -88.01325003913674,
-      "brand": "Bigdeal",
+      "brand": "Big Deal Burgers",
       "url": "https://bigdealburgers.com/",
       "flavors": [
         {
           "name": "Butter Pecan",
           "description": "butterscotch custard topped with salted pecan halves",
+          "date": "2026-02-28"
+        }
+      ]
+    },
+    {
+      "id": "leducs-wales",
+      "name": "LeDuc's Frozen Custard",
+      "address": "240 W Summit Avenue, Wales, Wisconsin 53183",
+      "lat": 43.0130779363353,
+      "lng": -88.38238235582266,
+      "brand": "Le Duc's",
+      "url": "https://leducscustard.com",
+      "flavors": [
+        {
+          "name": "Chocolate Galore",
+          "description": "",
           "date": "2026-02-28"
         }
       ]
