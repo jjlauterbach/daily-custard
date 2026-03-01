@@ -74,7 +74,10 @@ class LeducsScraper(BaseScraper):
                         return []
 
                 finally:
-                    browser.close()
+                    try:
+                        browser.close()
+                    except Exception:
+                        pass
 
         except PlaywrightTimeoutError as e:
             self.log_error(f"Page load timed out: {e}")
