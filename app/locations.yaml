@@ -90,7 +90,7 @@ gilles:
 bigdeal:
   - id: bigdeal-main
     name: "Big Deal Burgers"
-    brand: "Big Deal"
+    brand: "Big Deal Burgers"
     address: "1440 S 84th St, West Allis, WI 53214"
     lat: 43.02475719719434
     lng: -88.01325003913674
@@ -101,7 +101,7 @@ bigdeal:
 leducs:
   - id: leducs-wales
     name: "LeDuc's Frozen Custard"
-    brand: "Le Ducs"
+    brand: "Le Duc's"
     address: "240 W Summit Avenue, Wales, Wisconsin 53183"
     lat: 43.0130779363353
     lng: -88.38238235582266
