@@ -1,7 +1,7 @@
 """Unit tests for Le Duc's scraper."""
 
 import unittest
-from unittest.mock import MagicMock, Mock, patch
+from unittest.mock import MagicMock, Mock, call, patch
 
 from app.scrapers.leducs import LeducsScraper, scrape_leducs
 
@@ -175,16 +175,55 @@ class TestLeducsScrapeIntegration(unittest.TestCase):
         self.assertEqual(result, [])
 
     def test_scrape_playwright_timeout(self):
-        """PlaywrightTimeoutError is caught and returns empty list."""
+        """PlaywrightTimeoutError exhausts all retries and returns empty list."""
         from playwright.sync_api import TimeoutError as PWTimeout
 
         mock_pw, mock_page = _make_playwright_mocks()
         mock_page.goto.side_effect = PWTimeout("timeout")
 
-        with patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw):
+        with patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw), patch(
+            "app.scrapers.leducs.time.sleep"
+        ) as mock_sleep:
             result = LeducsScraper().scrape()
 
         self.assertEqual(result, [])
+        # All MAX_RETRIES attempts were made
+        self.assertEqual(mock_page.goto.call_count, LeducsScraper.MAX_RETRIES)
+        # Exponential backoff sleep was called between retries (MAX_RETRIES - 1 times)
+        self.assertEqual(mock_sleep.call_count, LeducsScraper.MAX_RETRIES - 1)
+
+    def test_scrape_playwright_timeout_succeeds_on_retry(self):
+        """PlaywrightTimeoutError on first attempt, success on second."""
+        from playwright.sync_api import TimeoutError as PWTimeout
+
+        page_text = "FLAVOROF THE DAY\nSTRAWBERRY CHEESECAKE\n"
+        mock_pw, mock_page = _make_playwright_mocks(page_text)
+        mock_page.goto.side_effect = [PWTimeout("timeout"), None]
+
+        with patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw), patch(
+            "app.scrapers.leducs.time.sleep"
+        ):
+            result = LeducsScraper().scrape()
+
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["flavor"], "Strawberry Cheesecake")
+        self.assertEqual(mock_page.goto.call_count, 2)
+
+    def test_scrape_playwright_error_retried(self):
+        """PlaywrightError (non-timeout) is also retried with backoff."""
+        from playwright.sync_api import Error as PWError
+
+        mock_pw, mock_page = _make_playwright_mocks()
+        mock_page.goto.side_effect = PWError("network crash")
+
+        with patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw), patch(
+            "app.scrapers.leducs.time.sleep"
+        ) as mock_sleep:
+            result = LeducsScraper().scrape()
+
+        self.assertEqual(result, [])
+        self.assertEqual(mock_page.goto.call_count, LeducsScraper.MAX_RETRIES)
+        self.assertEqual(mock_sleep.call_count, LeducsScraper.MAX_RETRIES - 1)
 
     def test_scrape_generic_exception(self):
         """Unexpected exceptions are caught and return empty list."""
