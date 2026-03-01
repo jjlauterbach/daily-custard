@@ -63,14 +63,14 @@ class TestLeducsExtractFlavor(unittest.TestCase):
         self.assertEqual(self.scraper._extract_flavor(text), "CHOCOLATE PEANUT BUTTER CUP")
 
     def test_extract_flavor_closed(self):
-        """When the store is closed the block contains CLOSED."""
+        """When the store is closed, CLOSED is returned as the flavor."""
         text = "FLAVOROF THE DAY\nCLOSED\n◦ MONDAY, FEB 23"
-        self.assertIsNone(self.scraper._extract_flavor(text))
+        self.assertEqual(self.scraper._extract_flavor(text), "CLOSED")
 
     def test_extract_flavor_closed_mixed_case(self):
-        """Closed detection is case-insensitive."""
+        """Closed text is returned as-is."""
         text = "FLAVOR OF THE DAY\nClosed (Winter)\n"
-        self.assertIsNone(self.scraper._extract_flavor(text))
+        self.assertEqual(self.scraper._extract_flavor(text), "Closed (Winter)")
 
     def test_extract_flavor_missing_block(self):
         """Returns None when the FLAVOR OF THE DAY block is absent."""
@@ -156,14 +156,15 @@ class TestLeducsScrapeIntegration(unittest.TestCase):
         self.assertEqual(result[0]["brand"], "Leducs")
 
     def test_scrape_store_closed(self):
-        """Store is closed today — returns empty list."""
+        """Store is closed today — returns flavor as 'Closed'."""
         page_text = "FLAVOROF THE DAY\nCLOSED\n◦ MONDAY, FEB 23"
         mock_pw, _ = _make_playwright_mocks(page_text)
 
         with patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw):
             result = LeducsScraper().scrape()
 
-        self.assertEqual(result, [])
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0]["flavor"], "Closed")
 
     def test_scrape_flavor_block_missing(self):
         """No FLAVOR OF THE DAY block on page — returns empty list."""

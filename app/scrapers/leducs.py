@@ -15,9 +15,7 @@ WAIT_AFTER_LOAD = 2000  # 2s after domcontentloaded for JS to settle
 class LeducsScraper(BaseScraper):
     """Scraper for Le Duc's Frozen Custard.
 
-    Scrapes the homepage for today's flavor.  The homepage shows 'CLOSED'
-    prominently when the store is not open, so it is used as the authoritative
-    source for both closed-day detection and flavor extraction.
+    Scrapes the homepage for today's flavor.
     """
 
     def __init__(self):
@@ -86,13 +84,12 @@ class LeducsScraper(BaseScraper):
             return []
 
     def _extract_flavor(self, page_text: str) -> str | None:
-        """Extract flavor from page text, returning None if the store is closed.
+        """Extract flavor from page text.
 
         The Le Duc's homepage renders a "FLAVOR OF THE DAY" block that looks like:
             FLAVOROF THE DAY
             CHOCOLATE PEANUT BUTTER CUP
             ◦ SUNDAY, FEB 22
-        On closed days the same block shows "CLOSED" instead of a flavor name.
         """
         # Match the FLAVOR OF THE DAY block and capture whatever follows it
         match = re.search(
@@ -105,21 +102,6 @@ class LeducsScraper(BaseScraper):
             return None
 
         candidate = match.group(1).strip()
-        lowered = candidate.lower()
-
-        # Detect closed/off-season wording and treat as "no flavor"
-        closed_markers = (
-            "closed",
-            "closed for the season",
-            "closed today",
-            "see you in",
-            "see you next",
-        )
-        if any(marker in lowered for marker in closed_markers):
-            self.logger.info(
-                f"🍨 LEDUCS: Closed-day text detected instead of flavor: {candidate!r}"
-            )
-            return None
         self.logger.info(f"🍨 LEDUCS: Flavor candidate: {candidate!r}")
 
         return candidate
