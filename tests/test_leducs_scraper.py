@@ -226,7 +226,7 @@ class TestLeducsScraperNoLocations(unittest.TestCase):
         self.assertEqual(result, [])
 
 
-class TestLeducsScraperIntegration(unittest.TestCase):
+class TestLeducsScrapeFunctionIntegration(unittest.TestCase):
     """Integration tests for scrape_leducs function."""
 
     @patch("app.scrapers.leducs.LeducsScraper.scrape")
