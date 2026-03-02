@@ -139,10 +139,11 @@ class LeducsScraper(BaseScraper):
                 browser = p.chromium.launch(headless=True)
                 page = browser.new_page(user_agent=USER_AGENT)
                 page.set_default_timeout(PAGE_TIMEOUT)
+                page.set_default_navigation_timeout(PAGE_TIMEOUT)
 
                 self.logger.debug(f"Loading page (attempt {attempt + 1}): {url}")
                 # Load the homepage — it shows both "CLOSED" and the flavor
-                page.goto(url, wait_until="domcontentloaded")
+                page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT)
                 page.wait_for_timeout(WAIT_AFTER_LOAD)
 
                 page_text = page.inner_text("body")
