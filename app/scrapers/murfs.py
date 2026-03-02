@@ -9,7 +9,7 @@ class MurfsScraper(BaseScraper):
     """Scraper for Murf's Frozen Custard."""
 
     def __init__(self):
-        super().__init__("murfs", "Murfs")
+        super().__init__("murfs", "Murf's")
 
     def scrape(self):
         """Scrape Murf's Frozen Custard."""
