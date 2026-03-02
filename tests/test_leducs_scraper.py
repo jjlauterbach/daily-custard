@@ -236,17 +236,17 @@ class TestLeducsScrapeIntegration(unittest.TestCase):
 
         self.assertEqual(result, [])
 
-    def test_scrape_url_trailing_slash_stripped(self):
-        """Trailing slash is stripped from the URL before navigation."""
+    def test_scrape_url_preserved_as_configured(self):
+        """URL is used exactly as configured in locations.yaml (trailing slash preserved)."""
         page_text = "FLAVOROF THE DAY\nMINT OREO\n"
         mock_pw, mock_page = _make_playwright_mocks(page_text)
 
         with patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw):
-            LeducsScraper().scrape()
+            result = LeducsScraper().scrape()
 
         called_url = mock_page.goto.call_args[0][0]
-        self.assertFalse(called_url.endswith("/"), "URL should not have trailing slash")
-        self.assertEqual(called_url, "https://leducscustard.com")
+        self.assertEqual(called_url, "https://leducscustard.com/")
+        self.assertEqual(result[0]["url"], "https://leducscustard.com/")
 
 
 class TestLeducsScraperNoLocations(unittest.TestCase):
