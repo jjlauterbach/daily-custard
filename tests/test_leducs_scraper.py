@@ -1,7 +1,7 @@
 """Unit tests for Le Duc's scraper."""
 
 import unittest
-from unittest.mock import MagicMock, Mock, call, patch
+from unittest.mock import MagicMock, Mock, patch
 
 from app.scrapers.leducs import LeducsScraper, scrape_leducs
 
@@ -153,7 +153,8 @@ class TestLeducsScrapeIntegration(unittest.TestCase):
         self.assertEqual(len(result), 1)
         self.assertEqual(result[0]["flavor"], "Chocolate Peanut Butter Cup")
         self.assertEqual(result[0]["location"], "LeDuc's Frozen Custard")
-        self.assertEqual(result[0]["brand"], "Leducs")
+        self.assertEqual(result[0]["brand"], "Le Duc's")
+        self.assertEqual(result[0]["brand_id"], "leducs")
 
     def test_scrape_store_closed(self):
         """Store is closed today — returns flavor as 'Closed'."""
@@ -182,9 +183,10 @@ class TestLeducsScrapeIntegration(unittest.TestCase):
         mock_pw, mock_page = _make_playwright_mocks()
         mock_page.goto.side_effect = PWTimeout("timeout")
 
-        with patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw), patch(
-            "app.scrapers.leducs.time.sleep"
-        ) as mock_sleep:
+        with (
+            patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw),
+            patch("app.scrapers.leducs.time.sleep") as mock_sleep,
+        ):
             result = LeducsScraper().scrape()
 
         self.assertEqual(result, [])
@@ -201,8 +203,9 @@ class TestLeducsScrapeIntegration(unittest.TestCase):
         mock_pw, mock_page = _make_playwright_mocks(page_text)
         mock_page.goto.side_effect = [PWTimeout("timeout"), None]
 
-        with patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw), patch(
-            "app.scrapers.leducs.time.sleep"
+        with (
+            patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw),
+            patch("app.scrapers.leducs.time.sleep"),
         ):
             result = LeducsScraper().scrape()
 
@@ -217,9 +220,10 @@ class TestLeducsScrapeIntegration(unittest.TestCase):
         mock_pw, mock_page = _make_playwright_mocks()
         mock_page.goto.side_effect = PWError("network crash")
 
-        with patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw), patch(
-            "app.scrapers.leducs.time.sleep"
-        ) as mock_sleep:
+        with (
+            patch("app.scrapers.leducs.sync_playwright", return_value=mock_pw),
+            patch("app.scrapers.leducs.time.sleep") as mock_sleep,
+        ):
             result = LeducsScraper().scrape()
 
         self.assertEqual(result, [])
@@ -279,7 +283,8 @@ class TestLeducsScrapeFunctionIntegration(unittest.TestCase):
                 "description": "",
                 "date": "2026-02-22",
                 "url": "https://leducscustard.com/",
-                "brand": "Leducs",
+                "brand": "Le Duc's",
+                "brand_id": "leducs",
             }
         ]
 
