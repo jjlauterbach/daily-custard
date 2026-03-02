@@ -7,7 +7,7 @@ class GillesScraper(BaseScraper):
     """Scraper for Gilles Frozen Custard."""
 
     def __init__(self):
-        super().__init__("gilles")
+        super().__init__("gilles", "Gilles")
 
     def scrape(self):
         """Scrape Gilles Frozen Custard calendar page."""

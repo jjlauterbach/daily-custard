@@ -7,7 +7,7 @@ class KoppsScraper(BaseScraper):
     """Scraper for Kopp's Frozen Custard locations."""
 
     def __init__(self):
-        super().__init__("kopps")
+        super().__init__("kopps", "Kopp's")
 
     def scrape(self):
         """Scrape Kopp's Frozen Custard."""
@@ -62,7 +62,7 @@ class KoppsScraper(BaseScraper):
                     self.logger.info(f"🍨 KOPPS: Found flavor: {flavor_name}")
                     # Create entry for each location with this flavor
                     for location in self.get_all_locations():
-                        location_name = location.get("name", "Kopps")
+                        location_name = location.get("name", self.brand)
                         location_url = location.get("url")
                         flavor_entry = self.create_flavor(
                             location_name,

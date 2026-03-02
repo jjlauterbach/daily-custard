@@ -762,7 +762,8 @@ class TestBigDealScraperIntegration(unittest.TestCase):
             {
                 "id": "bigdeal-test",
                 "name": "Big Deal Burgers",
-                "brand": "Bigdeal",
+                "brand": "Big Deal Burgers",
+                "brand_id": "bigdeal",
                 "url": "https://bigdealburgers.com/",
                 "facebook": "https://www.facebook.com/test",
                 "enabled": True,
@@ -789,7 +790,8 @@ class TestBigDealScraperIntegration(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["flavor"], "Mint Oreo")
         self.assertEqual(results[0]["location"], "Big Deal Burgers")
-        self.assertEqual(results[0]["brand"], "Bigdeal")
+        self.assertEqual(results[0]["brand"], "Big Deal Burgers")
+        self.assertEqual(results[0]["brand_id"], "bigdeal")
         self.assertEqual(results[0]["location_id"], "bigdeal-test")
 
     @patch("app.scrapers.bigdeal.BigDealScraper._scrape_facebook_page")

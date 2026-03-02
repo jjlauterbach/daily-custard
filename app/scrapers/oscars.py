@@ -19,7 +19,7 @@ class OscarsScraper(BaseScraper):
     """Scraper for Oscar's Frozen Custard."""
 
     def __init__(self):
-        super().__init__("oscars")
+        super().__init__("oscars", "Oscar's")
 
     def scrape(self):
         """Scrape Oscar's Frozen Custard."""
@@ -34,7 +34,7 @@ class OscarsScraper(BaseScraper):
                 driver = webdriver.Chrome(service=service, options=chrome_options)
 
             location = self.locations[0]
-            location_name = location.get("name", "Oscar's Frozen Custard")
+            location_name = location.get("name", self.brand)
             location_url = location.get("url")
 
             driver.execute_cdp_cmd(

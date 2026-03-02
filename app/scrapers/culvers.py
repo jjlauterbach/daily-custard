@@ -7,7 +7,7 @@ class CulversScraper(BaseScraper):
     API_URL = "https://www.culvers.com/api/locator/getLocations?lat=43.07970271852549&long=-88.22235303770586&radius=600000&limit=100"
 
     def __init__(self):
-        super().__init__("culvers")
+        super().__init__("culvers", "Culver's")
 
     def scrape(self):
         """Scrape all Culver's locations from the API."""

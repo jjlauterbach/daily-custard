@@ -9,14 +9,14 @@ class MurfsScraper(BaseScraper):
     """Scraper for Murf's Frozen Custard."""
 
     def __init__(self):
-        super().__init__("murfs")
+        super().__init__("murfs", "Murf's")
 
     def scrape(self):
         """Scrape Murf's Frozen Custard."""
         self.log_start()
         try:
             location = self.locations[0]
-            location_name = location.get("name", "Murfs")
+            location_name = location.get("name", self.brand)
             location_url = location.get("url")
 
             self.log_location(location_name)
