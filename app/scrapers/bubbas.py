@@ -12,7 +12,7 @@ class BubbasScraper(BaseScraper):
     """Scraper for Bubba's Frozen Custard via GraphQL API."""
 
     def __init__(self):
-        super().__init__("bubbas")
+        super().__init__("bubbas", "Bubba's")
 
     def scrape(self):
         """Scrape Bubba's using their GraphQL API."""

@@ -450,7 +450,7 @@ function applyFiltersAndDisplay() {
         }
         
         // Brand Filter (Multi-select)
-        if (!selectedBrands.has('all') && !selectedBrands.has(g.brand)) {
+        if (!selectedBrands.has('all') && !selectedBrands.has(g.brand_id)) {
             return false;
         }
         

@@ -24,7 +24,7 @@ class LeducsScraper(BaseScraper):
     RETRY_BASE_DELAY = 2  # Base delay in seconds; doubled each attempt (2s, 4s)
 
     def __init__(self):
-        super().__init__("leducs")
+        super().__init__("leducs", "Le Duc's")
 
     def scrape(self):
         """Scrape Le Duc's Frozen Custard."""
@@ -35,7 +35,7 @@ class LeducsScraper(BaseScraper):
             return []
 
         location = self.locations[0]
-        location_name = location.get("name", "LeDuc's Frozen Custard")
+        location_name = location.get("name", self.brand)
         base_url = location.get("url", "")
 
         if not base_url:
@@ -92,9 +92,7 @@ class LeducsScraper(BaseScraper):
                 if not self._handle_retry(attempt, f"Playwright error: {e}"):
                     return None
             except Exception as e:
-                self.logger.error(
-                    f"Unexpected error on attempt {attempt + 1}: {e}", exc_info=True
-                )
+                self.logger.error(f"Unexpected error on attempt {attempt + 1}: {e}", exc_info=True)
                 return None
         return None
 
@@ -148,9 +146,7 @@ class LeducsScraper(BaseScraper):
                 page.wait_for_timeout(WAIT_AFTER_LOAD)
 
                 page_text = page.inner_text("body")
-                self.logger.debug(
-                    f"📄 LEDUCS: Page text (first 500 chars): {page_text[:500]!r}"
-                )
+                self.logger.debug(f"📄 LEDUCS: Page text (first 500 chars): {page_text[:500]!r}")
                 return page_text
             finally:
                 if browser:

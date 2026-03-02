@@ -73,7 +73,7 @@ def enrich_flavor_with_location(flavor, location_lookup):
         flavor["lat"] = location_data["lat"]
         flavor["lng"] = location_data["lng"]
         flavor["address"] = location_data["address"]
-        flavor["brand"] = location_data["brand"]
+        flavor["brand_id"] = location_data.get("brand_id", "")
 
     return flavor
 
@@ -138,6 +138,7 @@ def group_flavors_by_location(flavors):
                 "lat": entry.get("lat"),
                 "lng": entry.get("lng"),
                 "brand": entry.get("brand"),
+                "brand_id": entry.get("brand_id"),
                 "url": entry.get("url"),
                 "flavors": [],
             }
