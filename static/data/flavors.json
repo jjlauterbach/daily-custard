@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-01T18:47:31.597685-06:00",
+  "generated_at": "2026-03-01T08:15:19.038562-06:00",
   "generated_date": "2026-03-01",
   "flavor_count": 113,
   "location_count": 109,
@@ -1781,8 +1781,8 @@
       "url": "https://www.murfsfrozencustard.com/flavorForecast",
       "flavors": [
         {
-          "name": "Blueberry Cheesecake Crumble",
-          "description": "Vanilla cheesecake frozen custard, cheesecake pieces, blueberry swirl, cinnamon streusel crunch",
+          "name": "There is no flavor of the day.",
+          "description": "There is no flavor of the day.",
           "date": "2026-03-01"
         }
       ]
@@ -1822,6 +1822,22 @@
       ]
     },
     {
+      "id": "bubbas-main",
+      "name": "Bubba's Frozen Custard",
+      "address": "1276 Capitol Dr, Pewaukee, WI 53072",
+      "lat": 43.08293313073564,
+      "lng": -88.23579148892487,
+      "brand": "Bubbas",
+      "url": "https://www.bubbasfrozencustard.com/events#section-1332549",
+      "flavors": [
+        {
+          "name": "Kit Kat Bar",
+          "description": "A malt-flavored custard with pieces of Kit Kat bar candy.",
+          "date": "2026-03-01"
+        }
+      ]
+    },
+    {
       "id": "gilles-main",
       "name": "Gilles Frozen Custard",
       "address": "7515 W Bluemound Rd, Milwaukee, WI 53213",
@@ -1856,23 +1872,6 @@
         {
           "name": "Drumstick",
           "description": "vanilla custard topped with hardshell chocolate, waffle cone pieces, crushed nuts, and chocolate chips",
-          "date": "2026-03-01"
-        }
-      ]
-    },
-    {
-      "id": "leducs-wales",
-      "name": "Le Duc's Frozen Custard",
-      "address": "240 W Summit Avenue, Wales, Wisconsin 53183",
-      "lat": 43.0130779363353,
-      "lng": -88.38238235582266,
-      "brand": "Le Duc's",
-      "brand_id": "leducs",
-      "url": "https://leducscustard.com",
-      "flavors": [
-        {
-          "name": "Chocolate Chip",
-          "description": "",
           "date": "2026-03-01"
         }
       ]
