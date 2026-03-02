@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-02-24T08:44:07.305305-06:00",
-  "generated_date": "2026-02-24",
+  "generated_at": "2026-03-02T08:03:35.360563-06:00",
+  "generated_date": "2026-03-02",
   "flavor_count": 114,
-  "location_count": 109,
+  "location_count": 110,
   "locations": [
     {
       "id": "culvers-brookfield-capitol",
@@ -10,13 +10,14 @@
       "address": "21300 W. Capitol Drive, Pewaukee, WI 53072",
       "lat": 43.08415985107422,
       "lng": -88.177490234375,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/brookfield-capitol",
       "flavors": [
         {
-          "name": "Devil's Food Cake",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with chocolate cake and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -26,13 +27,14 @@
       "address": "2600 N. Grandview Blvd., Waukesha, WI 53188",
       "lat": 43.03982925415039,
       "lng": -88.25642395019531,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/waukesha-grandview",
       "flavors": [
         {
-          "name": "Caramel Peanut Buttercup",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of peanut butter and old fashioned salted caramel and loaded with novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "OREO® Cookie Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -42,13 +44,14 @@
       "address": "1650 East Main Street, Waukesha, WI 53186",
       "lat": 43.02266311645508,
       "lng": -88.2018051147461,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/waukesha-hwy-164",
       "flavors": [
         {
-          "name": "OREO® Cookie Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
-          "date": "2026-02-24"
+          "name": "Raspberry Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and sweet raspberries for an indulgent treat.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -58,13 +61,14 @@
       "address": "W249 N6620 Hwy. 164, Sussex, WI 53089",
       "lat": 43.1379508972168,
       "lng": -88.24332427978516,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/sussex",
       "flavors": [
         {
-          "name": "Crazy for Cookie Dough",
-          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
-          "date": "2026-02-24"
+          "name": "Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -74,13 +78,14 @@
       "address": "840 W. Sunset Drive, Waukesha, WI 53189-7018",
       "lat": 42.988609313964844,
       "lng": -88.24684143066406,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/waukesha-sunset",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Mint Explosion",
+          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -90,13 +95,14 @@
       "address": "15280 W. Bluemound Road, Elm Grove, WI 53122",
       "lat": 43.03653335571289,
       "lng": -88.10372161865234,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/elm-grove-wi",
       "flavors": [
         {
-          "name": "Dark Chocolate Decadence",
-          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -106,13 +112,14 @@
       "address": "701 Industrial Court, Hartland, WI 53029",
       "lat": 43.09284973144531,
       "lng": -88.36058044433594,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/hartland-wi",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Chocolate Caramel Twist",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -122,13 +129,14 @@
       "address": "3705 North 124th St., Brookfield, WI 53005",
       "lat": 43.08540725708008,
       "lng": -88.06702423095703,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/brookfield-124th",
       "flavors": [
         {
-          "name": "Really Reese's",
-          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
-          "date": "2026-02-24"
+          "name": "Mint Explosion",
+          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -138,13 +146,14 @@
       "address": "W186 N9581 Bancroft Dr., Menomonee Falls, WI 53051",
       "lat": 43.191654205322266,
       "lng": -88.14076232910156,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/menomonee-falls",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -154,13 +163,14 @@
       "address": "400 E. Summit Avenue, Wales, WI 53183",
       "lat": 43.0152702331543,
       "lng": -88.37399291992188,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/wales",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Salted Double Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled into Caramel Fresh Frozen Custard and mixed with toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -170,13 +180,14 @@
       "address": "14855 W. National Ave., New Berlin, WI 53151",
       "lat": 42.98250961303711,
       "lng": -88.09871673583984,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/new-berlin",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Really Reese's",
+          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -186,13 +197,14 @@
       "address": "1672 South 108th Street, West Allis, WI 53214",
       "lat": 43.011837005615234,
       "lng": -88.04576873779297,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/west-allis",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -202,13 +214,14 @@
       "address": "7515 West Good Hope Road, Milwaukee, WI 53223",
       "lat": 43.148231506347656,
       "lng": -88.00408172607422,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/milwaukee-good-hope",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Chocolate Heath Crunch",
+          "description": "Our delicious Chocolate Fresh Frozen Custard with crunchy bits of Heath Bar. Kind of crunchy, kind of smooth, kind of incredible.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -218,13 +231,14 @@
       "address": "5501 W Fond du Lac Ave, Milwaukee, WI 53216",
       "lat": 43.09434509277344,
       "lng": -87.98262023925781,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/milwaukee-fond-du-lac",
       "flavors": [
         {
-          "name": "Caramel Cashew",
-          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
-          "date": "2026-02-24"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -234,13 +248,14 @@
       "address": "W187 S7959 Racine Ave., Muskego, WI 53150",
       "lat": 42.90005874633789,
       "lng": -88.14868927001953,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/muskego",
       "flavors": [
         {
-          "name": "Butter Pecan",
-          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Mint Cookie",
+          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -250,13 +265,14 @@
       "address": "1177 Summit Avenue, Oconomowoc, WI 53066",
       "lat": 43.092891693115234,
       "lng": -88.47896575927734,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/oconomowoc",
       "flavors": [
         {
-          "name": "Chocolate Volcano",
-          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
-          "date": "2026-02-24"
+          "name": "Dark Chocolate PB Crunch",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -266,13 +282,14 @@
       "address": "6101-A South 108th Street, Hales Corners, WI 53130",
       "lat": 42.93419647216797,
       "lng": -88.04946899414062,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/hales-corners",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-02-24"
+          "name": "Caramel Cashew",
+          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -282,13 +299,14 @@
       "address": "1641 Miller Parkway, West Milwaukee, WI 53214",
       "lat": 43.013084411621094,
       "lng": -87.96820068359375,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/west-milwaukee",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Caramel Fudge Cookie Dough",
+          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -298,13 +316,14 @@
       "address": "6031 W Layton Ave, Greenfield, WI 53220",
       "lat": 42.958984375,
       "lng": -87.9899673461914,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/greenfield-wi-layton-ave",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Turtle Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -314,13 +333,14 @@
       "address": "4327 W. Schroeder Drive, Brown Deer, WI 53223",
       "lat": 43.18611145019531,
       "lng": -87.96513366699219,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/brown-deer",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Chocolate Heath Crunch",
+          "description": "Our delicious Chocolate Fresh Frozen Custard with crunchy bits of Heath Bar. Kind of crunchy, kind of smooth, kind of incredible.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -330,13 +350,14 @@
       "address": "1090 N. Rochester Street, Mukwonago, WI 53149",
       "lat": 42.878631591796875,
       "lng": -88.33944702148438,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/mukwonago",
       "flavors": [
         {
-          "name": "Turtle Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
-          "date": "2026-02-24"
+          "name": "Raspberry Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and sweet raspberries for an indulgent treat.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -346,13 +367,14 @@
       "address": "300 W Bayside Drive, Glendale, WI 53217",
       "lat": 43.1245002746582,
       "lng": -87.91290283203125,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/glendale-wi-bayside-dr",
       "flavors": [
         {
-          "name": "Turtle Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
-          "date": "2026-02-24"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -362,13 +384,14 @@
       "address": "1325 E. Capitol Drive, Shorewood, WI 53211",
       "lat": 43.08860778808594,
       "lng": -87.89392852783203,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/shorewood",
       "flavors": [
         {
-          "name": "Devil's Food Cake",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with chocolate cake and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Crazy for Cookie Dough",
+          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -378,13 +401,14 @@
       "address": "W227 N16880 Tillie Lake Ct., Jackson, WI 53037",
       "lat": 43.32551956176758,
       "lng": -88.18882751464844,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/jackson-wi",
       "flavors": [
         {
-          "name": "Caramel Cashew",
-          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -394,13 +418,14 @@
       "address": "575 W. Layton Avenue, Milwaukee, WI 53207",
       "lat": 42.95858383178711,
       "lng": -87.91893768310547,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/milwaukee-layton",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -410,13 +435,14 @@
       "address": "1285 E Sumner St, Hartford, WI 53027",
       "lat": 43.317264556884766,
       "lng": -88.35797119140625,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/hartford",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -426,13 +452,14 @@
       "address": "11150 N. Port Washington, Mequon, WI 53092",
       "lat": 43.22075271606445,
       "lng": -87.9234390258789,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/mequon",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Chocolate Heath Crunch",
+          "description": "Our delicious Chocolate Fresh Frozen Custard with crunchy bits of Heath Bar. Kind of crunchy, kind of smooth, kind of incredible.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -442,13 +469,14 @@
       "address": "4220 W. Oakwood Park Ct., Franklin, WI 53132",
       "lat": 42.87202072143555,
       "lng": -87.97013854980469,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/franklin",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Mint Explosion",
+          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -458,13 +486,14 @@
       "address": "7841 S. Howell Avenue, Oak Creek, WI 53154",
       "lat": 42.901634216308594,
       "lng": -87.9126205444336,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/oak-creek",
       "flavors": [
         {
-          "name": "Turtle Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
-          "date": "2026-02-24"
+          "name": "Dark Chocolate Decadence",
+          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -474,13 +503,14 @@
       "address": "2001 Wisconsin Ave., Grafton, WI 53024",
       "lat": 43.30497360229492,
       "lng": -87.96100616455078,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/grafton",
       "flavors": [
         {
-          "name": "Georgia Peach",
-          "description": "Our specially blended Peach Fresh Frozen Custard swirled with sweet peaches for a light, refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Mint Cookie",
+          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -490,13 +520,14 @@
       "address": "2557 North St, East Troy, WI 53120",
       "lat": 42.791622161865234,
       "lng": -88.39273834228516,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/east-troy-wi-north-st",
       "flavors": [
         {
-          "name": "Caramel Cashew",
-          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -506,13 +537,14 @@
       "address": "2350 W. Washington St., West Bend, WI 53095",
       "lat": 43.42807388305664,
       "lng": -88.21224975585938,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/west-bend",
       "flavors": [
         {
-          "name": "Double Strawberry",
-          "description": "Our specially blended Strawberry Fresh Frozen Custard swirled with plump strawberries.",
-          "date": "2026-02-24"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -522,13 +554,14 @@
       "address": "1722 Church Street, Watertown, WI 53094",
       "lat": 43.17193603515625,
       "lng": -88.7329330444336,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/watertown",
       "flavors": [
         {
-          "name": "Caramel Turtle",
-          "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Mint Explosion",
+          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -538,13 +571,14 @@
       "address": "1407 W. Grand Ave., Port Washington, WI 53074",
       "lat": 43.38614273071289,
       "lng": -87.89720153808594,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/port-washington",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -554,13 +588,14 @@
       "address": "1073 Milwaukee Ave., Burlington, WI 53105",
       "lat": 42.69217300415039,
       "lng": -88.266357421875,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/burlington",
       "flavors": [
         {
-          "name": "Dark Chocolate Decadence",
-          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
-          "date": "2026-02-24"
+          "name": "Mint Cookie",
+          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -570,13 +605,14 @@
       "address": "525 Village Walk Lane, Johnson Creek, WI 53038",
       "lat": 43.0832633972168,
       "lng": -88.76392364501953,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/johnson-creek",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Raspberry Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and sweet raspberries for an indulgent treat.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -586,13 +622,14 @@
       "address": "722 S. Sylvania, Sturtevant, WI 53177",
       "lat": 42.72585678100586,
       "lng": -87.95706176757812,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/racine-sylvania",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-02-24"
+          "name": "Salted Double Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled into Caramel Fresh Frozen Custard and mixed with toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -602,13 +639,14 @@
       "address": "4542 Douglas Ave, Racine, WI 53402",
       "lat": 42.77839660644531,
       "lng": -87.80684661865234,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/racine-wi-douglas-ave",
       "flavors": [
         {
-          "name": "Mint Explosion",
-          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Turtle Dove",
+          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -618,13 +656,14 @@
       "address": "1000 N. Wisconsin, Elkhorn, WI 53121",
       "lat": 42.693206787109375,
       "lng": -88.54239654541016,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/elkhorn",
       "flavors": [
         {
-          "name": "Georgia Peach",
-          "description": "Our specially blended Peach Fresh Frozen Custard swirled with sweet peaches for a light, refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Caramel Fudge Cookie Dough",
+          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -634,13 +673,14 @@
       "address": "1414 W. Main Street, Whitewater, WI 53190",
       "lat": 42.83528137207031,
       "lng": -88.7605209350586,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/whitewater",
       "flavors": [
         {
-          "name": "OREO® Cookie Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
-          "date": "2026-02-24"
+          "name": "Chocolate Volcano",
+          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -650,13 +690,14 @@
       "address": "5801 21st Street, Racine, WI 53406",
       "lat": 42.70475769042969,
       "lng": -87.84991455078125,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/racine-21st",
       "flavors": [
         {
-          "name": "Andes Mint Avalanche",
-          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
-          "date": "2026-02-24"
+          "name": "Devil's Food Cake",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with chocolate cake and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -666,13 +707,14 @@
       "address": "1551 Madison Avenue, Fort Atkinson, WI 53538",
       "lat": 42.940696716308594,
       "lng": -88.86106872558594,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/fort-atkinson",
       "flavors": [
         {
           "name": "Caramel Cashew",
           "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
-          "date": "2026-02-24"
+          "date": "2026-03-02"
         }
       ]
     },
@@ -682,13 +724,14 @@
       "address": "190 Tyranena Park Rd, Lake Mills, WI 53551",
       "lat": 43.08985900878906,
       "lng": -88.9110107421875,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/lake-mills-wi-tyranena-rd",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -698,13 +741,14 @@
       "address": "11811 29th St, Kenosha, WI 53144",
       "lat": 42.61349868774414,
       "lng": -87.95010375976562,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/burlington-rd-kenosha-wi",
       "flavors": [
         {
-          "name": "Caramel Fudge Cookie Dough",
-          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -714,13 +758,14 @@
       "address": "151 Wells Street, Lake Geneva, WI 53147",
       "lat": 42.59033966064453,
       "lng": -88.42876434326172,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/lake-geneva",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "OREO® Cookie Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -730,13 +775,14 @@
       "address": "7600 Antioch Rd, Paddock Lake, WI 53168",
       "lat": 42.56718063354492,
       "lng": -88.11666107177734,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/paddock-lake-wi-antioch-rd",
       "flavors": [
         {
-          "name": "Really Reese's",
-          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -746,13 +792,14 @@
       "address": "1931 East Geneva Street, Delavan, WI 53115",
       "lat": 42.62852478027344,
       "lng": -88.61022186279297,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/delavan",
       "flavors": [
         {
-          "name": "Butter Pecan",
-          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Crazy for Cookie Dough",
+          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -762,13 +809,14 @@
       "address": "5220 Green Bay Road, Kenosha, WI 53144-3732",
       "lat": 42.5883674621582,
       "lng": -87.8829574584961,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/kenosha",
       "flavors": [
         {
-          "name": "Caramel Fudge Cookie Dough",
-          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -778,13 +826,14 @@
       "address": "1601 N. Spring Street, Beaver Dam, WI 53916",
       "lat": 43.47275924682617,
       "lng": -88.82547760009766,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/beaver-dam",
       "flavors": [
         {
-          "name": "Salted Double Caramel Pecan",
-          "description": "Ribbons of old fashioned salted caramel swirled into Caramel Fresh Frozen Custard and mixed with toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Chocolate Caramel Twist",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -794,13 +843,14 @@
       "address": "10484 Corporate Drive, Pleasant Prairie, WI 53158",
       "lat": 42.5231819152832,
       "lng": -87.94591522216797,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/pleasant-prairie",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Raspberry Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and sweet raspberries for an indulgent treat.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -810,13 +860,14 @@
       "address": "8124 Sheridan Road, Kenosha, WI 53143",
       "lat": 42.55632781982422,
       "lng": -87.8258056640625,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/kenosha-sheridan",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-02-24"
+          "name": "Salted Double Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled into Caramel Fresh Frozen Custard and mixed with toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -826,13 +877,14 @@
       "address": "451 East Route 173, Antioch, IL 60002",
       "lat": 42.46682357788086,
       "lng": -88.06571960449219,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/antioch",
       "flavors": [
         {
-          "name": "Turtle Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -842,13 +894,14 @@
       "address": "33 S Business Park Dr, Oostburg, WI 53070",
       "lat": 43.622493743896484,
       "lng": -87.77613830566406,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/oostburg-wi-s-business-park-dr",
       "flavors": [
         {
-          "name": "Caramel Peanut Buttercup",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of peanut butter and old fashioned salted caramel and loaded with novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Raspberry Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and sweet raspberries for an indulgent treat.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -858,13 +911,14 @@
       "address": "571 E. Richardson Springs Road, Edgerton, WI 53534",
       "lat": 42.83259582519531,
       "lng": -89.0255126953125,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/edgerton-newville",
       "flavors": [
         {
-          "name": "Raspberry Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and sweet raspberries for an indulgent treat.",
-          "date": "2026-02-24"
+          "name": "Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -874,13 +928,14 @@
       "address": "201 Dix Street, Columbus, WI 53925",
       "lat": 43.34346389770508,
       "lng": -89.0285415649414,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/columbus",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "OREO® Cookie Overload",
+          "description": "Our delicious Chocolate Fresh Frozen Custard loaded with OREO® Cookies and streams of chocolate syrup.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -890,13 +945,14 @@
       "address": "900 Kelly Avenue, Waupun, WI 53963",
       "lat": 43.635189056396484,
       "lng": -88.71772003173828,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/waupun",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -906,13 +962,14 @@
       "address": "2633 Milton Avenue, Janesville, WI 53545-0230",
       "lat": 42.71492385864258,
       "lng": -89.0009994506836,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/janesville-milton",
       "flavors": [
         {
-          "name": "Chocolate Heath Crunch",
-          "description": "Our delicious Chocolate Fresh Frozen Custard with crunchy bits of Heath Bar. Kind of crunchy, kind of smooth, kind of incredible.",
-          "date": "2026-02-24"
+          "name": "Butter Pecan",
+          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -922,13 +979,14 @@
       "address": "645 Midland Road, Janesville, WI 53546",
       "lat": 42.672420501708984,
       "lng": -88.97785186767578,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/janesville-wi-midland-rd",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-02-24"
+          "name": "Chocolate Caramel Twist",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -938,13 +996,14 @@
       "address": "100 S US Hwy 12, Fox Lake, IL 60020",
       "lat": 42.38990783691406,
       "lng": -88.18103790283203,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/fox-lake-il-hwy-12",
       "flavors": [
         {
-          "name": "Chocolate Volcano",
-          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -954,13 +1013,14 @@
       "address": "81 W. Pioneer Rd., Fond du Lac, WI 54935",
       "lat": 43.75424575805664,
       "lng": -88.4522705078125,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/fond-du-lac",
       "flavors": [
         {
-          "name": "Dark Chocolate Decadence",
-          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
-          "date": "2026-02-24"
+          "name": "Snickers Swirl",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -970,13 +1030,14 @@
       "address": "2318 Eastern Avenue, Plymouth, WI 53073",
       "lat": 43.74773025512695,
       "lng": -87.95317077636719,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/plymouth",
       "flavors": [
         {
-          "name": "Double Strawberry",
-          "description": "Our specially blended Strawberry Fresh Frozen Custard swirled with plump strawberries.",
-          "date": "2026-02-24"
+          "name": "Chocolate Heath Crunch",
+          "description": "Our delicious Chocolate Fresh Frozen Custard with crunchy bits of Heath Bar. Kind of crunchy, kind of smooth, kind of incredible.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -986,13 +1047,14 @@
       "address": "3335 Sheridan Road, Zion, IL 60099",
       "lat": 42.43375778198242,
       "lng": -87.82510375976562,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/zion",
       "flavors": [
         {
-          "name": "Crazy for Cookie Dough",
-          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
-          "date": "2026-02-24"
+          "name": "Caramel Turtle",
+          "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1002,13 +1064,14 @@
       "address": "1599 Landmark Dr, Cottage Grove, WI 53527",
       "lat": 43.1044807434082,
       "lng": -89.198486328125,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/cottage-grove-wi-landmark-dr",
       "flavors": [
         {
-          "name": "Mint Explosion",
-          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Butter Pecan",
+          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1018,13 +1081,14 @@
       "address": "969 E. Johnson Street, Fond du Lac, WI 54935",
       "lat": 43.784244537353516,
       "lng": -88.409423828125,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/fond-du-lac-johnson",
       "flavors": [
         {
-          "name": "Andes Mint Avalanche",
-          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
-          "date": "2026-02-24"
+          "name": "Devil's Food Cake",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with chocolate cake and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1034,13 +1098,14 @@
       "address": "1239 N. Route 83, GraysLake, IL 60030",
       "lat": 42.366031646728516,
       "lng": -88.04178619384766,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/grayslake",
       "flavors": [
         {
-          "name": "Caramel Chocolate Pecan",
-          "description": "Delicious Chocolate Fresh Frozen Custard enhanced with ribbons of old fashioned salted caramel, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1050,13 +1115,14 @@
       "address": "2421 W. Court Street, Janesville, WI 53548",
       "lat": 42.67890167236328,
       "lng": -89.05020141601562,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/janesville-court",
       "flavors": [
         {
-          "name": "Andes Mint Avalanche",
-          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
-          "date": "2026-02-24"
+          "name": "Caramel Fudge Cookie Dough",
+          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1066,13 +1132,14 @@
       "address": "1505 Nations Drive, Gurnee, IL 60031",
       "lat": 42.38109588623047,
       "lng": -87.94093322753906,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/gurnee",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-02-24"
+          "name": "Caramel Chocolate Pecan",
+          "description": "Delicious Chocolate Fresh Frozen Custard enhanced with ribbons of old fashioned salted caramel, toasted pecan pieces and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1082,13 +1149,14 @@
       "address": "2510 Washington Ave, Sheboygan, WI 53081",
       "lat": 43.719879150390625,
       "lng": -87.7396011352539,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/sheboygan-wi-washington",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1098,13 +1166,14 @@
       "address": "W6606 Hwy 23, Fond du Lac, WI 54937-9773",
       "lat": 43.78388214111328,
       "lng": -88.4874267578125,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/fond-du-lac-hwy-23",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Caramel Peanut Buttercup",
+          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of peanut butter and old fashioned salted caramel and loaded with novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1114,13 +1183,14 @@
       "address": "1060 S Division St, Harvard, IL 60033",
       "lat": 42.404972076416016,
       "lng": -88.6127700805664,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/harvard-il-division-st",
       "flavors": [
         {
-          "name": "Devil's Food Cake",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with chocolate cake and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1130,13 +1200,14 @@
       "address": "1101 Adams Drive, McHenry, IL 60050",
       "lat": 42.34303283691406,
       "lng": -88.24970245361328,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/mchenry",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "OREO® Cookie Overload",
+          "description": "Our delicious Chocolate Fresh Frozen Custard loaded with OREO® Cookies and streams of chocolate syrup.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1146,13 +1217,14 @@
       "address": "1501 W. Main Street, Sun Prairie, WI 53590",
       "lat": 43.178199768066406,
       "lng": -89.23873138427734,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/sun-prairie",
       "flavors": [
         {
-          "name": "Caramel Fudge Cookie Dough",
-          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
-          "date": "2026-02-24"
+          "name": "Dark Chocolate PB Crunch",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1162,13 +1234,14 @@
       "address": "641 S. Taylor Drive, Sheboygan, WI 53081",
       "lat": 43.74936294555664,
       "lng": -87.7455825805664,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/sheboygan-taylor-drive",
       "flavors": [
         {
-          "name": "Caramel Cashew",
-          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1178,13 +1251,14 @@
       "address": "916 Nygaard Street, Stoughton, WI 53589",
       "lat": 42.926509857177734,
       "lng": -89.24980926513672,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/stoughton",
       "flavors": [
         {
-          "name": "Caramel Fudge Cookie Dough",
-          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
-          "date": "2026-02-24"
+          "name": "Chocolate Volcano",
+          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1194,13 +1268,14 @@
       "address": "550 Oxford Place, Sun Prairie, WI 53590",
       "lat": 43.18630599975586,
       "lng": -89.26789093017578,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/sun-prairie-oxford-place",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Caramel Chocolate Pecan",
+          "description": "Delicious Chocolate Fresh Frozen Custard enhanced with ribbons of old fashioned salted caramel, toasted pecan pieces and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1210,13 +1285,14 @@
       "address": "850 S Waukegan Rd, Waukegan, IL 60085",
       "lat": 42.34418487548828,
       "lng": -87.8958511352539,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/waukegan-il-s-waukegan-rd",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Chocolate Caramel Twist",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1226,13 +1302,14 @@
       "address": "4225 Highway 42, Sheboygan, WI 53083",
       "lat": 43.79079055786133,
       "lng": -87.75958251953125,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/sheboygan-hwy42",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1242,13 +1319,14 @@
       "address": "2676 Cranston Road, Beloit, WI 53511",
       "lat": 42.52489471435547,
       "lng": -88.98799896240234,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/beloit",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Butter Pecan",
+          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1258,13 +1336,14 @@
       "address": "4700 Farwell Street, McFarland, WI 53558",
       "lat": 43.013755798339844,
       "lng": -89.30219268798828,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/mcfarland",
       "flavors": [
         {
-          "name": "Caramel Chocolate Pecan",
-          "description": "Delicious Chocolate Fresh Frozen Custard enhanced with ribbons of old fashioned salted caramel, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1274,13 +1353,14 @@
       "address": "4401 Cottage Grove Road, Madison, WI 53716",
       "lat": 43.083797454833984,
       "lng": -89.30780792236328,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/madison-cottage-grove",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-02-24"
+          "name": "OREO® Cookie Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1290,13 +1370,14 @@
       "address": "4301 East Towne Blvd., Madison, WI 53704",
       "lat": 43.12533950805664,
       "lng": -89.30843353271484,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/madison-east-towne",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Butter Pecan",
+          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1306,13 +1387,14 @@
       "address": "1620 W. Lake Shore Drive, Woodstock, IL 60098",
       "lat": 42.29072952270508,
       "lng": -88.416259765625,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/woodstock",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1322,13 +1404,14 @@
       "address": "203 E. State Rd., Island Lake, IL 60042",
       "lat": 42.271453857421875,
       "lng": -88.19638061523438,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/island-lake",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Mint Explosion",
+          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1338,13 +1421,14 @@
       "address": "803 E. Park Avenue, Libertyville, IL 60048",
       "lat": 42.281436920166016,
       "lng": -87.93952178955078,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/libertyville",
       "flavors": [
         {
-          "name": "Crazy for Cookie Dough",
-          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1354,13 +1438,14 @@
       "address": "60 N Union St, Evansville, WI 53536",
       "lat": 42.7814826965332,
       "lng": -89.2939453125,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/evansville-wi-n-union-rd",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Caramel Cashew",
+          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1370,13 +1455,14 @@
       "address": "1325 Northport Drive, Madison, WI 53704",
       "lat": 43.134124755859375,
       "lng": -89.37287902832031,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/madison-northport",
       "flavors": [
         {
-          "name": "OREO® Cookie Overload",
-          "description": "Our delicious Chocolate Fresh Frozen Custard loaded with OREO® Cookies and streams of chocolate syrup.",
-          "date": "2026-02-24"
+          "name": "Really Reese's",
+          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1386,13 +1472,14 @@
       "address": "400 Pingree Road, Crystal Lake, IL 60014",
       "lat": 42.229461669921875,
       "lng": -88.2969741821289,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/crystal-lake",
       "flavors": [
         {
-          "name": "Georgia Peach",
-          "description": "Our specially blended Peach Fresh Frozen Custard swirled with sweet peaches for a light, refreshing treat.",
-          "date": "2026-02-24"
+          "name": "Chocolate Caramel Twist",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1402,13 +1489,14 @@
       "address": "1075 Park St, Oregon, WI 53575",
       "lat": 42.917335510253906,
       "lng": -89.3696060180664,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/oregon-park-st",
       "flavors": [
         {
-          "name": "Salted Double Caramel Pecan",
-          "description": "Ribbons of old fashioned salted caramel swirled into Caramel Fresh Frozen Custard and mixed with toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Mint Explosion",
+          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1418,13 +1506,14 @@
       "address": "220 Oak Creek Plaza, Mundelein, IL 60060",
       "lat": 42.24018478393555,
       "lng": -87.98773956298828,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/mundelein",
       "flavors": [
         {
-          "name": "Mint Explosion",
-          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Caramel Chocolate Pecan",
+          "description": "Delicious Chocolate Fresh Frozen Custard enhanced with ribbons of old fashioned salted caramel, toasted pecan pieces and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1434,13 +1523,14 @@
       "address": "4910 CTH V, DeForest, WI 53532",
       "lat": 43.25088119506836,
       "lng": -89.37459564208984,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/deforest",
       "flavors": [
         {
-          "name": "Caramel Fudge Cookie Dough",
-          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
-          "date": "2026-02-24"
+          "name": "Turtle Dove",
+          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1450,13 +1540,14 @@
       "address": "2102 West Beltline Hwy., Madison, WI 53713",
       "lat": 43.036075592041016,
       "lng": -89.4150161743164,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/madison-todd-drive",
       "flavors": [
         {
-          "name": "Caramel Chocolate Pecan",
-          "description": "Delicious Chocolate Fresh Frozen Custard enhanced with ribbons of old fashioned salted caramel, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1466,13 +1557,14 @@
       "address": "645 N. Rand Road, Lake Zurich, IL 60047",
       "lat": 42.20735549926758,
       "lng": -88.1124496459961,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/lake-zurich",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Dark Chocolate PB Crunch",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1482,13 +1574,14 @@
       "address": "514 Northwest Hwy, Fox River Grove, IL 60021",
       "lat": 42.19648361206055,
       "lng": -88.21538543701172,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/fox-river-grove-il-northwest-hwy",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Butter Pecan",
+          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1498,13 +1591,14 @@
       "address": "9779 N. Second Street, Roscoe, IL 61073",
       "lat": 42.401954650878906,
       "lng": -89.01033020019531,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/roscoe",
       "flavors": [
         {
-          "name": "Chocolate Volcano",
-          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
-          "date": "2026-02-24"
+          "name": "Caramel Turtle",
+          "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1514,13 +1608,14 @@
       "address": "900 E. Main Street, Waunakee, WI 53597",
       "lat": 43.19131851196289,
       "lng": -89.43632507324219,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/waunakee",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Turtle Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1530,13 +1625,14 @@
       "address": "1086 W. Fond du Lac Street, Ripon, WI 54971",
       "lat": 43.85359573364258,
       "lng": -88.8587646484375,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/ripon",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-02-24"
+          "name": "Snickers Swirl",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1546,13 +1642,14 @@
       "address": "251 N Randall Rd, Lake in the Hills, IL 60156",
       "lat": 42.17864227294922,
       "lng": -88.33478546142578,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/lake-in-the-hills",
       "flavors": [
         {
-          "name": "Butter Pecan",
-          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Georgia Peach",
+          "description": "Our specially blended Peach Fresh Frozen Custard swirled with sweet peaches for a light, refreshing treat.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1562,13 +1659,14 @@
       "address": "405 Milwaukee Ave, Lincolnshire, IL 60069",
       "lat": 42.200016021728516,
       "lng": -87.93222045898438,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/lincolnshire-il-milwaukee-ave",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-02-24"
+          "name": "Butter Pecan",
+          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1578,13 +1676,14 @@
       "address": "1635 Big Thunder Blvd., Belvidere, IL 61008",
       "lat": 42.27240753173828,
       "lng": -88.85802459716797,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/belvidere",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-02-24"
+          "name": "Caramel Cashew",
+          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1594,13 +1693,14 @@
       "address": "450 McHenry Road, Buffalo Grove, IL 60089",
       "lat": 42.16120529174805,
       "lng": -87.96218872070312,
-      "brand": "Culvers",
+      "brand": "Culver's",
+      "brand_id": "culvers",
       "url": "https://www.culvers.com/restaurants/buffalo-grove",
       "flavors": [
         {
-          "name": "Caramel Turtle",
-          "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
-          "date": "2026-02-24"
+          "name": "Dark Chocolate PB Crunch",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1610,18 +1710,19 @@
       "address": "18880 W Bluemound Rd, Brookfield, WI 53045",
       "lat": 43.036675075390974,
       "lng": -88.10396536602177,
-      "brand": "Kopps",
+      "brand": "Kopp's",
+      "brand_id": "kopps",
       "url": "https://www.kopps.com",
       "flavors": [
         {
-          "name": "Caramel Cashew",
-          "description": "Our own caramel with special roasted cashews",
-          "date": "2026-02-24"
+          "name": "Twix-Tac-Dough",
+          "description": "Cookie Dough Custard + Caramel + Chocolate Flakes + Shortbread Cookies + Chocolate Chip Cookie Dough",
+          "date": "2026-03-02"
         },
         {
-          "name": "Malted Peanut Butter Pleasure",
-          "description": "Malt flavored custard with ribbons of peanut butter and chocolate fudge.",
-          "date": "2026-02-24"
+          "name": "Banana Cream Pie",
+          "description": "Banana custard, flaky pie crust pieces, toasted coconut, and swirls of banana cream.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1631,18 +1732,19 @@
       "address": "5373 N Port Washington Rd, Glendale, WI 53217",
       "lat": 43.13633307263394,
       "lng": -87.92576544046896,
-      "brand": "Kopps",
+      "brand": "Kopp's",
+      "brand_id": "kopps",
       "url": "https://www.kopps.com",
       "flavors": [
         {
-          "name": "Caramel Cashew",
-          "description": "Our own caramel with special roasted cashews",
-          "date": "2026-02-24"
+          "name": "Twix-Tac-Dough",
+          "description": "Cookie Dough Custard + Caramel + Chocolate Flakes + Shortbread Cookies + Chocolate Chip Cookie Dough",
+          "date": "2026-03-02"
         },
         {
-          "name": "Malted Peanut Butter Pleasure",
-          "description": "Malt flavored custard with ribbons of peanut butter and chocolate fudge.",
-          "date": "2026-02-24"
+          "name": "Banana Cream Pie",
+          "description": "Banana custard, flaky pie crust pieces, toasted coconut, and swirls of banana cream.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1652,18 +1754,19 @@
       "address": "7631 W Layton Ave, Greenfield, WI 53220",
       "lat": 42.97377252946846,
       "lng": -88.0067896126453,
-      "brand": "Kopps",
+      "brand": "Kopp's",
+      "brand_id": "kopps",
       "url": "https://www.kopps.com",
       "flavors": [
         {
-          "name": "Caramel Cashew",
-          "description": "Our own caramel with special roasted cashews",
-          "date": "2026-02-24"
+          "name": "Twix-Tac-Dough",
+          "description": "Cookie Dough Custard + Caramel + Chocolate Flakes + Shortbread Cookies + Chocolate Chip Cookie Dough",
+          "date": "2026-03-02"
         },
         {
-          "name": "Malted Peanut Butter Pleasure",
-          "description": "Malt flavored custard with ribbons of peanut butter and chocolate fudge.",
-          "date": "2026-02-24"
+          "name": "Banana Cream Pie",
+          "description": "Banana custard, flaky pie crust pieces, toasted coconut, and swirls of banana cream.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1673,13 +1776,14 @@
       "address": "12505 W Burleigh Rd, Brookfield, WI 53005",
       "lat": 43.07437219485065,
       "lng": -88.06790991776157,
-      "brand": "Murfs",
+      "brand": "Murf's",
+      "brand_id": "murfs",
       "url": "https://www.murfsfrozencustard.com/flavorForecast",
       "flavors": [
         {
-          "name": "Chocolate Chip Cookie Dough",
-          "description": "Vanilla frozen custard, Hershey's chocolate chips, chocolate chip cookie dough chunks",
-          "date": "2026-02-24"
+          "name": "Temporarily Closed Mondays",
+          "description": "",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1689,13 +1793,14 @@
       "address": "7041 S 27th St, Franklin, WI 53132",
       "lat": 42.928139916212025,
       "lng": -87.94927236675031,
-      "brand": "Oscars",
+      "brand": "Oscar's",
+      "brand_id": "oscars",
       "url": "https://www.oscarscustard.com/index.php/flavors",
       "flavors": [
         {
-          "name": "CHOCOLATE ALMOND",
-          "description": "Roasted almonds blended into a light butter almond chocolate custard.",
-          "date": "2026-02-24"
+          "name": "POLAR BEAR TRACKS",
+          "description": "A glacier of vanilla malt custard driven by a gravitational force of Heath Bar bits and chocolate flakes.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1705,13 +1810,14 @@
       "address": "2362 S 108th St, Milwaukee, WI 53227",
       "lat": 43.02397409803325,
       "lng": -88.05275108950721,
-      "brand": "Oscars",
+      "brand": "Oscar's",
+      "brand_id": "oscars",
       "url": "https://www.oscarscustard.com/index.php/flavors",
       "flavors": [
         {
-          "name": "CHOCOLATE ALMOND",
-          "description": "Roasted almonds blended into a light butter almond chocolate custard.",
-          "date": "2026-02-24"
+          "name": "POLAR BEAR TRACKS",
+          "description": "A glacier of vanilla malt custard driven by a gravitational force of Heath Bar bits and chocolate flakes.",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1721,13 +1827,36 @@
       "address": "1276 Capitol Dr, Pewaukee, WI 53072",
       "lat": 43.08293313073564,
       "lng": -88.23579148892487,
-      "brand": "Bubbas",
+      "brand": "Bubba's",
+      "brand_id": "bubbas",
       "url": "https://www.bubbasfrozencustard.com/events#section-1332549",
       "flavors": [
         {
-          "name": "Black Raspberry",
-          "description": "Our raspberry custard mixed with black raspberries.",
-          "date": "2026-02-24"
+          "name": "Drumstick",
+          "description": "Our vanilla custard mixed with crushed waffle cone pieces, hard shell chocolate, and peanuts.",
+          "date": "2026-03-02"
+        }
+      ]
+    },
+    {
+      "id": "gilles-main",
+      "name": "Gilles Frozen Custard",
+      "address": "7515 W Bluemound Rd, Milwaukee, WI 53213",
+      "lat": 43.03514241290648,
+      "lng": -88.00660788914804,
+      "brand": "Gilles",
+      "brand_id": "gilles",
+      "url": "https://gillesfrozencustard.com/flavor-of-the-day",
+      "flavors": [
+        {
+          "name": "Butter Pecan",
+          "description": "Vanilla custard with butterscotch and pecan pieces!",
+          "date": "2026-03-02"
+        },
+        {
+          "name": "Mint Chocolate Chip",
+          "description": "Flavorful mint custard with tasty chocolate chips!",
+          "date": "2026-03-02"
         }
       ]
     },
@@ -1737,13 +1866,31 @@
       "address": "1440 S 84th St, West Allis, WI 53214",
       "lat": 43.02475719719434,
       "lng": -88.01325003913674,
-      "brand": "Bigdeal",
+      "brand": "Big Deal Burgers",
+      "brand_id": "bigdeal",
       "url": "https://bigdealburgers.com/",
       "flavors": [
         {
-          "name": "Heath Bar",
-          "description": "toffee custard topped with Heath Bar pieces",
-          "date": "2026-02-24"
+          "name": "Lemon Meringue Pie",
+          "description": "lemon custard topped with graham crackers and whipped cream",
+          "date": "2026-03-02"
+        }
+      ]
+    },
+    {
+      "id": "leducs-wales",
+      "name": "Le Duc's Frozen Custard",
+      "address": "240 W Summit Avenue, Wales, Wisconsin 53183",
+      "lat": 43.0130779363353,
+      "lng": -88.38238235582266,
+      "brand": "Le Duc's",
+      "brand_id": "leducs",
+      "url": "https://leducscustard.com",
+      "flavors": [
+        {
+          "name": "Blueberry Cheesecake",
+          "description": "",
+          "date": "2026-03-02"
         }
       ]
     }

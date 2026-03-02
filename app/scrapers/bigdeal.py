@@ -24,7 +24,7 @@ class BigDealScraper(BaseScraper):
     )
 
     def __init__(self):
-        super().__init__("bigdeal")
+        super().__init__("bigdeal", "Big Deal Burgers")
 
     def scrape(self):
         """Scrape Big Deal Burgers Facebook page for today's flavor."""

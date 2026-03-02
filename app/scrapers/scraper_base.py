@@ -21,14 +21,17 @@ REQUEST_TIMEOUT = 30
 class BaseScraper:
     """Base class for flavor scrapers."""
 
-    def __init__(self, brand_key):
+    def __init__(self, brand_id, brand):
         """
         Initialize scraper for a brand.
 
         Args:
-            brand_key: String key matching the brand in locations.yaml (e.g., 'culvers', 'kopps')
+            brand_id: String ID matching the brand in locations.yaml (e.g., culvers, kopps)
+            brand: Human-readable brand name (e.g., "Culver's", "Kopp's")
+
         """
-        self.brand_key = brand_key
+        self.brand_id = brand_id
+        self.brand = brand
         self.logger = logging.getLogger(self.__class__.__name__)
         self.locations = self._load_locations()
         self.session = requests.Session()
@@ -36,9 +39,9 @@ class BaseScraper:
 
     def _load_locations(self):
         """Load enabled locations for this brand from registry."""
-        locations = get_locations_for_brand(self.brand_key)
+        locations = get_locations_for_brand(self.brand_id)
         if not locations:
-            self.logger.warning(f"⚠️ {self.brand_key.upper()}: No locations found in locations.yaml")
+            self.logger.warning(f"⚠️ {self.brand_id}: No locations found in locations.yaml")
         return locations
 
     def create_flavor(
@@ -75,6 +78,8 @@ class BaseScraper:
 
         result = {
             "location": location_name,
+            "brand": self.brand,
+            "brand_id": self.brand_id,
             "flavor": flavor,
             "description": description or "",
             "date": date,
@@ -88,8 +93,6 @@ class BaseScraper:
             result["lng"] = lng
         if address:
             result["address"] = address
-
-        result["brand"] = self.brand_key.capitalize()
 
         return result
 
@@ -236,21 +239,21 @@ class BaseScraper:
 
     def log_start(self):
         """Log scraper start message."""
-        self.logger.info(f"🚀 {self.brand_key.upper()}: Starting scrape...")
+        self.logger.info(f"🚀 {self.brand_id.upper()}: Starting scrape...")
 
     def log_location(self, location_name, url=None):
         """Log location scrape start."""
-        self.logger.info(f"📍 {self.brand_key.upper()}: Scraping {location_name}...")
+        self.logger.info(f"📍 {self.brand_id.upper()}: Scraping {location_name}...")
 
     def log_flavor(self, location_name, flavor, date=None):
         """Log found flavor."""
         date_str = f" ({date})" if date else ""
-        self.logger.info(f"🍨 {self.brand_key.upper()}: {location_name} - {flavor}{date_str}")
+        self.logger.info(f"🍨 {self.brand_id.upper()}: {location_name} - {flavor}{date_str}")
 
     def log_complete(self, count):
         """Log scraper completion."""
-        self.logger.info(f"✅ {self.brand_key.upper()}: Completed - found {count} flavor(s)")
+        self.logger.info(f"✅ {self.brand_id.upper()}: Completed - found {count} flavor(s)")
 
     def log_error(self, message, exc_info=False):
         """Log error."""
-        self.logger.error(f"❌ {self.brand_key.upper()}: {message}", exc_info=exc_info)
+        self.logger.error(f"❌ {self.brand_id.upper()}: {message}", exc_info=exc_info)

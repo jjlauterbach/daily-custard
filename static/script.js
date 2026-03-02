@@ -89,6 +89,9 @@ async function loadFlavors() {
         
         allLocations = locations;
         
+        // Remove any saved brand preferences that no longer exist
+        pruneSavedBrands(allLocations);
+        
         // Show filters panel 
         const filtersPanel = document.getElementById('filtersPanel');
         if (filtersPanel) {
@@ -450,7 +453,7 @@ function applyFiltersAndDisplay() {
         }
         
         // Brand Filter (Multi-select)
-        if (!selectedBrands.has('all') && !selectedBrands.has(g.brand)) {
+        if (!selectedBrands.has('all') && !selectedBrands.has(g.brand_id)) {
             return false;
         }
         
@@ -773,6 +776,24 @@ function loadSavedBrands() {
         } catch (e) {
             console.error('Error loading saved brands:', e);
         }
+    }
+}
+
+function pruneSavedBrands(locations) {
+    if (selectedBrands.has('all')) return;
+
+    const validBrandIds = new Set(locations.map(loc => loc.brand_id).filter(Boolean));
+    const pruned = new Set([...selectedBrands].filter(b => validBrandIds.has(b)));
+
+    if (pruned.size !== selectedBrands.size) {
+        selectedBrands.clear();
+        if (pruned.size === 0) {
+            selectedBrands.add('all');
+        } else {
+            pruned.forEach(b => selectedBrands.add(b));
+        }
+        saveBrands();
+        updateBrandButtonText();
     }
 }
 

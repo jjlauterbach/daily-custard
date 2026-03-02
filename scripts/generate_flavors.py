@@ -24,6 +24,7 @@ from app.scrapers.bubbas import scrape_bubbas  # noqa: E402
 from app.scrapers.culvers import scrape_culvers  # noqa: E402
 from app.scrapers.gilles import scrape_gilles  # noqa: E402
 from app.scrapers.kopps import scrape_kopps  # noqa: E402
+from app.scrapers.leducs import scrape_leducs  # noqa: E402
 from app.scrapers.murfs import scrape_murfs  # noqa: E402
 from app.scrapers.oscars import scrape_oscars  # noqa: E402
 
@@ -72,7 +73,7 @@ def enrich_flavor_with_location(flavor, location_lookup):
         flavor["lat"] = location_data["lat"]
         flavor["lng"] = location_data["lng"]
         flavor["address"] = location_data["address"]
-        flavor["brand"] = location_data["brand"]
+        flavor["brand_id"] = location_data.get("brand_id", "")
 
     return flavor
 
@@ -88,6 +89,7 @@ def scrape_all():
         scrape_bubbas,
         scrape_gilles,
         scrape_bigdeal,
+        scrape_leducs,
     ]
 
     # Load location data
@@ -136,6 +138,7 @@ def group_flavors_by_location(flavors):
                 "lat": entry.get("lat"),
                 "lng": entry.get("lng"),
                 "brand": entry.get("brand"),
+                "brand_id": entry.get("brand_id"),
                 "url": entry.get("url"),
                 "flavors": [],
             }
