@@ -36,7 +36,7 @@ class LeducsScraper(BaseScraper):
 
         location = self.locations[0]
         location_name = location.get("name", "LeDuc's Frozen Custard")
-        base_url = location.get("url", "").rstrip("/")
+        base_url = location.get("url", "")
 
         if not base_url:
             self.log_error("No URL found")
