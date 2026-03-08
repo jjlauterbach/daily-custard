@@ -115,7 +115,6 @@ class HefnersScraper(BaseScraper):
                 continue
             return flavor_name, self._get_next_description(h3)
 
-        self.logger.error("No valid flavor h3 found (all were monthly specials)")
         return None, None
 
 
