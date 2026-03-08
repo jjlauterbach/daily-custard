@@ -23,6 +23,7 @@ from app.scrapers.bigdeal import scrape_bigdeal  # noqa: E402
 from app.scrapers.bubbas import scrape_bubbas  # noqa: E402
 from app.scrapers.culvers import scrape_culvers  # noqa: E402
 from app.scrapers.gilles import scrape_gilles  # noqa: E402
+from app.scrapers.hefners import scrape_hefners  # noqa: E402
 from app.scrapers.kopps import scrape_kopps  # noqa: E402
 from app.scrapers.leducs import scrape_leducs  # noqa: E402
 from app.scrapers.murfs import scrape_murfs  # noqa: E402
@@ -90,6 +91,7 @@ def scrape_all():
         scrape_gilles,
         scrape_bigdeal,
         scrape_leducs,
+        scrape_hefners,
     ]
 
     # Load location data
