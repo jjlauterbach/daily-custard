@@ -108,13 +108,23 @@ leducs:
     url: "https://leducscustard.com"
     enabled: true
 
+hefners:
+  - id: hefners-cedarburg
+    name: "Hefner's Custard"
+    brand_id: hefners
+    address: "N71W5184 Columbia Rd, Cedarburg, WI 53012"
+    lat: 43.3019228
+    lng: -87.9749195
+    url: "https://www.hefnerscustard.com/"
+    facebook: "https://www.facebook.com/Hefners-Custard-109514165746607/"
+    enabled: true
+
 
 
 
 # Places to add
 # https://www.fredsfrozencustard.com/
 # https://georgieporgies.com/georgies-flavor-forecast/
-# https://www.hefnerscustard.com/
 # https://jumbosfrozencustard.com/
 # https://www.kraverzcustard.com/
 # https://robertsfrozencustard.com/

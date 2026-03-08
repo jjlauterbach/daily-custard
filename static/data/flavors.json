@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-03-08T09:15:38.815948-05:00",
+  "generated_at": "2026-03-08T13:20:09.048987-05:00",
   "generated_date": "2026-03-08",
-  "flavor_count": 114,
-  "location_count": 110,
+  "flavor_count": 115,
+  "location_count": 111,
   "locations": [
     {
       "id": "culvers-brookfield-capitol",
@@ -1890,6 +1890,23 @@
         {
           "name": "Heathbar",
           "description": "",
+          "date": "2026-03-08"
+        }
+      ]
+    },
+    {
+      "id": "hefners-cedarburg",
+      "name": "Hefner's Custard",
+      "address": "N71W5184 Columbia Rd, Cedarburg, WI 53012",
+      "lat": 43.3019228,
+      "lng": -87.9749195,
+      "brand": "Hefner's",
+      "brand_id": "hefners",
+      "url": "https://www.hefnerscustard.com/",
+      "flavors": [
+        {
+          "name": "Peanut M&M",
+          "description": "Creamy vanilla custard loaded with M&M's® and peanuts.",
           "date": "2026-03-08"
         }
       ]
