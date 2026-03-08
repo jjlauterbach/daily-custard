@@ -37,7 +37,7 @@ class HefnersScraper(BaseScraper):
                 self.log_error("No flavor of the day found")
                 return []
 
-            self.log_flavor("Hefner's", flavor_name)
+            self.log_flavor(location_name, flavor_name)
 
             flavor_entry = self.create_flavor(
                 location_name,
