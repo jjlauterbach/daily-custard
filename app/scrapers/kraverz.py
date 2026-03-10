@@ -79,7 +79,7 @@ class KraverzScraper(BaseScraper):
                 flavor_name,
                 "",
                 None,
-                url=schedule_url,
+                url=base_url,
                 location_id=location.get("id"),
                 lat=location.get("lat"),
                 lng=location.get("lng"),

@@ -13,8 +13,8 @@ TEST_LOCATION = {
     "name": "Kraverz Frozen Custard",
     "brand_id": "kraverz",
     "address": "N88W15325 Main St, Menomonee Falls, WI 53051",
-    "lat": 43.1777989,
-    "lng": -88.1001884,
+    "lat": 43.177930369224,
+    "lng": -88.10022265767095,
     "url": "https://www.kraverzcustard.com/",
     "enabled": True,
 }
@@ -79,8 +79,8 @@ class TestKraverzScrape(unittest.TestCase):
         self.assertEqual(result["brand"], "Kraverz")
         self.assertEqual(result["brand_id"], "kraverz")
         self.assertEqual(result["location_id"], "kraverz-main")
-        self.assertEqual(result["lat"], 43.1777989)
-        self.assertEqual(result["lng"], -88.1001884)
+        self.assertEqual(result["lat"], 43.177930369224)
+        self.assertEqual(result["lng"], -88.10022265767095)
 
     @patch("app.scrapers.kraverz.get_central_time")
     @patch("app.scrapers.kraverz.KraverzScraper.get_html")
