@@ -9,6 +9,7 @@ from app.scrapers.kraverz import scrape_kraverz
 from app.scrapers.leducs import scrape_leducs
 from app.scrapers.murfs import scrape_murfs
 from app.scrapers.oscars import scrape_oscars
+from app.scrapers.roberts import scrape_roberts
 from conftest import ecosystem
 
 
@@ -26,6 +27,7 @@ class TestScraperEcosystem(unittest.TestCase):
             ("Hefner's", scrape_hefners),
             ("Kraverz", scrape_kraverz),
             ("Le Duc's", scrape_leducs),
+            ("Robert's", scrape_roberts),
         ]
         for name, scraper in scrapers:
             with self.subTest(scraper=name):
