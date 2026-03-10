@@ -42,6 +42,7 @@ A web scraping application that collects daily flavor information from frozen cu
 - **Murf's Frozen Custard**
 - **Oscar's Frozen Custard**
 - **Big Deal Burgers**
+- **Kraverz Frozen Custard**
 
 ## Features
 - **Robust scrapers** for each shop using multiple strategies:
@@ -154,6 +155,16 @@ pytest --ecosystem
 All scrapers inherit from `BaseScraper` which provides common functionality:
 
 ### Creating a New Scraper
+
+Use the AI skill at `.github/skills/create-scraper/SKILL.md` and provide:
+- Shop name
+- Source URL
+
+The skill is instruction-driven (no Python template script) and should:
+- Inspect the source URL and choose scraper strategy
+- Implement the new scraper and unit tests
+- Add `locations.yaml` entry including address and coordinates (resolved via Google Maps)
+- Wire into `scripts/generate_flavors.py` and ecosystem coverage
 
 1. **Create scraper class**:
    ```python

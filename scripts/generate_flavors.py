@@ -25,6 +25,7 @@ from app.scrapers.culvers import scrape_culvers  # noqa: E402
 from app.scrapers.gilles import scrape_gilles  # noqa: E402
 from app.scrapers.hefners import scrape_hefners  # noqa: E402
 from app.scrapers.kopps import scrape_kopps  # noqa: E402
+from app.scrapers.kraverz import scrape_kraverz  # noqa: E402
 from app.scrapers.leducs import scrape_leducs  # noqa: E402
 from app.scrapers.murfs import scrape_murfs  # noqa: E402
 from app.scrapers.oscars import scrape_oscars  # noqa: E402
@@ -85,6 +86,7 @@ def scrape_all():
     scrapers = [
         scrape_culvers,
         scrape_kopps,
+        scrape_kraverz,
         scrape_murfs,
         scrape_oscars,
         scrape_bubbas,

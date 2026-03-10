@@ -5,6 +5,7 @@ from app.scrapers.culvers import scrape_culvers
 from app.scrapers.gilles import scrape_gilles
 from app.scrapers.hefners import scrape_hefners
 from app.scrapers.kopps import scrape_kopps
+from app.scrapers.kraverz import scrape_kraverz
 from app.scrapers.leducs import scrape_leducs
 from app.scrapers.murfs import scrape_murfs
 from app.scrapers.oscars import scrape_oscars
@@ -23,6 +24,7 @@ class TestScraperEcosystem(unittest.TestCase):
             ("Bubbas", scrape_bubbas),
             ("Gilles", scrape_gilles),
             ("Hefner's", scrape_hefners),
+            ("Kraverz", scrape_kraverz),
             ("Le Duc's", scrape_leducs),
         ]
         for name, scraper in scrapers:
