@@ -119,6 +119,16 @@ hefners:
     facebook: "https://www.facebook.com/Hefners-Custard-109514165746607/"
     enabled: true
 
+kraverz:
+  - id: kraverz-main
+    name: "Kraverz Frozen Custard"
+    brand_id: kraverz
+    address: "N88W15325 Main St, Menomonee Falls, WI 53051"
+    lat: 43.177930369224
+    lng: -88.10022265767095
+    url: "https://www.kraverzcustard.com/"
+    enabled: true
+
 
 
 
