@@ -172,7 +172,7 @@ The skill is instruction-driven (no Python template script) and should:
    
    class MyNewScraper(BaseScraper):
        def __init__(self):
-           super().__init__("brand_key")  # Must match locations.yaml
+           super().__init__("brand_key", "Brand Name")  # brand_key must match locations.yaml
        
        def scrape(self):
            self.log_start()
@@ -193,7 +193,7 @@ The skill is instruction-driven (no Python template script) and should:
    brand_key:
      - id: unique-location-id
        name: "Display Name"
-       brand: BrandName
+       brand_id: brand_key
        address: "123 Main St"
        lat: 43.0
        lng: -88.0
