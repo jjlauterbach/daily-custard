@@ -29,6 +29,7 @@ from app.scrapers.kraverz import scrape_kraverz  # noqa: E402
 from app.scrapers.leducs import scrape_leducs  # noqa: E402
 from app.scrapers.murfs import scrape_murfs  # noqa: E402
 from app.scrapers.oscars import scrape_oscars  # noqa: E402
+from app.scrapers.roberts import scrape_roberts  # noqa: E402
 
 # Configure logging
 logging.basicConfig(
@@ -94,6 +95,7 @@ def scrape_all():
         scrape_bigdeal,
         scrape_leducs,
         scrape_hefners,
+        scrape_roberts,
     ]
 
     # Load location data

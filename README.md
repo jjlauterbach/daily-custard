@@ -43,6 +43,7 @@ A web scraping application that collects daily flavor information from frozen cu
 - **Oscar's Frozen Custard**
 - **Big Deal Burgers**
 - **Kraverz Frozen Custard**
+- **Robert's Frozen Custard**
 
 ## Features
 - **Robust scrapers** for each shop using multiple strategies:

@@ -129,6 +129,15 @@ kraverz:
     url: "https://www.kraverzcustard.com/"
     enabled: true
 
+roberts:
+  - id: roberts-germantown
+    name: "Robert's Frozen Custard"
+    brand_id: roberts
+    address: "N112W16040 Mequon Rd, Germantown, WI 53022"
+    lat: 43.22149598825682
+    lng: -88.11066318472048
+    url: "https://robertsfrozencustard.com/"
+    enabled: true
 
 
 
@@ -136,5 +145,3 @@ kraverz:
 # https://www.fredsfrozencustard.com/
 # https://georgieporgies.com/georgies-flavor-forecast/
 # https://jumbosfrozencustard.com/
-# https://www.kraverzcustard.com/
-# https://robertsfrozencustard.com/
