@@ -112,7 +112,6 @@ class KoppsScraper(BaseScraper):
             "today’s flavors",
             "shake of the month",
             "sundae of the month",
-            "butter pecan",
         ]
         return any(marker in combined_text for marker in markers)
 
