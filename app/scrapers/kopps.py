@@ -2,7 +2,7 @@ import re
 
 from bs4 import BeautifulSoup
 
-from app.scrapers.scraper_base import BaseScraper
+from app.scrapers.scraper_base import BaseScraper, USER_AGENT
 
 
 class KoppsScraper(BaseScraper):
@@ -88,7 +88,7 @@ class KoppsScraper(BaseScraper):
             browser = None
             try:
                 browser = p.chromium.launch(headless=True)
-                page = browser.new_page()
+                page = browser.new_page(user_agent=USER_AGENT)
                 page.set_default_timeout(30000)
                 page.goto(url, wait_until="domcontentloaded", timeout=30000)
                 page.wait_for_timeout(2500)
