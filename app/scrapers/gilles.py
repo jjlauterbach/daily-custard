@@ -98,7 +98,7 @@ class GillesScraper(BaseScraper):
             if not flavors:
                 # Check if today's cell contains "Closed" text (no flavor links found)
                 today_cell_text = today_cell.get_text(strip=True)
-                if "Closed" in today_cell_text:
+                if "closed" in today_cell_text.lower():
                     self.logger.info("🍨 GILLES: Today is closed")
                     flavor_entry = self.create_flavor(
                         location_name,
