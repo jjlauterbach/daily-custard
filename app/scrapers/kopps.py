@@ -68,7 +68,9 @@ class KoppsScraper(BaseScraper):
             return None, []
 
         heading = flavors_section.find(re.compile(r"^h[1-6]$"))
-        date_str = self._extract_date_from_heading(heading.get_text(" ", strip=True) if heading else "")
+        date_str = self._extract_date_from_heading(
+            heading.get_text(" ", strip=True) if heading else ""
+        )
         if date_str:
             self.logger.info(f"📅 KOPPS: Found date: {date_str}")
 
