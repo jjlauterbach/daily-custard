@@ -2,7 +2,7 @@ import re
 
 from bs4 import BeautifulSoup
 
-from app.scrapers.scraper_base import BaseScraper, USER_AGENT
+from app.scrapers.scraper_base import USER_AGENT, BaseScraper
 
 
 class KoppsScraper(BaseScraper):
