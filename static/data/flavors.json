@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-03-15T09:20:46.102776-05:00",
+  "generated_at": "2026-03-15T17:35:00.834828-05:00",
   "generated_date": "2026-03-15",
-  "flavor_count": 111,
-  "location_count": 110,
+  "flavor_count": 110,
+  "location_count": 109,
   "locations": [
     {
       "id": "culvers-brookfield-capitol",
@@ -1807,23 +1807,6 @@
         {
           "name": "Mint Chocolate Chip",
           "description": "Flavorful mint custard with tasty chocolate chips!",
-          "date": "2026-03-15"
-        }
-      ]
-    },
-    {
-      "id": "bigdeal-main",
-      "name": "Big Deal Burgers",
-      "address": "1440 S 84th St, West Allis, WI 53214",
-      "lat": 43.02475719719434,
-      "lng": -88.01325003913674,
-      "brand": "Big Deal Burgers",
-      "brand_id": "bigdeal",
-      "url": "https://bigdealburgers.com/",
-      "flavors": [
-        {
-          "name": "German Chocolate Cake",
-          "description": "chocolate custard topped with coconut, caramel, brownie pieces, and walntus",
           "date": "2026-03-15"
         }
       ]
