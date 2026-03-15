@@ -44,11 +44,16 @@ class GillesScraper(BaseScraper):
             # 2. Flavor of the month
             flavor_divs = today_cell.find_all("div", class_="flavor")
             flavors = []
+            # Tracks whether a "Flavor of the day" entry was resolved (including Closed).
+            # Used to detect a closed day even when other entries (e.g. flavor-of-the-month)
+            # have already been collected.
+            found_today_flavor = False
 
             for div in flavor_divs:
                 div_text = div.get_text(strip=True)
+                is_today_flavor = "Flavor of the day:" in div_text
 
-                if "Flavor of the day:" in div_text or "Flavor of the month:" in div_text:
+                if is_today_flavor or "Flavor of the month:" in div_text:
                     # Navigate up to the 'contents' container (3 levels up)
                     contents_div = div.parent.parent.parent
 
@@ -71,6 +76,8 @@ class GillesScraper(BaseScraper):
                                         url=scrape_url,
                                     )
                                     flavors.append(flavor_entry)
+                                    if is_today_flavor:
+                                        found_today_flavor = True
                                     # Skip description fetching for closed days
                                     continue
 
@@ -109,9 +116,12 @@ class GillesScraper(BaseScraper):
                                     url=scrape_url,
                                 )
                                 flavors.append(flavor_entry)
+                                if is_today_flavor:
+                                    found_today_flavor = True
 
-            if not flavors:
-                # Check if today's cell contains "Closed" text (no flavor links found)
+            if not found_today_flavor:
+                # Check for text-only "Closed" indicator even when other entries
+                # (e.g. flavor-of-the-month) have already been collected.
                 today_cell_text = today_cell.get_text(strip=True)
                 if "closed" in today_cell_text.lower():
                     self.logger.info("🍨 GILLES: Today is closed")
@@ -123,7 +133,7 @@ class GillesScraper(BaseScraper):
                         url=scrape_url,
                     )
                     flavors.append(flavor_entry)
-                else:
+                elif not flavors:
                     self.logger.warning("⚠️ GILLES: No flavors found in today's cell")
 
             self.log_complete(len(flavors))

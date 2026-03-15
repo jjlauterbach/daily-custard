@@ -78,6 +78,28 @@ def _make_calendar_html_closed_link():
     """
 
 
+def _make_calendar_html_closed_text_with_month_flavor():
+    """Build calendar HTML where today is closed (text only) but has a flavor-of-month link.
+
+    This tests that the 'Closed' entry is still emitted even when other entries exist.
+    """
+    return """
+    <html><body>
+      <table>
+        <td class="single-day today">
+          Closed
+          <div class="flavor">
+            <div class="views-field-title">
+              Flavor of the month:
+              <a href="/flavor/mint-chocolate-chip/">Mint Chocolate Chip</a>
+            </div>
+          </div>
+        </td>
+      </table>
+    </body></html>
+    """
+
+
 class TestGillesScraperFlavor(unittest.TestCase):
     """Unit tests for Gilles flavor extraction."""
 
@@ -131,6 +153,23 @@ class TestGillesScraperFlavor(unittest.TestCase):
         self.assertEqual(results[0]["flavor"], "Closed")
         # Only the calendar page should have been fetched; no detail-page call
         self.assertEqual(mock_get_html.call_count, 1)
+
+    @patch("app.scrapers.gilles.GillesScraper.get_html")
+    def test_scrape_closed_text_with_month_flavor_adds_closed_entry(self, mock_get_html):
+        """'Closed' entry is included even when a flavor-of-month link is present.
+
+        This guards against the `if not flavors:` gate silently swallowing the
+        closed status whenever any other parsable entry exists in today's cell.
+        """
+        html = _make_calendar_html_closed_text_with_month_flavor()
+        # Return the same soup for both the calendar page and any detail-page fetch.
+        mock_get_html.return_value = _make_soup(html)
+
+        scraper = GillesScraper()
+        results = scraper.scrape()
+
+        flavor_names = [r["flavor"] for r in results]
+        self.assertIn("Closed", flavor_names)
 
     @patch("app.scrapers.gilles.GillesScraper.get_html")
     def test_scrape_returns_empty_when_no_today_cell(self, mock_get_html):
