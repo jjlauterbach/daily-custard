@@ -59,6 +59,21 @@ class GillesScraper(BaseScraper):
                         if flavor_link:
                             flavor_name = flavor_link.text.strip()
                             if flavor_name:
+                                # Short-circuit if the link represents a closed day to avoid
+                                # unnecessary detail page fetches that are likely to 404.
+                                if flavor_name.lower() == "closed":
+                                    self.logger.info("🍨 GILLES: Today is closed (link)")
+                                    flavor_entry = self.create_flavor(
+                                        location_name,
+                                        "Closed",
+                                        "",
+                                        None,
+                                        url=scrape_url,
+                                    )
+                                    flavors.append(flavor_entry)
+                                    # Skip description fetching for closed days
+                                    continue
+
                                 # Extract flavor description from detail page
                                 flavor_href = flavor_link.get("href", "")
                                 description = ""
