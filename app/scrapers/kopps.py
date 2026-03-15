@@ -162,7 +162,7 @@ class KoppsScraper(BaseScraper):
         if not flavor_name:
             return False
 
-        normalized = flavor_name.strip()
+        normalized = flavor_name.strip().replace("’", "'").replace("`", "'")
         if len(normalized) < 3:
             return False
 
