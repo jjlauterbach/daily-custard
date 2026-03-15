@@ -58,7 +58,7 @@ class GillesScraper(BaseScraper):
                         flavor_link = title_div.find("a", href=lambda x: x and "/flavor/" in x)
                         if flavor_link:
                             flavor_name = flavor_link.text.strip()
-                            if flavor_name and flavor_name.lower() != "closed":
+                            if flavor_name:
                                 # Extract flavor description from detail page
                                 flavor_href = flavor_link.get("href", "")
                                 description = ""
@@ -96,7 +96,20 @@ class GillesScraper(BaseScraper):
                                 flavors.append(flavor_entry)
 
             if not flavors:
-                self.logger.warning("⚠️ GILLES: No flavors found in today's cell")
+                # Check if today's cell contains "Closed" text (no flavor links found)
+                today_cell_text = today_cell.get_text(strip=True)
+                if "Closed" in today_cell_text:
+                    self.logger.info("🍨 GILLES: Today is closed")
+                    flavor_entry = self.create_flavor(
+                        location_name,
+                        "Closed",
+                        "",
+                        None,
+                        url=scrape_url,
+                    )
+                    flavors.append(flavor_entry)
+                else:
+                    self.logger.warning("⚠️ GILLES: No flavors found in today's cell")
 
             self.log_complete(len(flavors))
             return flavors
