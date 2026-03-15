@@ -133,6 +133,14 @@ class TestKoppsScrape(unittest.TestCase):
 class TestScrapeKoppsFunction(unittest.TestCase):
     """Tests for module-level scrape_kopps()."""
 
+    def setUp(self):
+        self.locations_patcher = patch("app.scrapers.scraper_base.get_locations_for_brand")
+        self.mock_get_locations = self.locations_patcher.start()
+        self.mock_get_locations.return_value = TEST_LOCATIONS
+
+    def tearDown(self):
+        self.locations_patcher.stop()
+
     @patch("app.scrapers.kopps.KoppsScraper.scrape")
     def test_scrape_kopps_function(self, mock_scrape):
         """scrape_kopps() delegates to KoppsScraper.scrape()."""
