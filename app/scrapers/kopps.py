@@ -57,7 +57,8 @@ class KoppsScraper(BaseScraper):
             return date_str, flavor_rows
 
         self.logger.warning(
-            "⚠️ KOPPS: No flavors extracted from primary section, trying heading-based fallback"
+            "⚠️ KOPPS: No flavors extracted from primary section "
+            "(section missing or no valid flavor headings); trying heading-based fallback"
         )
         return self._extract_flavors_from_headings(html)
 
