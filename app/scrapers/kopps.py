@@ -82,8 +82,6 @@ class KoppsScraper(BaseScraper):
 
             description = ""
             sibling = heading_tag.find_next_sibling()
-            while sibling and sibling.name != "p" and sibling.name is not None:
-                sibling = sibling.find_next_sibling()
             if sibling and sibling.name == "p":
                 desc_text = sibling.get_text(strip=True) if sibling.get_text() else ""
                 if len(desc_text) > 5:
