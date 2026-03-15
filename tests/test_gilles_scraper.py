@@ -60,6 +60,24 @@ def _make_calendar_html_closed():
     """
 
 
+def _make_calendar_html_closed_link():
+    """Build calendar HTML where today's flavor link text is 'Closed'."""
+    return """
+    <html><body>
+      <table>
+        <td class="single-day today">
+          <div class="flavor">
+            <div class="views-field-title">
+              Flavor of the day:
+              <a href="/flavor/closed/">Closed</a>
+            </div>
+          </div>
+        </td>
+      </table>
+    </body></html>
+    """
+
+
 class TestGillesScraperFlavor(unittest.TestCase):
     """Unit tests for Gilles flavor extraction."""
 
@@ -98,6 +116,21 @@ class TestGillesScraperFlavor(unittest.TestCase):
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["flavor"], "Closed")
         self.assertEqual(results[0]["location"], "Gilles Frozen Custard")
+
+    @patch("app.scrapers.gilles.GillesScraper.get_html")
+    def test_scrape_closed_link_skips_detail_page_fetch(self, mock_get_html):
+        """scrape() returns 'Closed' and does NOT fetch a detail page when the
+        flavor link text is 'Closed' (i.e. <a href="/flavor/closed/">Closed</a>)."""
+        html = _make_calendar_html_closed_link()
+        mock_get_html.return_value = _make_soup(html)
+
+        scraper = GillesScraper()
+        results = scraper.scrape()
+
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["flavor"], "Closed")
+        # Only the calendar page should have been fetched; no detail-page call
+        self.assertEqual(mock_get_html.call_count, 1)
 
     @patch("app.scrapers.gilles.GillesScraper.get_html")
     def test_scrape_returns_empty_when_no_today_cell(self, mock_get_html):
