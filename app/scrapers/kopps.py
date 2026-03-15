@@ -32,6 +32,10 @@ class KoppsScraper(BaseScraper):
                     self.logger.warning(
                         "⚠️ KOPPS: Bot challenge indicators detected; trying undetected Selenium fallback"
                     )
+                else:
+                    self.logger.warning(
+                        "⚠️ KOPPS: No flavors found; trying alternate fetch strategies"
+                    )
 
                 html = self._try_alternate_browser_fetches(scrape_url) or html
                 date_str, flavor_rows = self._extract_flavors(html)
