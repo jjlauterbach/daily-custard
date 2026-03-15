@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-03-15T17:35:00.834828-05:00",
+  "generated_at": "2026-03-15T17:07:19.036189-05:00",
   "generated_date": "2026-03-15",
-  "flavor_count": 110,
-  "location_count": 109,
+  "flavor_count": 117,
+  "location_count": 113,
   "locations": [
     {
       "id": "culvers-brookfield-capitol",
@@ -1701,6 +1701,72 @@
           "name": "Caramel Cashew",
           "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
           "date": "2026-03-15"
+        }
+      ]
+    },
+    {
+      "id": "kopps-brookfield",
+      "name": "Kopp's Frozen Custard (Brookfield)",
+      "address": "18880 W Bluemound Rd, Brookfield, WI 53045",
+      "lat": 43.036675075390974,
+      "lng": -88.10396536602177,
+      "brand": "Kopp's",
+      "brand_id": "kopps",
+      "url": "https://www.kopps.com",
+      "flavors": [
+        {
+          "name": "Butter Pecan",
+          "description": "A butterscotch flavor and whole roasted pecans",
+          "date": "March 15, 2026"
+        },
+        {
+          "name": "Song Sung Blueberry",
+          "description": "Cream Cheese Custard + Blueberry Custard + French Pastry + Blueberries + Streusel",
+          "date": "March 15, 2026"
+        }
+      ]
+    },
+    {
+      "id": "kopps-glendale",
+      "name": "Kopp's Frozen Custard (Glendale)",
+      "address": "5373 N Port Washington Rd, Glendale, WI 53217",
+      "lat": 43.13633307263394,
+      "lng": -87.92576544046896,
+      "brand": "Kopp's",
+      "brand_id": "kopps",
+      "url": "https://www.kopps.com",
+      "flavors": [
+        {
+          "name": "Butter Pecan",
+          "description": "A butterscotch flavor and whole roasted pecans",
+          "date": "March 15, 2026"
+        },
+        {
+          "name": "Song Sung Blueberry",
+          "description": "Cream Cheese Custard + Blueberry Custard + French Pastry + Blueberries + Streusel",
+          "date": "March 15, 2026"
+        }
+      ]
+    },
+    {
+      "id": "kopps-greenfield",
+      "name": "Kopp's Frozen Custard (Greenfield)",
+      "address": "7631 W Layton Ave, Greenfield, WI 53220",
+      "lat": 42.97377252946846,
+      "lng": -88.0067896126453,
+      "brand": "Kopp's",
+      "brand_id": "kopps",
+      "url": "https://www.kopps.com",
+      "flavors": [
+        {
+          "name": "Butter Pecan",
+          "description": "A butterscotch flavor and whole roasted pecans",
+          "date": "March 15, 2026"
+        },
+        {
+          "name": "Song Sung Blueberry",
+          "description": "Cream Cheese Custard + Blueberry Custard + French Pastry + Blueberries + Streusel",
+          "date": "March 15, 2026"
         }
       ]
     },

@@ -1,5 +1,7 @@
 import re
 
+from bs4 import BeautifulSoup
+
 from app.scrapers.scraper_base import BaseScraper
 
 
@@ -26,8 +28,16 @@ class KoppsScraper(BaseScraper):
 
             date_str, flavor_rows = self._extract_flavors(html)
             if not flavor_rows:
-                self.logger.warning("⚠️ KOPPS: Could not extract flavors from page")
-                return []
+                if self._looks_like_bot_challenge(html):
+                    self.logger.warning(
+                        "⚠️ KOPPS: Bot challenge indicators detected; trying undetected Selenium fallback"
+                    )
+
+                html = self._try_alternate_browser_fetches(scrape_url) or html
+                date_str, flavor_rows = self._extract_flavors(html)
+                if not flavor_rows:
+                    self.logger.warning("⚠️ KOPPS: Could not extract flavors from page")
+                    return []
 
             flavors = []
             for flavor_name, description in flavor_rows:
@@ -49,6 +59,76 @@ class KoppsScraper(BaseScraper):
         except Exception as e:
             self.log_error(f"Failed to scrape: {e}", exc_info=True)
             return []
+
+    def _try_alternate_browser_fetches(self, url):
+        """Attempt additional browser fetch strategies when initial extraction fails."""
+        try:
+            self.logger.info("KOPPS: Trying undetected-chromedriver fetch...")
+            html = self.get_html_selenium_undetected(url)
+            if html and self._has_any_flavor_markers(html):
+                return html
+        except Exception as exc:
+            self.logger.warning(f"KOPPS: Undetected Selenium fetch failed: {exc}")
+
+        try:
+            self.logger.info("KOPPS: Trying Playwright browser fetch...")
+            html = self._get_html_playwright(url)
+            if html and self._has_any_flavor_markers(html):
+                return html
+        except Exception as exc:
+            self.logger.warning(f"KOPPS: Playwright fetch failed: {exc}")
+
+        return None
+
+    def _get_html_playwright(self, url):
+        """Get HTML using Playwright as a last-resort browser strategy."""
+        from playwright.sync_api import sync_playwright
+
+        with sync_playwright() as p:
+            browser = None
+            try:
+                browser = p.chromium.launch(headless=True)
+                page = browser.new_page()
+                page.set_default_timeout(30000)
+                page.goto(url, wait_until="domcontentloaded", timeout=30000)
+                page.wait_for_timeout(2500)
+                return BeautifulSoup(page.content(), "html.parser")
+            finally:
+                if browser:
+                    browser.close()
+
+    def _has_any_flavor_markers(self, html):
+        """Check whether HTML appears to contain flavor content markers."""
+        if not html:
+            return False
+
+        combined_text = " ".join(html.stripped_strings).lower()
+        markers = [
+            "today's flavors",
+            "today’s flavors",
+            "shake of the month",
+            "sundae of the month",
+            "butter pecan",
+        ]
+        return any(marker in combined_text for marker in markers)
+
+    def _looks_like_bot_challenge(self, html):
+        """Best-effort detection for challenge/interstitial pages."""
+        if not html:
+            return False
+
+        combined_text = " ".join(html.stripped_strings).lower()
+        challenge_markers = [
+            "just a moment",
+            "verify you are human",
+            "checking your browser",
+            "attention required",
+            "cf-challenge",
+            "cloudflare",
+            "captcha",
+            "access denied",
+        ]
+        return any(marker in combined_text for marker in challenge_markers)
 
     def _extract_flavors(self, html):
         """Extract (date, flavors) from the page with resilient fallbacks."""

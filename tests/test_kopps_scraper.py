@@ -89,6 +89,13 @@ class TestKoppsFlavorExtraction(unittest.TestCase):
         date_str = self.scraper._extract_date_from_heading("TODAY’S FLAVORS — March 15, 2026")
         self.assertEqual(date_str, "March 15, 2026")
 
+    def test_detects_bot_challenge_text(self):
+        """Challenge page markers are detected for retry strategy."""
+        html = _make_soup(
+            "<html><body><h1>Just a moment...</h1><p>Checking your browser</p></body></html>"
+        )
+        self.assertTrue(self.scraper._looks_like_bot_challenge(html))
+
 
 class TestKoppsScrape(unittest.TestCase):
     """Integration-style tests for scrape()."""
@@ -128,6 +135,69 @@ class TestKoppsScrape(unittest.TestCase):
         mock_get_html.return_value = None
         results = KoppsScraper().scrape()
         self.assertEqual(results, [])
+
+    @patch("app.scrapers.kopps.KoppsScraper._try_alternate_browser_fetches")
+    @patch("app.scrapers.kopps.KoppsScraper.get_html")
+    def test_scrape_tries_alternate_fetch_when_initial_page_has_no_flavors(
+        self, mock_get_html, mock_try_alternate
+    ):
+        """If first HTML has no flavors, scraper uses alternate browser fetches."""
+        mock_get_html.return_value = _make_soup(
+            "<html><body><h1>Just a moment...</h1></body></html>"
+        )
+        mock_try_alternate.return_value = _make_soup(
+            """
+            <html><body>
+              <h2>TODAY'S FLAVORS - March 15, 2026</h2>
+              <h3>BUTTER PECAN</h3>
+              <h3>SHAKE OF THE MONTH</h3>
+            </body></html>
+            """
+        )
+
+        results = KoppsScraper().scrape()
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(item["flavor"] == "BUTTER PECAN" for item in results))
+        mock_try_alternate.assert_called_once_with("https://www.kopps.com")
+
+
+class TestKoppsAlternateFetches(unittest.TestCase):
+    """Tests for alternate browser fetch strategy helpers."""
+
+    def setUp(self):
+        self.locations_patcher = patch("app.scrapers.scraper_base.get_locations_for_brand")
+        self.mock_get_locations = self.locations_patcher.start()
+        self.mock_get_locations.return_value = TEST_LOCATIONS
+        self.scraper = KoppsScraper()
+
+    def tearDown(self):
+        self.locations_patcher.stop()
+
+    @patch("app.scrapers.kopps.KoppsScraper.get_html_selenium_undetected")
+    @patch("app.scrapers.kopps.KoppsScraper._get_html_playwright")
+    def test_try_alternate_browser_fetches_uses_playwright_when_undetected_has_no_markers(
+        self, mock_playwright, mock_undetected
+    ):
+        """Playwright fallback is attempted when undetected HTML lacks flavor markers."""
+        mock_undetected.return_value = _make_soup(
+            "<html><body><h1>Access denied</h1></body></html>"
+        )
+        mock_playwright.return_value = _make_soup(
+            """
+            <html><body>
+              <h2>TODAY'S FLAVORS - March 15, 2026</h2>
+              <h3>BUTTER PECAN</h3>
+            </body></html>
+            """
+        )
+
+        html = self.scraper._try_alternate_browser_fetches("https://www.kopps.com")
+
+        self.assertIsNotNone(html)
+        self.assertIn("TODAY'S FLAVORS", html.get_text(" "))
+        mock_undetected.assert_called_once()
+        mock_playwright.assert_called_once()
 
 
 class TestScrapeKoppsFunction(unittest.TestCase):
