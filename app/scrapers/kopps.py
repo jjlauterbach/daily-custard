@@ -25,7 +25,7 @@ class KoppsScraper(BaseScraper):
             return []
 
         try:
-            html = self.get_html(scrape_url)
+            html = self.get_html(scrape_url, use_selenium_fallback=False)
             if not html:
                 self.log_error("Could not retrieve HTML")
                 return []
