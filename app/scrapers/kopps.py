@@ -69,7 +69,7 @@ class KoppsScraper(BaseScraper):
             return []
 
     def _try_alternate_browser_fetches(self, url):
-        """Attempt additional browser fetch strategies when initial extraction fails."""
+        """Attempt Playwright browser fetch when initial extraction fails."""
         try:
             self.logger.info("KOPPS: Trying Playwright browser fetch...")
             html = self._get_html_playwright(url)
@@ -77,14 +77,6 @@ class KoppsScraper(BaseScraper):
                 return html
         except Exception as exc:
             self.logger.warning(f"KOPPS: Playwright fetch failed: {exc}")
-
-        try:
-            self.logger.info("KOPPS: Trying undetected-chromedriver fetch...")
-            html = self.get_html_selenium_undetected(url)
-            if html and self._has_any_flavor_markers(html):
-                return html
-        except Exception as exc:
-            self.logger.warning(f"KOPPS: Undetected Selenium fetch failed: {exc}")
 
         return None
 
