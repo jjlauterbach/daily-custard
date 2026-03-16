@@ -113,7 +113,7 @@ class KoppsScraper(BaseScraper):
         combined_text = " ".join(html.stripped_strings).lower()
         markers = [
             "today's flavors",
-            "today’s flavors",
+            "today\u2019s flavors",
             "shake of the month",
             "sundae of the month",
         ]
