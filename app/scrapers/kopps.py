@@ -41,7 +41,7 @@ class KoppsScraper(BaseScraper):
                         "⚠️ KOPPS: No flavors found; trying alternate fetch strategies"
                     )
 
-                html = self._try_alternate_browser_fetches(scrape_url) or html
+                html = self._try_playwright_browser_fetch(scrape_url) or html
                 date_str, flavor_rows = self._extract_flavors(html)
                 if not flavor_rows:
                     self.logger.warning("⚠️ KOPPS: Could not extract flavors from page")
@@ -68,7 +68,7 @@ class KoppsScraper(BaseScraper):
             self.log_error(f"Failed to scrape: {e}", exc_info=True)
             return []
 
-    def _try_alternate_browser_fetches(self, url):
+    def _try_playwright_browser_fetch(self, url):
         """Attempt Playwright browser fetch when initial extraction fails."""
         try:
             self.logger.info("KOPPS: Trying Playwright browser fetch...")
