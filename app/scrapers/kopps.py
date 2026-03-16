@@ -4,6 +4,10 @@ from bs4 import BeautifulSoup
 
 from app.scrapers.scraper_base import USER_AGENT, BaseScraper
 
+# Timeouts
+PAGE_TIMEOUT = 30000  # 30s
+WAIT_AFTER_LOAD = 2500  # 2.5s after domcontentloaded for JS to settle
+
 
 class KoppsScraper(BaseScraper):
     """Scraper for Kopp's Frozen Custard locations."""
@@ -93,9 +97,9 @@ class KoppsScraper(BaseScraper):
             try:
                 browser = p.chromium.launch(headless=True)
                 page = browser.new_page(user_agent=USER_AGENT)
-                page.set_default_timeout(30000)
-                page.goto(url, wait_until="domcontentloaded", timeout=30000)
-                page.wait_for_timeout(2500)
+                page.set_default_timeout(PAGE_TIMEOUT)
+                page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT)
+                page.wait_for_timeout(WAIT_AFTER_LOAD)
                 return BeautifulSoup(page.content(), "html.parser")
             finally:
                 if browser:
