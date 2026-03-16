@@ -2,7 +2,7 @@ import re
 
 from bs4 import BeautifulSoup
 
-from app.scrapers.scraper_base import BaseScraper, USER_AGENT
+from app.scrapers.scraper_base import USER_AGENT, BaseScraper
 
 
 class KoppsScraper(BaseScraper):
@@ -30,7 +30,7 @@ class KoppsScraper(BaseScraper):
             if not flavor_rows:
                 if self._looks_like_bot_challenge(html):
                     self.logger.warning(
-                        "⚠️ KOPPS: Bot challenge indicators detected; trying undetected Selenium fallback"
+                        "⚠️ KOPPS: Bot challenge indicators detected; trying alternate fetch strategies"
                     )
                 else:
                     self.logger.warning(
@@ -67,20 +67,20 @@ class KoppsScraper(BaseScraper):
     def _try_alternate_browser_fetches(self, url):
         """Attempt additional browser fetch strategies when initial extraction fails."""
         try:
-            self.logger.info("KOPPS: Trying undetected-chromedriver fetch...")
-            html = self.get_html_selenium_undetected(url)
-            if html and self._has_any_flavor_markers(html):
-                return html
-        except Exception as exc:
-            self.logger.warning(f"KOPPS: Undetected Selenium fetch failed: {exc}")
-
-        try:
             self.logger.info("KOPPS: Trying Playwright browser fetch...")
             html = self._get_html_playwright(url)
             if html and self._has_any_flavor_markers(html):
                 return html
         except Exception as exc:
             self.logger.warning(f"KOPPS: Playwright fetch failed: {exc}")
+
+        try:
+            self.logger.info("KOPPS: Trying undetected-chromedriver fetch...")
+            html = self.get_html_selenium_undetected(url)
+            if html and self._has_any_flavor_markers(html):
+                return html
+        except Exception as exc:
+            self.logger.warning(f"KOPPS: Undetected Selenium fetch failed: {exc}")
 
         return None
 

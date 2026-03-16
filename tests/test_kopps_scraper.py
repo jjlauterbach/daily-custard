@@ -176,14 +176,14 @@ class TestKoppsAlternateFetches(unittest.TestCase):
 
     @patch("app.scrapers.kopps.KoppsScraper.get_html_selenium_undetected")
     @patch("app.scrapers.kopps.KoppsScraper._get_html_playwright")
-    def test_try_alternate_browser_fetches_uses_playwright_when_undetected_has_no_markers(
+    def test_try_alternate_browser_fetches_uses_selenium_when_playwright_has_no_markers(
         self, mock_playwright, mock_undetected
     ):
-        """Playwright fallback is attempted when undetected HTML lacks flavor markers."""
-        mock_undetected.return_value = _make_soup(
+        """Selenium fallback is attempted when Playwright HTML lacks flavor markers."""
+        mock_playwright.return_value = _make_soup(
             "<html><body><h1>Access denied</h1></body></html>"
         )
-        mock_playwright.return_value = _make_soup(
+        mock_undetected.return_value = _make_soup(
             """
             <html><body>
               <h2>TODAY'S FLAVORS - March 15, 2026</h2>
@@ -196,8 +196,8 @@ class TestKoppsAlternateFetches(unittest.TestCase):
 
         self.assertIsNotNone(html)
         self.assertIn("TODAY'S FLAVORS", html.get_text(" "))
-        mock_undetected.assert_called_once()
         mock_playwright.assert_called_once()
+        mock_undetected.assert_called_once()
 
 
 class TestScrapeKoppsFunction(unittest.TestCase):
