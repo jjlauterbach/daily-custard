@@ -136,16 +136,16 @@ class TestKoppsScrape(unittest.TestCase):
         results = KoppsScraper().scrape()
         self.assertEqual(results, [])
 
-    @patch("app.scrapers.kopps.KoppsScraper._try_alternate_browser_fetches")
+    @patch("app.scrapers.kopps.KoppsScraper._try_playwright_browser_fetch")
     @patch("app.scrapers.kopps.KoppsScraper.get_html")
-    def test_scrape_tries_alternate_fetch_when_initial_page_has_no_flavors(
-        self, mock_get_html, mock_try_alternate
+    def test_scrape_tries_playwright_fetch_when_initial_page_has_no_flavors(
+        self, mock_get_html, mock_try_playwright
     ):
-        """If first HTML has no flavors, scraper uses alternate browser fetches."""
+        """If first HTML has no flavors, scraper uses Playwright browser fetch."""
         mock_get_html.return_value = _make_soup(
             "<html><body><h1>Just a moment...</h1></body></html>"
         )
-        mock_try_alternate.return_value = _make_soup(
+        mock_try_playwright.return_value = _make_soup(
             """
             <html><body>
               <h2>TODAY'S FLAVORS - March 15, 2026</h2>
@@ -159,11 +159,11 @@ class TestKoppsScrape(unittest.TestCase):
 
         self.assertEqual(len(results), 2)
         self.assertTrue(all(item["flavor"] == "BUTTER PECAN" for item in results))
-        mock_try_alternate.assert_called_once_with("https://www.kopps.com")
+        mock_try_playwright.assert_called_once_with("https://www.kopps.com")
 
 
 class TestKoppsAlternateFetches(unittest.TestCase):
-    """Tests for alternate browser fetch strategy helpers."""
+    """Tests for Playwright browser fetch strategy helpers."""
 
     def setUp(self):
         self.locations_patcher = patch("app.scrapers.scraper_base.get_locations_for_brand")
@@ -175,7 +175,7 @@ class TestKoppsAlternateFetches(unittest.TestCase):
         self.locations_patcher.stop()
 
     @patch("app.scrapers.kopps.KoppsScraper._get_html_playwright")
-    def test_try_alternate_browser_fetches_returns_playwright_html_when_markers_present(
+    def test_try_playwright_browser_fetch_returns_html_when_markers_present(
         self, mock_playwright
     ):
         """Playwright HTML is returned when it contains flavor markers."""
@@ -188,20 +188,20 @@ class TestKoppsAlternateFetches(unittest.TestCase):
             """
         )
 
-        html = self.scraper._try_alternate_browser_fetches("https://www.kopps.com")
+        html = self.scraper._try_playwright_browser_fetch("https://www.kopps.com")
 
         self.assertIsNotNone(html)
         self.assertIn("TODAY'S FLAVORS", html.get_text(" "))
         mock_playwright.assert_called_once()
 
     @patch("app.scrapers.kopps.KoppsScraper._get_html_playwright")
-    def test_try_alternate_browser_fetches_returns_none_without_markers(self, mock_playwright):
+    def test_try_playwright_browser_fetch_returns_none_without_markers(self, mock_playwright):
         """Playwright HTML is discarded when it does not contain flavor markers."""
         mock_playwright.return_value = _make_soup(
             "<html><body><h1>Access denied</h1></body></html>"
         )
 
-        html = self.scraper._try_alternate_browser_fetches("https://www.kopps.com")
+        html = self.scraper._try_playwright_browser_fetch("https://www.kopps.com")
 
         self.assertIsNone(html)
         mock_playwright.assert_called_once()
