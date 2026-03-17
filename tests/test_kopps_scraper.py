@@ -129,23 +129,24 @@ class TestKoppsScrape(unittest.TestCase):
         self.assertEqual(flavors, {"BUTTER PECAN", "SONG SUNG BLUEBERRY"})
         self.assertTrue(all(item["date"] == "March 15, 2026" for item in results))
 
+    @patch("app.scrapers.kopps.KoppsScraper._try_playwright_browser_fetch")
     @patch("app.scrapers.kopps.KoppsScraper.get_html")
-    def test_scrape_returns_empty_when_html_missing(self, mock_get_html):
-        """Returns [] when HTML fetch fails."""
+    def test_scrape_returns_empty_when_html_missing(self, mock_get_html, mock_try_playwright):
+        """Returns [] when both initial HTML fetch and Playwright fallback fail."""
         mock_get_html.return_value = None
+        mock_try_playwright.return_value = None
         results = KoppsScraper().scrape()
         self.assertEqual(results, [])
+        mock_try_playwright.assert_called_once_with("https://www.kopps.com")
 
-    @patch("app.scrapers.kopps.KoppsScraper._try_alternate_browser_fetches")
+    @patch("app.scrapers.kopps.KoppsScraper._try_playwright_browser_fetch")
     @patch("app.scrapers.kopps.KoppsScraper.get_html")
-    def test_scrape_tries_alternate_fetch_when_initial_page_has_no_flavors(
-        self, mock_get_html, mock_try_alternate
+    def test_scrape_uses_playwright_fallback_when_initial_html_is_none(
+        self, mock_get_html, mock_try_playwright
     ):
-        """If first HTML has no flavors, scraper uses alternate browser fetches."""
-        mock_get_html.return_value = _make_soup(
-            "<html><body><h1>Just a moment...</h1></body></html>"
-        )
-        mock_try_alternate.return_value = _make_soup(
+        """When get_html returns None, scraper falls back to Playwright and returns flavors."""
+        mock_get_html.return_value = None
+        mock_try_playwright.return_value = _make_soup(
             """
             <html><body>
               <h2>TODAY'S FLAVORS - March 15, 2026</h2>
@@ -159,11 +160,36 @@ class TestKoppsScrape(unittest.TestCase):
 
         self.assertEqual(len(results), 2)
         self.assertTrue(all(item["flavor"] == "BUTTER PECAN" for item in results))
-        mock_try_alternate.assert_called_once_with("https://www.kopps.com")
+        mock_try_playwright.assert_called_once_with("https://www.kopps.com")
+
+    @patch("app.scrapers.kopps.KoppsScraper._try_playwright_browser_fetch")
+    @patch("app.scrapers.kopps.KoppsScraper.get_html")
+    def test_scrape_tries_playwright_fetch_when_initial_page_has_no_flavors(
+        self, mock_get_html, mock_try_playwright
+    ):
+        """If first HTML has no flavors, scraper uses Playwright browser fetch."""
+        mock_get_html.return_value = _make_soup(
+            "<html><body><h1>Just a moment...</h1></body></html>"
+        )
+        mock_try_playwright.return_value = _make_soup(
+            """
+            <html><body>
+              <h2>TODAY'S FLAVORS - March 15, 2026</h2>
+              <h3>BUTTER PECAN</h3>
+              <h3>SHAKE OF THE MONTH</h3>
+            </body></html>
+            """
+        )
+
+        results = KoppsScraper().scrape()
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(item["flavor"] == "BUTTER PECAN" for item in results))
+        mock_try_playwright.assert_called_once_with("https://www.kopps.com")
 
 
-class TestKoppsAlternateFetches(unittest.TestCase):
-    """Tests for alternate browser fetch strategy helpers."""
+class TestKoppsPlaywrightFetch(unittest.TestCase):
+    """Tests for Playwright browser fetch strategy helpers."""
 
     def setUp(self):
         self.locations_patcher = patch("app.scrapers.scraper_base.get_locations_for_brand")
@@ -174,16 +200,10 @@ class TestKoppsAlternateFetches(unittest.TestCase):
     def tearDown(self):
         self.locations_patcher.stop()
 
-    @patch("app.scrapers.kopps.KoppsScraper.get_html_selenium_undetected")
     @patch("app.scrapers.kopps.KoppsScraper._get_html_playwright")
-    def test_try_alternate_browser_fetches_uses_selenium_when_playwright_has_no_markers(
-        self, mock_playwright, mock_undetected
-    ):
-        """Selenium fallback is attempted when Playwright HTML lacks flavor markers."""
+    def test_try_playwright_browser_fetch_returns_html_when_markers_present(self, mock_playwright):
+        """Playwright HTML is returned when it contains flavor markers."""
         mock_playwright.return_value = _make_soup(
-            "<html><body><h1>Access denied</h1></body></html>"
-        )
-        mock_undetected.return_value = _make_soup(
             """
             <html><body>
               <h2>TODAY'S FLAVORS - March 15, 2026</h2>
@@ -192,12 +212,23 @@ class TestKoppsAlternateFetches(unittest.TestCase):
             """
         )
 
-        html = self.scraper._try_alternate_browser_fetches("https://www.kopps.com")
+        html = self.scraper._try_playwright_browser_fetch("https://www.kopps.com")
 
         self.assertIsNotNone(html)
         self.assertIn("TODAY'S FLAVORS", html.get_text(" "))
         mock_playwright.assert_called_once()
-        mock_undetected.assert_called_once()
+
+    @patch("app.scrapers.kopps.KoppsScraper._get_html_playwright")
+    def test_try_playwright_browser_fetch_returns_none_without_markers(self, mock_playwright):
+        """Playwright HTML is discarded when it does not contain flavor markers."""
+        mock_playwright.return_value = _make_soup(
+            "<html><body><h1>Access denied</h1></body></html>"
+        )
+
+        html = self.scraper._try_playwright_browser_fetch("https://www.kopps.com")
+
+        self.assertIsNone(html)
+        mock_playwright.assert_called_once()
 
 
 class TestScrapeKoppsFunction(unittest.TestCase):

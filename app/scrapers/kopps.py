@@ -25,10 +25,15 @@ class KoppsScraper(BaseScraper):
             return []
 
         try:
-            html = self.get_html(scrape_url)
+            html = self.get_html(scrape_url, use_selenium_fallback=False)
             if not html:
-                self.log_error("Could not retrieve HTML")
-                return []
+                self.logger.warning(
+                    "KOPPS: Initial HTML fetch returned no content; trying Playwright browser fetch"
+                )
+                html = self._try_playwright_browser_fetch(scrape_url)
+                if not html:
+                    self.log_error("Could not retrieve HTML, even with Playwright fallback")
+                    return []
 
             date_str, flavor_rows = self._extract_flavors(html)
             if not flavor_rows:
@@ -41,7 +46,7 @@ class KoppsScraper(BaseScraper):
                         "⚠️ KOPPS: No flavors found; trying alternate fetch strategies"
                     )
 
-                html = self._try_alternate_browser_fetches(scrape_url) or html
+                html = self._try_playwright_browser_fetch(scrape_url) or html
                 date_str, flavor_rows = self._extract_flavors(html)
                 if not flavor_rows:
                     self.logger.warning("⚠️ KOPPS: Could not extract flavors from page")
@@ -68,8 +73,8 @@ class KoppsScraper(BaseScraper):
             self.log_error(f"Failed to scrape: {e}", exc_info=True)
             return []
 
-    def _try_alternate_browser_fetches(self, url):
-        """Attempt additional browser fetch strategies when initial extraction fails."""
+    def _try_playwright_browser_fetch(self, url):
+        """Attempt Playwright browser fetch when initial extraction fails."""
         try:
             self.logger.info("KOPPS: Trying Playwright browser fetch...")
             html = self._get_html_playwright(url)
@@ -77,14 +82,6 @@ class KoppsScraper(BaseScraper):
                 return html
         except Exception as exc:
             self.logger.warning(f"KOPPS: Playwright fetch failed: {exc}")
-
-        try:
-            self.logger.info("KOPPS: Trying undetected-chromedriver fetch...")
-            html = self.get_html_selenium_undetected(url)
-            if html and self._has_any_flavor_markers(html):
-                return html
-        except Exception as exc:
-            self.logger.warning(f"KOPPS: Undetected Selenium fetch failed: {exc}")
 
         return None
 
