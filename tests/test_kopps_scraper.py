@@ -129,12 +129,38 @@ class TestKoppsScrape(unittest.TestCase):
         self.assertEqual(flavors, {"BUTTER PECAN", "SONG SUNG BLUEBERRY"})
         self.assertTrue(all(item["date"] == "March 15, 2026" for item in results))
 
+    @patch("app.scrapers.kopps.KoppsScraper._try_playwright_browser_fetch")
     @patch("app.scrapers.kopps.KoppsScraper.get_html")
-    def test_scrape_returns_empty_when_html_missing(self, mock_get_html):
-        """Returns [] when HTML fetch fails."""
+    def test_scrape_returns_empty_when_html_missing(self, mock_get_html, mock_try_playwright):
+        """Returns [] when both initial HTML fetch and Playwright fallback fail."""
         mock_get_html.return_value = None
+        mock_try_playwright.return_value = None
         results = KoppsScraper().scrape()
         self.assertEqual(results, [])
+        mock_try_playwright.assert_called_once_with("https://www.kopps.com")
+
+    @patch("app.scrapers.kopps.KoppsScraper._try_playwright_browser_fetch")
+    @patch("app.scrapers.kopps.KoppsScraper.get_html")
+    def test_scrape_uses_playwright_fallback_when_initial_html_is_none(
+        self, mock_get_html, mock_try_playwright
+    ):
+        """When get_html returns None, scraper falls back to Playwright and returns flavors."""
+        mock_get_html.return_value = None
+        mock_try_playwright.return_value = _make_soup(
+            """
+            <html><body>
+              <h2>TODAY'S FLAVORS - March 15, 2026</h2>
+              <h3>BUTTER PECAN</h3>
+              <h3>SHAKE OF THE MONTH</h3>
+            </body></html>
+            """
+        )
+
+        results = KoppsScraper().scrape()
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(item["flavor"] == "BUTTER PECAN" for item in results))
+        mock_try_playwright.assert_called_once_with("https://www.kopps.com")
 
     @patch("app.scrapers.kopps.KoppsScraper._try_playwright_browser_fetch")
     @patch("app.scrapers.kopps.KoppsScraper.get_html")
