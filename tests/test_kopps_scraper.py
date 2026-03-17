@@ -162,7 +162,7 @@ class TestKoppsScrape(unittest.TestCase):
         mock_try_playwright.assert_called_once_with("https://www.kopps.com")
 
 
-class TestKoppsAlternateFetches(unittest.TestCase):
+class TestKoppsPlaywrightFetch(unittest.TestCase):
     """Tests for Playwright browser fetch strategy helpers."""
 
     def setUp(self):
