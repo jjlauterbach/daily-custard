@@ -175,9 +175,7 @@ class TestKoppsAlternateFetches(unittest.TestCase):
         self.locations_patcher.stop()
 
     @patch("app.scrapers.kopps.KoppsScraper._get_html_playwright")
-    def test_try_playwright_browser_fetch_returns_html_when_markers_present(
-        self, mock_playwright
-    ):
+    def test_try_playwright_browser_fetch_returns_html_when_markers_present(self, mock_playwright):
         """Playwright HTML is returned when it contains flavor markers."""
         mock_playwright.return_value = _make_soup(
             """
