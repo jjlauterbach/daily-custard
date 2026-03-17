@@ -27,8 +27,13 @@ class KoppsScraper(BaseScraper):
         try:
             html = self.get_html(scrape_url, use_selenium_fallback=False)
             if not html:
-                self.log_error("Could not retrieve HTML")
-                return []
+                self.logger.warning(
+                    "KOPPS: Initial HTML fetch returned no content; trying Playwright browser fetch"
+                )
+                html = self._try_playwright_browser_fetch(scrape_url)
+                if not html:
+                    self.log_error("Could not retrieve HTML, even with Playwright fallback")
+                    return []
 
             date_str, flavor_rows = self._extract_flavors(html)
             if not flavor_rows:
