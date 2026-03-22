@@ -22,6 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app.scrapers.bigdeal import scrape_bigdeal  # noqa: E402
 from app.scrapers.bubbas import scrape_bubbas  # noqa: E402
 from app.scrapers.culvers import scrape_culvers  # noqa: E402
+from app.scrapers.georgieporgies import scrape_georgieporgies  # noqa: E402
 from app.scrapers.gilles import scrape_gilles  # noqa: E402
 from app.scrapers.hefners import scrape_hefners  # noqa: E402
 from app.scrapers.kopps import scrape_kopps  # noqa: E402
@@ -92,6 +93,7 @@ def scrape_all():
         scrape_oscars,
         scrape_bubbas,
         scrape_gilles,
+        scrape_georgieporgies,
         scrape_bigdeal,
         scrape_leducs,
         scrape_hefners,

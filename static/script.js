@@ -88,6 +88,10 @@ async function loadFlavors() {
         }
         
         allLocations = locations;
+
+        // Build brand filter options from live location data so new brands
+        // appear automatically without manual HTML updates.
+        populateBrandFilterOptions(allLocations);
         
         // Remove any saved brand preferences that no longer exist
         pruneSavedBrands(allLocations);
@@ -104,6 +108,42 @@ async function loadFlavors() {
         console.error('Error loading flavors:', err);
         showError('Failed to load flavor data. Please try again later.');
     }
+}
+
+function populateBrandFilterOptions(locations) {
+    const modalBrandGrid = document.getElementById('modalBrandGrid');
+    if (!modalBrandGrid) return;
+
+    const brandsById = new Map();
+    locations.forEach(location => {
+        if (location.brand_id && location.brand) {
+            brandsById.set(location.brand_id, location.brand);
+        }
+    });
+
+    const sortedBrands = Array.from(brandsById.entries()).sort((a, b) =>
+        a[1].localeCompare(b[1])
+    );
+
+    modalBrandGrid.innerHTML = '';
+
+    sortedBrands.forEach(([brandId, brandName]) => {
+        const label = document.createElement('label');
+        label.className = 'brand-checkbox-card';
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.value = brandId;
+        checkbox.checked = selectedBrands.has('all') || selectedBrands.has(brandId);
+
+        const span = document.createElement('span');
+        span.className = 'brand-name';
+        span.textContent = brandName;
+
+        label.appendChild(checkbox);
+        label.appendChild(span);
+        modalBrandGrid.appendChild(label);
+    });
 }
 
 // Fetch from static JSON file
@@ -757,8 +797,10 @@ function loadSavedBrands() {
                 ? new Set(Array.from(modalBrandGrid.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value))
                 : null;
 
-            // Filter saved brands to only those that still exist (always keep 'all' sentinel)
-            const filteredBrands = validBrands
+            // Filter saved brands only when modal options are actually populated.
+            // With data-driven brands, this function can run before checkboxes exist.
+            const shouldFilterByModal = validBrands && validBrands.size > 0;
+            const filteredBrands = shouldFilterByModal
                 ? brandsArray.filter(brand => brand === 'all' || validBrands.has(brand))
                 : brandsArray;
 
