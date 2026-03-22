@@ -2,9 +2,13 @@
 
 import re
 
-from app.scrapers.scraper_base import BaseScraper
+from bs4 import BeautifulSoup
+
+from app.scrapers.scraper_base import USER_AGENT, BaseScraper
 
 GEORGIE_PORGIES_FORECAST_URL = "https://georgieporgies.com/georgies-flavor-forecast/"
+PAGE_TIMEOUT = 30000  # 30s
+WAIT_AFTER_LOAD = 2500  # 2.5s after domcontentloaded for JS to settle
 
 
 class GeorgiePorgiesScraper(BaseScraper):
@@ -22,12 +26,23 @@ class GeorgiePorgiesScraper(BaseScraper):
             return []
 
         try:
-            html = self.get_html(GEORGIE_PORGIES_FORECAST_URL)
+            html = self.get_html(GEORGIE_PORGIES_FORECAST_URL, use_selenium_fallback=False)
             if not html:
-                self.log_error("Failed to get HTML")
-                return []
+                self.logger.warning(
+                    "GEORGIEPORGIES: Initial HTML fetch returned no content; trying Playwright browser fetch"
+                )
+                html = self._try_playwright_browser_fetch(GEORGIE_PORGIES_FORECAST_URL)
+                if not html:
+                    self.log_error("Failed to get HTML")
+                    return []
 
             flavor_name, description = self._extract_todays_flavor(html)
+            if not flavor_name:
+                self.logger.warning(
+                    "GEORGIEPORGIES: No flavor found; trying Playwright browser fetch"
+                )
+                html = self._try_playwright_browser_fetch(GEORGIE_PORGIES_FORECAST_URL) or html
+                flavor_name, description = self._extract_todays_flavor(html)
             if not flavor_name:
                 self.log_error("No flavor found for today")
                 return []
@@ -104,6 +119,32 @@ class GeorgiePorgiesScraper(BaseScraper):
         if description and "closed" in description.lower():
             return "Closed"
         return None
+
+    def _try_playwright_browser_fetch(self, url):
+        """Attempt Playwright browser fetch when initial extraction fails."""
+        try:
+            self.logger.info("GEORGIEPORGIES: Trying Playwright browser fetch...")
+            return self._get_html_playwright(url)
+        except Exception as exc:
+            self.logger.warning(f"GEORGIEPORGIES: Playwright fetch failed: {exc}")
+        return None
+
+    def _get_html_playwright(self, url):
+        """Get HTML using Playwright as a fallback browser strategy."""
+        from playwright.sync_api import sync_playwright
+
+        with sync_playwright() as p:
+            browser = None
+            try:
+                browser = p.chromium.launch(headless=True)
+                page = browser.new_page(user_agent=USER_AGENT)
+                page.set_default_timeout(PAGE_TIMEOUT)
+                page.goto(url, wait_until="domcontentloaded", timeout=PAGE_TIMEOUT)
+                page.wait_for_timeout(WAIT_AFTER_LOAD)
+                return BeautifulSoup(page.content(), "html.parser")
+            finally:
+                if browser:
+                    browser.close()
 
 
 def scrape_georgieporgies():
