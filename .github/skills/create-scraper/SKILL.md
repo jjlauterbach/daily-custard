@@ -38,12 +38,19 @@ Given only `name` and `url`, Copilot should:
    - Wire scraper into `scripts/generate_flavors.py` (import + `scrape_<brand_id>` in scraper list)
    - Add to ecosystem verification in `tests/test_scraper_ecosystem.py` if needed by current pattern
    - Update frontend assets so the new brand appears correctly in the UI (follow existing patterns in `static/`)
+      - Brand modal options are data-driven from `static/data/flavors.json` via `static/script.js`; do not manually hardcode brand checkboxes in `static/index.html`
+      - Ensure new locations include correct `brand` and `brand_id` in generated output so the modal and filters pick them up automatically
       - Ensure brand/location display is included wherever location/brand lists are surfaced
       - Keep UI changes minimal and consistent with existing styling and behavior
 
 5. **Validate**
    - Run targeted tests for the new scraper first
    - Run lint/format checks relevant to modified files
+   - Run full test suite to ensure no regressions
+
+6. **Create Branch and PR**
+   - Create a new branch named `add-<brand_id>-scraper`
+   - Push changes and open a PR with a clear description of the new scraper, data sources, and any assumptions made
 
 ## Project constraints
 - Follow repo conventions in `.github/copilot-instructions.md`

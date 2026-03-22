@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-03-21T09:16:48.277584-05:00",
+  "generated_at": "2026-03-21T22:34:04.697160-05:00",
   "generated_date": "2026-03-21",
-  "flavor_count": 117,
-  "location_count": 113,
+  "flavor_count": 119,
+  "location_count": 115,
   "locations": [
     {
       "id": "culvers-brookfield-capitol",
@@ -457,8 +457,8 @@
       "url": "https://www.culvers.com/restaurants/mequon",
       "flavors": [
         {
-          "name": "OREO® Cookie Overload",
-          "description": "Our delicious Chocolate Fresh Frozen Custard loaded with OREO® Cookies and streams of chocolate syrup.",
+          "name": "OREO® Cookie Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
           "date": "2026-03-21"
         }
       ]
@@ -1873,6 +1873,40 @@
         {
           "name": "Mint Chocolate Chip",
           "description": "Flavorful mint custard with tasty chocolate chips!",
+          "date": "2026-03-21"
+        }
+      ]
+    },
+    {
+      "id": "georgieporgies-oak-creek",
+      "name": "Georgie Porgie's Treefort (Oak Creek)",
+      "address": "9555 S Howell Ave, Oak Creek, WI 53154",
+      "lat": 42.86686,
+      "lng": -87.940491,
+      "brand": "Georgie Porgie's",
+      "brand_id": "georgieporgies",
+      "url": "https://georgieporgies.com",
+      "flavors": [
+        {
+          "name": "Nutella Banana Crunch",
+          "description": "Vanilla custard, banana slices, waffle pieces, Nutella swirls",
+          "date": "2026-03-21"
+        }
+      ]
+    },
+    {
+      "id": "georgieporgies-racine",
+      "name": "Georgie Porgie's Treefort (Racine)",
+      "address": "5502 Washington Ave, Racine, WI 53406",
+      "lat": 42.72695,
+      "lng": -87.84831,
+      "brand": "Georgie Porgie's",
+      "brand_id": "georgieporgies",
+      "url": "https://georgieporgies.com",
+      "flavors": [
+        {
+          "name": "Nutella Banana Crunch",
+          "description": "Vanilla custard, banana slices, waffle pieces, Nutella swirls",
           "date": "2026-03-21"
         }
       ]

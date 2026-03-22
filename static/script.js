@@ -797,8 +797,10 @@ function loadSavedBrands() {
                 ? new Set(Array.from(modalBrandGrid.querySelectorAll('input[type="checkbox"]')).map(cb => cb.value))
                 : null;
 
-            // Filter saved brands to only those that still exist (always keep 'all' sentinel)
-            const filteredBrands = validBrands
+            // Filter saved brands only when modal options are actually populated.
+            // With data-driven brands, this function can run before checkboxes exist.
+            const shouldFilterByModal = validBrands && validBrands.size > 0;
+            const filteredBrands = shouldFilterByModal
                 ? brandsArray.filter(brand => brand === 'all' || validBrands.has(brand))
                 : brandsArray;
 
