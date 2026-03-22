@@ -91,22 +91,78 @@ class TestGeorgiePorgiesScraper(unittest.TestCase):
         self.assertEqual(len(results), 2)
         self.assertTrue(all(r["flavor"] == "Closed" for r in results))
 
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper._try_playwright_browser_fetch")
     @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
-    def test_scrape_returns_empty_when_today_heading_missing(self, mock_get_html):
+    def test_scrape_returns_empty_when_today_heading_missing(
+        self, mock_get_html, mock_try_playwright
+    ):
         html = "<html><body><h2>Flavor Forecast</h2><p>No heading</p></body></html>"
         mock_get_html.return_value = _make_soup(html)
+        mock_try_playwright.return_value = None
 
         results = GeorgiePorgiesScraper().scrape()
 
         self.assertEqual(results, [])
 
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper._try_playwright_browser_fetch")
     @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
-    def test_scrape_returns_empty_when_html_missing(self, mock_get_html):
+    def test_scrape_returns_empty_when_html_missing(self, mock_get_html, mock_try_playwright):
+        """Returns [] when both initial HTML fetch and Playwright fallback fail."""
         mock_get_html.return_value = None
+        mock_try_playwright.return_value = None
 
         results = GeorgiePorgiesScraper().scrape()
 
         self.assertEqual(results, [])
+        mock_try_playwright.assert_called_once_with(
+            "https://georgieporgies.com/georgies-flavor-forecast/"
+        )
+
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper._try_playwright_browser_fetch")
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
+    def test_scrape_uses_playwright_fallback_when_initial_html_is_none(
+        self, mock_get_html, mock_try_playwright
+    ):
+        """When get_html returns None, scraper falls back to Playwright and returns flavors."""
+        mock_get_html.return_value = None
+        mock_try_playwright.return_value = _make_soup(
+            _forecast_html(
+                "Flavor of the Day - Strawberry Cheesecake",
+                "Fresh strawberries, cream cheese swirl",
+            )
+        )
+
+        results = GeorgiePorgiesScraper().scrape()
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(r["flavor"] == "Strawberry Cheesecake" for r in results))
+        mock_try_playwright.assert_called_once_with(
+            "https://georgieporgies.com/georgies-flavor-forecast/"
+        )
+
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper._try_playwright_browser_fetch")
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
+    def test_scrape_uses_playwright_fallback_when_extraction_fails(
+        self, mock_get_html, mock_try_playwright
+    ):
+        """When first extraction finds no flavor, Playwright fallback is tried and succeeds."""
+        mock_get_html.return_value = _make_soup(
+            "<html><body><h2>Flavor Forecast</h2><p>No heading</p></body></html>"
+        )
+        mock_try_playwright.return_value = _make_soup(
+            _forecast_html(
+                "Flavor of the Day - Mint Chocolate Chip",
+                "Refreshing mint with chocolate chips",
+            )
+        )
+
+        results = GeorgiePorgiesScraper().scrape()
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(r["flavor"] == "Mint Chocolate Chip" for r in results))
+        mock_try_playwright.assert_called_once_with(
+            "https://georgieporgies.com/georgies-flavor-forecast/"
+        )
 
     def test_scrape_returns_empty_when_no_locations(self):
         self.mock_get_locations.return_value = []
@@ -123,6 +179,44 @@ class TestGeorgiePorgiesScraper(unittest.TestCase):
 
         self.assertEqual(results, [{"flavor": "Sample"}])
         mock_scrape.assert_called_once()
+
+
+class TestGeorgiePorgiesPlaywrightFetch(unittest.TestCase):
+    """Tests for _try_playwright_browser_fetch helper."""
+
+    def setUp(self):
+        self.locations_patcher = patch("app.scrapers.scraper_base.get_locations_for_brand")
+        self.mock_get_locations = self.locations_patcher.start()
+        self.mock_get_locations.return_value = TEST_LOCATIONS
+        self.scraper = GeorgiePorgiesScraper()
+
+    def tearDown(self):
+        self.locations_patcher.stop()
+
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper._get_html_playwright")
+    def test_try_playwright_browser_fetch_returns_html_on_success(self, mock_playwright):
+        """Playwright HTML is returned when _get_html_playwright succeeds."""
+        mock_playwright.return_value = _make_soup(
+            _forecast_html("Flavor of the Day - Caramel Apple", "Rich caramel swirl with apple")
+        )
+
+        html = self.scraper._try_playwright_browser_fetch(
+            "https://georgieporgies.com/georgies-flavor-forecast/"
+        )
+
+        self.assertIsNotNone(html)
+        mock_playwright.assert_called_once()
+
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper._get_html_playwright")
+    def test_try_playwright_browser_fetch_returns_none_on_exception(self, mock_playwright):
+        """Returns None when Playwright raises an exception."""
+        mock_playwright.side_effect = Exception("Browser launch failed")
+
+        html = self.scraper._try_playwright_browser_fetch(
+            "https://georgieporgies.com/georgies-flavor-forecast/"
+        )
+
+        self.assertIsNone(html)
 
 
 if __name__ == "__main__":
