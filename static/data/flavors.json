@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-03-22T09:17:59.678933-05:00",
+  "generated_at": "2026-03-22T12:04:03.480223-05:00",
   "generated_date": "2026-03-22",
-  "flavor_count": 117,
-  "location_count": 113,
+  "flavor_count": 118,
+  "location_count": 114,
   "locations": [
     {
       "id": "culvers-brookfield-capitol",
@@ -1878,18 +1878,35 @@
       ]
     },
     {
-      "id": "bigdeal-main",
-      "name": "Big Deal Burgers",
-      "address": "1440 S 84th St, West Allis, WI 53214",
-      "lat": 43.02475719719434,
-      "lng": -88.01325003913674,
-      "brand": "Big Deal Burgers",
-      "brand_id": "bigdeal",
-      "url": "https://bigdealburgers.com/",
+      "id": "georgieporgies-oak-creek",
+      "name": "Georgie Porgie's Treefort (Oak Creek)",
+      "address": "9555 S Howell Ave, Oak Creek, WI 53154",
+      "lat": 42.86686,
+      "lng": -87.940491,
+      "brand": "Georgie Porgie's",
+      "brand_id": "georgieporgies",
+      "url": "https://georgieporgies.com",
       "flavors": [
         {
-          "name": "KitKat Swirl",
-          "description": "vanilla and chocolate custard swirled together and topped with KitKat",
+          "name": "Nutella Banana Crunch",
+          "description": "Vanilla custard, banana slices, waffle pieces, Nutella swirls",
+          "date": "2026-03-22"
+        }
+      ]
+    },
+    {
+      "id": "georgieporgies-racine",
+      "name": "Georgie Porgie's Treefort (Racine)",
+      "address": "5502 Washington Ave, Racine, WI 53406",
+      "lat": 42.72695,
+      "lng": -87.84831,
+      "brand": "Georgie Porgie's",
+      "brand_id": "georgieporgies",
+      "url": "https://georgieporgies.com",
+      "flavors": [
+        {
+          "name": "Nutella Banana Crunch",
+          "description": "Vanilla custard, banana slices, waffle pieces, Nutella swirls",
           "date": "2026-03-22"
         }
       ]
