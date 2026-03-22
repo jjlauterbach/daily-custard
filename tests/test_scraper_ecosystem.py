@@ -2,6 +2,7 @@ import unittest
 
 from app.scrapers.bubbas import scrape_bubbas
 from app.scrapers.culvers import scrape_culvers
+from app.scrapers.georgieporgies import scrape_georgieporgies
 from app.scrapers.gilles import scrape_gilles
 from app.scrapers.hefners import scrape_hefners
 from app.scrapers.kopps import scrape_kopps
@@ -24,6 +25,7 @@ class TestScraperEcosystem(unittest.TestCase):
             ("Oscars", scrape_oscars),
             ("Bubbas", scrape_bubbas),
             ("Gilles", scrape_gilles),
+            ("Georgie Porgie's", scrape_georgieporgies),
             ("Hefner's", scrape_hefners),
             ("Kraverz", scrape_kraverz),
             ("Le Duc's", scrape_leducs),

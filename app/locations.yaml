@@ -139,9 +139,27 @@ roberts:
     url: "https://robertsfrozencustard.com/"
     enabled: true
 
+georgieporgies:
+  - id: georgieporgies-oak-creek
+    name: "Georgie Porgie's Treefort (Oak Creek)"
+    brand_id: georgieporgies
+    address: "9555 S Howell Ave, Oak Creek, WI 53154"
+    lat: 42.86686
+    lng: -87.940491
+    url: "https://georgieporgies.com"
+    enabled: true
+
+  - id: georgieporgies-racine
+    name: "Georgie Porgie's Treefort (Racine)"
+    brand_id: georgieporgies
+    address: "5502 Washington Ave, Racine, WI 53406"
+    lat: 42.72695
+    lng: -87.84831
+    url: "https://georgieporgies.com"
+    enabled: true
+
 
 
 # Places to add
 # https://www.fredsfrozencustard.com/
-# https://georgieporgies.com/georgies-flavor-forecast/
 # https://jumbosfrozencustard.com/
