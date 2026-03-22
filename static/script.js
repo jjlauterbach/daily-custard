@@ -282,7 +282,7 @@ function toggleMap() {
 
 // --- Geocoding & Location ---
 
-async function geocodeLocation(query) {
+async function geocodeLocation(query, retryCount = 0) {
     if (!query) return;
     
     // Add "WI" to search if not present, to bias towards Wisconsin
@@ -293,6 +293,9 @@ async function geocodeLocation(query) {
     try {
         updateLocationStatus('Searching...', 'info');
         const response = await fetch(`${NOMINATIM_API_URL}?q=${encodeURIComponent(searchQuery)}&format=json&limit=1`);
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
         const data = await response.json();
         
         if (data && data.length > 0) {
@@ -321,6 +324,12 @@ async function geocodeLocation(query) {
             updateLocationStatus('Location not found', 'error');
         }
     } catch (error) {
+        // HTTP 425 (Too Early) happens on page load when the browser uses TLS 0-RTT and the
+        // server rejects early data. Retry once after a short delay once the connection settles.
+        if (retryCount === 0) {
+            await new Promise(r => setTimeout(r, 1500));
+            return geocodeLocation(query, 1);
+        }
         console.error('Geocoding error:', error);
         updateLocationStatus('Search failed', 'error');
     }
