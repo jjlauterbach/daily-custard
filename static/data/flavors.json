@@ -1,8 +1,8 @@
 {
-  "generated_at": "2026-03-28T09:22:18.342428-05:00",
-  "generated_date": "2026-03-28",
-  "flavor_count": 119,
-  "location_count": 115,
+  "generated_at": "2026-03-29T09:24:28.795583-05:00",
+  "generated_date": "2026-03-29",
+  "flavor_count": 118,
+  "location_count": 114,
   "locations": [
     {
       "id": "culvers-brookfield-capitol",
@@ -15,9 +15,9 @@
       "url": "https://www.culvers.com/restaurants/brookfield-capitol",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Mint Explosion",
+          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -32,9 +32,9 @@
       "url": "https://www.culvers.com/restaurants/waukesha-grandview",
       "flavors": [
         {
-          "name": "Caramel Turtle",
-          "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Caramel Cashew",
+          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -49,9 +49,9 @@
       "url": "https://www.culvers.com/restaurants/waukesha-hwy-164",
       "flavors": [
         {
-          "name": "Devil's Food Cake",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with chocolate cake and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Mint Explosion",
+          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -66,9 +66,9 @@
       "url": "https://www.culvers.com/restaurants/sussex",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-03-28"
+          "name": "Dark Chocolate Decadence",
+          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -83,9 +83,9 @@
       "url": "https://www.culvers.com/restaurants/waukesha-sunset",
       "flavors": [
         {
-          "name": "Chocolate Volcano",
-          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
-          "date": "2026-03-28"
+          "name": "Snickers Swirl",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -100,9 +100,9 @@
       "url": "https://www.culvers.com/restaurants/elm-grove-wi",
       "flavors": [
         {
-          "name": "Chocolate Heath Crunch",
-          "description": "Our delicious Chocolate Fresh Frozen Custard with crunchy bits of Heath Bar. Kind of crunchy, kind of smooth, kind of incredible.",
-          "date": "2026-03-28"
+          "name": "Chocolate Volcano",
+          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -117,9 +117,9 @@
       "url": "https://www.culvers.com/restaurants/hartland-wi",
       "flavors": [
         {
-          "name": "Raspberry Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and sweet raspberries for an indulgent treat.",
-          "date": "2026-03-28"
+          "name": "Caramel Cashew",
+          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -134,9 +134,9 @@
       "url": "https://www.culvers.com/restaurants/brookfield-124th",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Butter Pecan",
+          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -151,9 +151,9 @@
       "url": "https://www.culvers.com/restaurants/menomonee-falls",
       "flavors": [
         {
-          "name": "Andes Mint Avalanche",
-          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
-          "date": "2026-03-28"
+          "name": "Devil's Food Cake",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with chocolate cake and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -168,9 +168,9 @@
       "url": "https://www.culvers.com/restaurants/wales",
       "flavors": [
         {
-          "name": "Crazy for Cookie Dough",
-          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
-          "date": "2026-03-28"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -185,9 +185,9 @@
       "url": "https://www.culvers.com/restaurants/new-berlin",
       "flavors": [
         {
-          "name": "Caramel Fudge Cookie Dough",
-          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
-          "date": "2026-03-28"
+          "name": "OREO® Cookie Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -202,9 +202,9 @@
       "url": "https://www.culvers.com/restaurants/west-allis",
       "flavors": [
         {
-          "name": "Double Strawberry",
-          "description": "Our specially blended Strawberry Fresh Frozen Custard swirled with plump strawberries.",
-          "date": "2026-03-28"
+          "name": "Dark Chocolate Decadence",
+          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -219,9 +219,9 @@
       "url": "https://www.culvers.com/restaurants/milwaukee-good-hope",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-03-28"
+          "name": "Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -236,9 +236,9 @@
       "url": "https://www.culvers.com/restaurants/milwaukee-fond-du-lac",
       "flavors": [
         {
-          "name": "Caramel Pecan",
-          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
-          "date": "2026-03-28"
+          "name": "Butter Pecan",
+          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -253,9 +253,9 @@
       "url": "https://www.culvers.com/restaurants/muskego",
       "flavors": [
         {
-          "name": "Crazy for Cookie Dough",
-          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
-          "date": "2026-03-28"
+          "name": "Salted Double Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled into Caramel Fresh Frozen Custard and mixed with toasted pecan pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -270,9 +270,9 @@
       "url": "https://www.culvers.com/restaurants/oconomowoc",
       "flavors": [
         {
-          "name": "Salted Double Caramel Pecan",
-          "description": "Ribbons of old fashioned salted caramel swirled into Caramel Fresh Frozen Custard and mixed with toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "Chocolate Caramel Twist",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -287,9 +287,9 @@
       "url": "https://www.culvers.com/restaurants/hales-corners",
       "flavors": [
         {
-          "name": "Mint Explosion",
-          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Turtle Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -304,9 +304,9 @@
       "url": "https://www.culvers.com/restaurants/west-milwaukee",
       "flavors": [
         {
-          "name": "Really Reese's",
-          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
-          "date": "2026-03-28"
+          "name": "Snickers Swirl",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -321,9 +321,9 @@
       "url": "https://www.culvers.com/restaurants/greenfield-wi-layton-ave",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-03-28"
+          "name": "Crazy for Cookie Dough",
+          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -338,9 +338,9 @@
       "url": "https://www.culvers.com/restaurants/brown-deer",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-03-28"
+          "name": "Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -355,9 +355,9 @@
       "url": "https://www.culvers.com/restaurants/mukwonago",
       "flavors": [
         {
-          "name": "Double Strawberry",
-          "description": "Our specially blended Strawberry Fresh Frozen Custard swirled with plump strawberries.",
-          "date": "2026-03-28"
+          "name": "Dark Chocolate PB Crunch",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -372,9 +372,9 @@
       "url": "https://www.culvers.com/restaurants/glendale-wi-bayside-dr",
       "flavors": [
         {
-          "name": "Devil's Food Cake",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with chocolate cake and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Turtle Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -389,9 +389,9 @@
       "url": "https://www.culvers.com/restaurants/shorewood",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-03-28"
+          "name": "Caramel Fudge Cookie Dough",
+          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -406,9 +406,9 @@
       "url": "https://www.culvers.com/restaurants/jackson-wi",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Caramel Cashew",
+          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -423,9 +423,9 @@
       "url": "https://www.culvers.com/restaurants/milwaukee-layton",
       "flavors": [
         {
-          "name": "OREO® Cookie Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
-          "date": "2026-03-28"
+          "name": "Chocolate Volcano",
+          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -440,9 +440,9 @@
       "url": "https://www.culvers.com/restaurants/hartford",
       "flavors": [
         {
-          "name": "Caramel Pecan",
-          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
-          "date": "2026-03-28"
+          "name": "Georgia Peach",
+          "description": "Our specially blended Peach Fresh Frozen Custard swirled with sweet peaches for a light, refreshing treat.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -457,26 +457,9 @@
       "url": "https://www.culvers.com/restaurants/mequon",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-03-28"
-        }
-      ]
-    },
-    {
-      "id": "culvers-franklin",
-      "name": "Culver's (Franklin, WI - W Oakwood Park Ct)",
-      "address": "4220 W. Oakwood Park Ct., Franklin, WI 53132",
-      "lat": 42.87202072143555,
-      "lng": -87.97013854980469,
-      "brand": "Culver's",
-      "brand_id": "culvers",
-      "url": "https://www.culvers.com/restaurants/franklin",
-      "flavors": [
-        {
-          "name": "Georgia Peach",
-          "description": "Our specially blended Peach Fresh Frozen Custard swirled with sweet peaches for a light, refreshing treat.",
-          "date": "2026-03-28"
+          "name": "Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -491,9 +474,9 @@
       "url": "https://www.culvers.com/restaurants/oak-creek",
       "flavors": [
         {
-          "name": "Chocolate Volcano",
-          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
-          "date": "2026-03-28"
+          "name": "Caramel Chocolate Pecan",
+          "description": "Delicious Chocolate Fresh Frozen Custard enhanced with ribbons of old fashioned salted caramel, toasted pecan pieces and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -508,9 +491,9 @@
       "url": "https://www.culvers.com/restaurants/grafton",
       "flavors": [
         {
-          "name": "OREO® Cookie Overload",
-          "description": "Our delicious Chocolate Fresh Frozen Custard loaded with OREO® Cookies and streams of chocolate syrup.",
-          "date": "2026-03-28"
+          "name": "Raspberry Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and sweet raspberries for an indulgent treat.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -525,9 +508,9 @@
       "url": "https://www.culvers.com/restaurants/east-troy-wi-north-st",
       "flavors": [
         {
-          "name": "Butter Pecan",
-          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "OREO® Cookie Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -542,9 +525,9 @@
       "url": "https://www.culvers.com/restaurants/west-bend",
       "flavors": [
         {
-          "name": "Andes Mint Avalanche",
-          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
-          "date": "2026-03-28"
+          "name": "Crazy for Cookie Dough",
+          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -559,9 +542,9 @@
       "url": "https://www.culvers.com/restaurants/watertown",
       "flavors": [
         {
-          "name": "Butter Pecan",
-          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "Really Reese's",
+          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -576,9 +559,9 @@
       "url": "https://www.culvers.com/restaurants/port-washington",
       "flavors": [
         {
-          "name": "Dark Chocolate Decadence",
-          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
-          "date": "2026-03-28"
+          "name": "Crazy for Cookie Dough",
+          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -593,9 +576,9 @@
       "url": "https://www.culvers.com/restaurants/burlington",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "OREO® Cookie Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -610,9 +593,9 @@
       "url": "https://www.culvers.com/restaurants/johnson-creek",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "Georgia Peach",
+          "description": "Our specially blended Peach Fresh Frozen Custard swirled with sweet peaches for a light, refreshing treat.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -627,9 +610,9 @@
       "url": "https://www.culvers.com/restaurants/racine-sylvania",
       "flavors": [
         {
-          "name": "Crazy for Cookie Dough",
-          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
-          "date": "2026-03-28"
+          "name": "OREO® Cookie Overload",
+          "description": "Our delicious Chocolate Fresh Frozen Custard loaded with OREO® Cookies and streams of chocolate syrup.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -644,9 +627,9 @@
       "url": "https://www.culvers.com/restaurants/racine-wi-douglas-ave",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-03-28"
+          "name": "Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -661,9 +644,9 @@
       "url": "https://www.culvers.com/restaurants/elkhorn",
       "flavors": [
         {
-          "name": "Caramel Pecan",
-          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
-          "date": "2026-03-28"
+          "name": "OREO® Cookie Overload",
+          "description": "Our delicious Chocolate Fresh Frozen Custard loaded with OREO® Cookies and streams of chocolate syrup.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -678,9 +661,9 @@
       "url": "https://www.culvers.com/restaurants/whitewater",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "Caramel Cashew",
+          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -695,9 +678,9 @@
       "url": "https://www.culvers.com/restaurants/racine-21st",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-03-28"
+          "name": "Chocolate Volcano",
+          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -712,9 +695,9 @@
       "url": "https://www.culvers.com/restaurants/fort-atkinson",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-03-28"
+          "name": "Crazy for Cookie Dough",
+          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -729,9 +712,9 @@
       "url": "https://www.culvers.com/restaurants/lake-mills-wi-tyranena-rd",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-03-28"
+          "name": "Caramel Fudge Cookie Dough",
+          "description": "A rich, indulgent cookie dough treat with ribbons of old fashioned salted caramel and thick fudge swirled in creamy Vanilla Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -746,9 +729,9 @@
       "url": "https://www.culvers.com/restaurants/burlington-rd-kenosha-wi",
       "flavors": [
         {
-          "name": "OREO® Cookie Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
-          "date": "2026-03-28"
+          "name": "Snickers Swirl",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -763,9 +746,9 @@
       "url": "https://www.culvers.com/restaurants/lake-geneva",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "Turtle",
+          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -780,9 +763,9 @@
       "url": "https://www.culvers.com/restaurants/paddock-lake-wi-antioch-rd",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "Butter Pecan",
+          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -797,9 +780,9 @@
       "url": "https://www.culvers.com/restaurants/delavan",
       "flavors": [
         {
-          "name": "Salted Double Caramel Pecan",
-          "description": "Ribbons of old fashioned salted caramel swirled into Caramel Fresh Frozen Custard and mixed with toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -814,9 +797,9 @@
       "url": "https://www.culvers.com/restaurants/kenosha",
       "flavors": [
         {
-          "name": "Caramel Cashew",
-          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
-          "date": "2026-03-28"
+          "name": "Really Reese's",
+          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -831,9 +814,9 @@
       "url": "https://www.culvers.com/restaurants/beaver-dam",
       "flavors": [
         {
-          "name": "Caramel Peanut Buttercup",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of peanut butter and old fashioned salted caramel and loaded with novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Turtle Dove",
+          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -848,9 +831,9 @@
       "url": "https://www.culvers.com/restaurants/pleasant-prairie",
       "flavors": [
         {
-          "name": "Butter Pecan",
-          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "OREO® Cookie Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -865,9 +848,9 @@
       "url": "https://www.culvers.com/restaurants/kenosha-sheridan",
       "flavors": [
         {
-          "name": "Caramel Cashew",
-          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
-          "date": "2026-03-28"
+          "name": "Really Reese's",
+          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -882,9 +865,9 @@
       "url": "https://www.culvers.com/restaurants/antioch",
       "flavors": [
         {
-          "name": "Crazy for Cookie Dough",
-          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
-          "date": "2026-03-28"
+          "name": "Chocolate Heath Crunch",
+          "description": "Our delicious Chocolate Fresh Frozen Custard with crunchy bits of Heath Bar. Kind of crunchy, kind of smooth, kind of incredible.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -899,9 +882,9 @@
       "url": "https://www.culvers.com/restaurants/oostburg-wi-s-business-park-dr",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "Really Reese's",
+          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -916,9 +899,9 @@
       "url": "https://www.culvers.com/restaurants/edgerton-newville",
       "flavors": [
         {
-          "name": "Caramel Cashew",
-          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
-          "date": "2026-03-28"
+          "name": "Turtle Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -933,9 +916,9 @@
       "url": "https://www.culvers.com/restaurants/columbus",
       "flavors": [
         {
-          "name": "Chocolate Heath Crunch",
-          "description": "Our delicious Chocolate Fresh Frozen Custard with crunchy bits of Heath Bar. Kind of crunchy, kind of smooth, kind of incredible.",
-          "date": "2026-03-28"
+          "name": "Turtle Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -950,9 +933,9 @@
       "url": "https://www.culvers.com/restaurants/waupun",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Chocolate Caramel Twist",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -967,9 +950,9 @@
       "url": "https://www.culvers.com/restaurants/janesville-milton",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-03-28"
+          "name": "Crazy for Cookie Dough",
+          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -984,9 +967,9 @@
       "url": "https://www.culvers.com/restaurants/janesville-wi-midland-rd",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-03-28"
+          "name": "Dark Chocolate PB Crunch",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1001,9 +984,9 @@
       "url": "https://www.culvers.com/restaurants/fox-lake-il-hwy-12",
       "flavors": [
         {
-          "name": "Chocolate Caramel Twist",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
-          "date": "2026-03-28"
+          "name": "Really Reese's",
+          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1018,9 +1001,9 @@
       "url": "https://www.culvers.com/restaurants/fond-du-lac",
       "flavors": [
         {
-          "name": "Caramel Turtle",
-          "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Butter Pecan",
+          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1035,9 +1018,9 @@
       "url": "https://www.culvers.com/restaurants/plymouth",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1052,9 +1035,9 @@
       "url": "https://www.culvers.com/restaurants/zion",
       "flavors": [
         {
-          "name": "Really Reese's",
-          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
-          "date": "2026-03-28"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1069,9 +1052,9 @@
       "url": "https://www.culvers.com/restaurants/cottage-grove-wi-landmark-dr",
       "flavors": [
         {
-          "name": "Caramel Pecan",
-          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
-          "date": "2026-03-28"
+          "name": "Snickers Swirl",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1086,9 +1069,9 @@
       "url": "https://www.culvers.com/restaurants/fond-du-lac-johnson",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "Really Reese's",
+          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1103,9 +1086,9 @@
       "url": "https://www.culvers.com/restaurants/grayslake",
       "flavors": [
         {
-          "name": "Devil's Food Cake",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with chocolate cake and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1120,9 +1103,9 @@
       "url": "https://www.culvers.com/restaurants/janesville-court",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Caramel Turtle",
+          "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1137,9 +1120,9 @@
       "url": "https://www.culvers.com/restaurants/gurnee",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-03-28"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1154,9 +1137,9 @@
       "url": "https://www.culvers.com/restaurants/sheboygan-wi-washington",
       "flavors": [
         {
-          "name": "Turtle Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
-          "date": "2026-03-28"
+          "name": "Caramel Cashew",
+          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1171,9 +1154,9 @@
       "url": "https://www.culvers.com/restaurants/fond-du-lac-hwy-23",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-03-28"
+          "name": "Snickers Swirl",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1188,9 +1171,9 @@
       "url": "https://www.culvers.com/restaurants/harvard-il-division-st",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "Really Reese's",
+          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1205,9 +1188,9 @@
       "url": "https://www.culvers.com/restaurants/mchenry",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "Caramel Chocolate Pecan",
+          "description": "Delicious Chocolate Fresh Frozen Custard enhanced with ribbons of old fashioned salted caramel, toasted pecan pieces and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1222,9 +1205,9 @@
       "url": "https://www.culvers.com/restaurants/sun-prairie",
       "flavors": [
         {
-          "name": "Crazy for Cookie Dough",
-          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
-          "date": "2026-03-28"
+          "name": "Chocolate Caramel Twist",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1239,9 +1222,9 @@
       "url": "https://www.culvers.com/restaurants/sheboygan-taylor-drive",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "Caramel Turtle",
+          "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1256,9 +1239,9 @@
       "url": "https://www.culvers.com/restaurants/stoughton",
       "flavors": [
         {
-          "name": "Caramel Turtle",
-          "description": "Double up on deliciousness with Caramel Fresh Frozen Custard swirled with toasted pecan pieces and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Dark Chocolate Decadence",
+          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1273,9 +1256,9 @@
       "url": "https://www.culvers.com/restaurants/sun-prairie-oxford-place",
       "flavors": [
         {
-          "name": "Butter Pecan",
-          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "OREO® Cookie Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1290,9 +1273,9 @@
       "url": "https://www.culvers.com/restaurants/waukegan-il-s-waukegan-rd",
       "flavors": [
         {
-          "name": "Really Reese's",
-          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
-          "date": "2026-03-28"
+          "name": "Georgia Peach",
+          "description": "Our specially blended Peach Fresh Frozen Custard swirled with sweet peaches for a light, refreshing treat.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1307,9 +1290,9 @@
       "url": "https://www.culvers.com/restaurants/sheboygan-hwy42",
       "flavors": [
         {
-          "name": "Really Reese's",
-          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
-          "date": "2026-03-28"
+          "name": "Turtle Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1324,9 +1307,9 @@
       "url": "https://www.culvers.com/restaurants/beloit",
       "flavors": [
         {
-          "name": "Salted Double Caramel Pecan",
-          "description": "Ribbons of old fashioned salted caramel swirled into Caramel Fresh Frozen Custard and mixed with toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "Andes Mint Avalanche",
+          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1341,9 +1324,9 @@
       "url": "https://www.culvers.com/restaurants/mcfarland",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "Dark Chocolate PB Crunch",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1358,9 +1341,9 @@
       "url": "https://www.culvers.com/restaurants/madison-cottage-grove",
       "flavors": [
         {
-          "name": "Dark Chocolate PB Crunch",
-          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
-          "date": "2026-03-28"
+          "name": "Chocolate Volcano",
+          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1375,9 +1358,9 @@
       "url": "https://www.culvers.com/restaurants/madison-east-towne",
       "flavors": [
         {
-          "name": "Butter Pecan",
-          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "OREO® Cookie Overload",
+          "description": "Our delicious Chocolate Fresh Frozen Custard loaded with OREO® Cookies and streams of chocolate syrup.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1392,9 +1375,9 @@
       "url": "https://www.culvers.com/restaurants/woodstock",
       "flavors": [
         {
-          "name": "Mint Cookie",
-          "description": "Our specially blended Mint Fresh Frozen Custard with OREO® Cookies for a refreshing treat.",
-          "date": "2026-03-28"
+          "name": "Caramel Cashew",
+          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1409,9 +1392,9 @@
       "url": "https://www.culvers.com/restaurants/island-lake",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "Dark Chocolate Decadence",
+          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1426,9 +1409,9 @@
       "url": "https://www.culvers.com/restaurants/libertyville",
       "flavors": [
         {
-          "name": "Dark Chocolate Decadence",
-          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
-          "date": "2026-03-28"
+          "name": "Raspberry Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and sweet raspberries for an indulgent treat.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1443,9 +1426,9 @@
       "url": "https://www.culvers.com/restaurants/evansville-wi-n-union-rd",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-03-28"
+          "name": "Chocolate Volcano",
+          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1460,9 +1443,9 @@
       "url": "https://www.culvers.com/restaurants/madison-northport",
       "flavors": [
         {
-          "name": "OREO® Cookie Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
-          "date": "2026-03-28"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1477,9 +1460,9 @@
       "url": "https://www.culvers.com/restaurants/crystal-lake",
       "flavors": [
         {
-          "name": "Andes Mint Avalanche",
-          "description": "Andes Candies and novelty chocolate with our specially blended Mint Fresh Frozen Custard.",
-          "date": "2026-03-28"
+          "name": "Snickers Swirl",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1494,9 +1477,9 @@
       "url": "https://www.culvers.com/restaurants/oregon-park-st",
       "flavors": [
         {
-          "name": "Turtle Dove",
-          "description": "Creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, marshmallow creme, toasted pecan pieces and chopped Dove® Chocolate pieces.",
-          "date": "2026-03-28"
+          "name": "OREO® Cookie Overload",
+          "description": "Our delicious Chocolate Fresh Frozen Custard loaded with OREO® Cookies and streams of chocolate syrup.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1511,9 +1494,9 @@
       "url": "https://www.culvers.com/restaurants/mundelein",
       "flavors": [
         {
-          "name": "Mint Explosion",
-          "description": "Our specially blended Mint Fresh Frozen Custard exploding with OREO® Cookie pieces, Andes® candies and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Caramel Cashew",
+          "description": "Culver’s Classic! Our creamy Vanilla Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel and loaded with lightly salted cashew pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1528,9 +1511,9 @@
       "url": "https://www.culvers.com/restaurants/deforest",
       "flavors": [
         {
-          "name": "Double Strawberry",
-          "description": "Our specially blended Strawberry Fresh Frozen Custard swirled with plump strawberries.",
-          "date": "2026-03-28"
+          "name": "Chocolate Volcano",
+          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1545,9 +1528,9 @@
       "url": "https://www.culvers.com/restaurants/madison-todd-drive",
       "flavors": [
         {
-          "name": "Turtle",
-          "description": "A Culver's Classic! We begin with creamy Vanilla Fresh Frozen Custard and swirl in ribbons of old fashioned salted caramel, novelty chocolate, and toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "Dark Chocolate PB Crunch",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1562,9 +1545,9 @@
       "url": "https://www.culvers.com/restaurants/lake-zurich",
       "flavors": [
         {
-          "name": "Snickers Swirl",
-          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with chewy pieces of Snickers.",
-          "date": "2026-03-28"
+          "name": "OREO® Cookie Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1579,9 +1562,9 @@
       "url": "https://www.culvers.com/restaurants/fox-river-grove-il-northwest-hwy",
       "flavors": [
         {
-          "name": "OREO® Cookie Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and OREO® Cookie pieces swirled in.",
-          "date": "2026-03-28"
+          "name": "Really Reese's",
+          "description": "Reese’s Peanut Butter Cups become a special treat when stirred in our delicious Chocolate Fresh Frozen Custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1596,9 +1579,9 @@
       "url": "https://www.culvers.com/restaurants/roscoe",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Dark Chocolate Decadence",
+          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1613,9 +1596,9 @@
       "url": "https://www.culvers.com/restaurants/waunakee",
       "flavors": [
         {
-          "name": "Crazy for Cookie Dough",
-          "description": "Our creamy Vanilla and Chocolate Fresh Frozen Custard swirled together and mixed with thick fudge, ribbons of old fashioned salted caramel and cookie dough pieces.",
-          "date": "2026-03-28"
+          "name": "Dark Chocolate PB Crunch",
+          "description": "Dark Chocolate Fresh Frozen Custard swirled with a ribbon of peanut butter and crunchy Butterfinger pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1630,9 +1613,9 @@
       "url": "https://www.culvers.com/restaurants/ripon",
       "flavors": [
         {
-          "name": "Turtle Cheesecake",
-          "description": "Creamy Cheesecake Fresh Frozen Custard swirled with ribbons of old fashioned salted caramel, chopped Dove® Chocolate pieces, toasted pecan pieces and rich cheesecake pieces.",
-          "date": "2026-03-28"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1647,9 +1630,9 @@
       "url": "https://www.culvers.com/restaurants/lake-in-the-hills",
       "flavors": [
         {
-          "name": "Butter Pecan",
-          "description": "Culver's Classic! This one still knocks our socks off. Specially blended Butter Pecan Fresh Frozen Custard with toasted pecan pieces.",
-          "date": "2026-03-28"
+          "name": "Chocolate Covered Strawberry",
+          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1664,9 +1647,9 @@
       "url": "https://www.culvers.com/restaurants/lincolnshire-il-milwaukee-ave",
       "flavors": [
         {
-          "name": "Chocolate Volcano",
-          "description": "Our delicious Chocolate Fresh Frozen Custard explodes with OREO® Cookie pieces, chopped Dove® Chocolate pieces, mini M&Ms and streams of chocolate syrup.",
-          "date": "2026-03-28"
+          "name": "Raspberry Cheesecake",
+          "description": "Creamy Cheesecake Fresh Frozen Custard with rich cheesecake pieces and sweet raspberries for an indulgent treat.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1681,9 +1664,9 @@
       "url": "https://www.culvers.com/restaurants/belvidere",
       "flavors": [
         {
-          "name": "Dark Chocolate Decadence",
-          "description": "Premium blend of cocoas for the ultimate chocolate experience.",
-          "date": "2026-03-28"
+          "name": "Caramel Pecan",
+          "description": "Ribbons of old fashioned salted caramel swirled with our creamy Vanilla Fresh Frozen Custard and toasted pecan pieces. Taste why it's one of out most popular treats!",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1698,9 +1681,9 @@
       "url": "https://www.culvers.com/restaurants/buffalo-grove",
       "flavors": [
         {
-          "name": "Chocolate Covered Strawberry",
-          "description": "Our creamy Vanilla Fresh Frozen Custard complemented with plump strawberries and novelty chocolate.",
-          "date": "2026-03-28"
+          "name": "Chocolate Caramel Twist",
+          "description": "Chocolate and Vanilla Fresh Frozen Custard swirled together with ribbons of old fashioned salted caramel and chopped Dove® Chocolate pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1715,14 +1698,14 @@
       "url": "https://www.kopps.com",
       "flavors": [
         {
-          "name": "Reese’s Peanut Butter Kupps",
-          "description": "What do you get when you cross a peanut butter cup with Kopp’s Frozen Custard?  You guessed it!",
-          "date": "March 28, 2026"
+          "name": "Ultimate Cookie Dough",
+          "description": "Cookie dough flavored custard with ribbons of caramel and thick fudge, twirled around with chunks of cookie dough pieces",
+          "date": "March 29, 2026"
         },
         {
-          "name": "Black Forest Torte",
-          "description": "A rich, chocolatey dessert flavored with black cherry and layered with walnuts, pieces of fudge and cherries.",
-          "date": "March 28, 2026"
+          "name": "Strawberry",
+          "description": "A natural strawberry flavored custard with sliced strawberries",
+          "date": "March 29, 2026"
         }
       ]
     },
@@ -1737,14 +1720,14 @@
       "url": "https://www.kopps.com",
       "flavors": [
         {
-          "name": "Reese’s Peanut Butter Kupps",
-          "description": "What do you get when you cross a peanut butter cup with Kopp’s Frozen Custard?  You guessed it!",
-          "date": "March 28, 2026"
+          "name": "Ultimate Cookie Dough",
+          "description": "Cookie dough flavored custard with ribbons of caramel and thick fudge, twirled around with chunks of cookie dough pieces",
+          "date": "March 29, 2026"
         },
         {
-          "name": "Black Forest Torte",
-          "description": "A rich, chocolatey dessert flavored with black cherry and layered with walnuts, pieces of fudge and cherries.",
-          "date": "March 28, 2026"
+          "name": "Strawberry",
+          "description": "A natural strawberry flavored custard with sliced strawberries",
+          "date": "March 29, 2026"
         }
       ]
     },
@@ -1759,14 +1742,14 @@
       "url": "https://www.kopps.com",
       "flavors": [
         {
-          "name": "Reese’s Peanut Butter Kupps",
-          "description": "What do you get when you cross a peanut butter cup with Kopp’s Frozen Custard?  You guessed it!",
-          "date": "March 28, 2026"
+          "name": "Ultimate Cookie Dough",
+          "description": "Cookie dough flavored custard with ribbons of caramel and thick fudge, twirled around with chunks of cookie dough pieces",
+          "date": "March 29, 2026"
         },
         {
-          "name": "Black Forest Torte",
-          "description": "A rich, chocolatey dessert flavored with black cherry and layered with walnuts, pieces of fudge and cherries.",
-          "date": "March 28, 2026"
+          "name": "Strawberry",
+          "description": "A natural strawberry flavored custard with sliced strawberries",
+          "date": "March 29, 2026"
         }
       ]
     },
@@ -1781,9 +1764,9 @@
       "url": "https://www.kraverzcustard.com/",
       "flavors": [
         {
-          "name": "Choc Volcano",
+          "name": "CLOSED",
           "description": "",
-          "date": "2026-03-28"
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1798,9 +1781,9 @@
       "url": "https://www.murfsfrozencustard.com/flavorForecast",
       "flavors": [
         {
-          "name": "Fruity Pebbles",
-          "description": "Premium vanilla frozen custard, smooth marshmallow, and lots of Fruity Pebbles cereal",
-          "date": "2026-03-28"
+          "name": "Old Fashion Drumroll",
+          "description": "Vanilla frozen custard, crushed mixed nuts, waffle cone pieces, hard shell chocolate",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1815,9 +1798,9 @@
       "url": "https://www.oscarscustard.com/index.php/flavors",
       "flavors": [
         {
-          "name": "RICE KRISPIE TREAT",
-          "description": "Chunks of Rice Krispie treats, fluffy marshmallow and chocolate shavings blended into a vanilla custard. Snap, krackle, pop!",
-          "date": "2026-03-28"
+          "name": "TURTLE SUNDAE",
+          "description": "Luscious fudge, creamy caramel and  roasted pecans swirled in vanilla custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1832,9 +1815,9 @@
       "url": "https://www.oscarscustard.com/index.php/flavors",
       "flavors": [
         {
-          "name": "RICE KRISPIE TREAT",
-          "description": "Chunks of Rice Krispie treats, fluffy marshmallow and chocolate shavings blended into a vanilla custard. Snap, krackle, pop!",
-          "date": "2026-03-28"
+          "name": "TURTLE SUNDAE",
+          "description": "Luscious fudge, creamy caramel and  roasted pecans swirled in vanilla custard.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1849,9 +1832,9 @@
       "url": "https://www.bubbasfrozencustard.com/events#section-1332549",
       "flavors": [
         {
-          "name": "Reese's Dough Boy",
-          "description": "Our light peanut butter custard mixed with piece of peanut butter cups and cookie dough.",
-          "date": "2026-03-28"
+          "name": "Butter Pecan",
+          "description": "Our butter pecan custard mixed with pecan pieces.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1866,14 +1849,14 @@
       "url": "https://gillesfrozencustard.com/flavor-of-the-day",
       "flavors": [
         {
-          "name": "Oreo",
-          "description": "Vanilla custard with Oreo cookie pieces!",
-          "date": "2026-03-28"
+          "name": "Mocha Chocolate Flake",
+          "description": "Our mocha custard with chocolate flakes mixed in!",
+          "date": "2026-03-29"
         },
         {
           "name": "Mint Chocolate Chip",
           "description": "Flavorful mint custard with tasty chocolate chips!",
-          "date": "2026-03-28"
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1890,7 +1873,7 @@
         {
           "name": "Death by Chocolate",
           "description": "Chocolate custard, Oreo’s, chocolate flakes, fudge swirls",
-          "date": "2026-03-28"
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1907,7 +1890,7 @@
         {
           "name": "Death by Chocolate",
           "description": "Chocolate custard, Oreo’s, chocolate flakes, fudge swirls",
-          "date": "2026-03-28"
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1922,9 +1905,9 @@
       "url": "https://bigdealburgers.com/",
       "flavors": [
         {
-          "name": "Butter Pecan",
-          "description": "butterscotch custard topped with salted pecan halves",
-          "date": "2026-03-28"
+          "name": "Grizzly Bear",
+          "description": "vanilla custard topped with peanut butter, crushed nuts, and hardshell chocolate,",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1939,9 +1922,9 @@
       "url": "https://leducscustard.com",
       "flavors": [
         {
-          "name": "Drummy",
+          "name": "Strawberry",
           "description": "",
-          "date": "2026-03-28"
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1956,9 +1939,9 @@
       "url": "https://www.hefnerscustard.com/",
       "flavors": [
         {
-          "name": "Lemon Bar",
-          "description": "Creamy vanilla custard loaded with chunks ofLuscious Lemon Squares.",
-          "date": "2026-03-28"
+          "name": "Pistachio Nut",
+          "description": "Creamy pistachio flavored custard loaded with pistachios.",
+          "date": "2026-03-29"
         }
       ]
     },
@@ -1973,9 +1956,9 @@
       "url": "https://robertsfrozencustard.com/",
       "flavors": [
         {
-          "name": "Bailey's Irish Cream",
+          "name": "Oreo Mint",
           "description": "",
-          "date": "2026-03-28"
+          "date": "2026-03-29"
         }
       ]
     }
