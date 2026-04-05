@@ -9,7 +9,7 @@ dependencies = [
     "selenium>=4.21.0,<5.0.0",
     "undetected-chromedriver>=3.5.5,<4.0.0",
     "pyyaml>=6.0.1,<7.0.0",
-    "urllib3>=2.5.0",
+    "urllib3>=2.6.3",
     "playwright>=1.48.0,<2.0.0",
     "pygments>=2.20.0,<3.0.0",
 ]
@@ -58,9 +58,6 @@ omit = [
     "__init__.py"
 ]
 show_missing = true
-
-[tool.pip-audit]
-ignore-vulns = ["GHSA-6vgw-5pg2-w6jp"]
 
 [tool.setuptools.packages.find]
 include = ["app"]

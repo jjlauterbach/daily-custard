@@ -31,7 +31,7 @@ A web scraping application that collects daily flavor information from frozen cu
 - **Code Quality**: black, flake8, isort, autoflake, pre-commit hooks
 - **CI/CD**: GitHub Actions with automated testing and deployment
 - **Deployment**: Docker, Docker Compose, Cloudflare Pages
-- **Package Management**: pip with pyproject.toml
+- **Package Management**: uv with `uv.lock` (reproducible builds)
 
 ## Supported Locations
 
@@ -79,19 +79,21 @@ open http://localhost:8080
 ### Local Development
 
 ```bash
-# Create and activate virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+# Install uv (if not already installed)
+pip install uv
+# or: curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Install dependencies
-pip install -e .[dev]
+# Create virtual environment and install all dependencies (including dev)
+uv sync --all-extras
 
 # Generate the static flavors data
-python scripts/generate_flavors.py
+uv run python scripts/generate_flavors.py
 
 # Serve the static site
 python -m http.server --directory static 8080
 ```
+
+> **Reproducible builds**: `uv.lock` pins every transitive dependency to an exact version. Run `uv sync --frozen` to install exactly what is in the lock file. Run `uv lock` to regenerate the lock file after changing `pyproject.toml`.
 
 ## Testing & Quality
 
@@ -99,40 +101,45 @@ python -m http.server --directory static 8080
 
 - **Run all unit tests:**
   ```bash
-  pytest tests/ -v
+  uv run pytest tests/ -v
   ```
   
 - **Run tests for a specific scraper:**
   ```bash
-  pytest tests/test_bigdeal_scraper.py -v
+  uv run pytest tests/test_bigdeal_scraper.py -v
   ```
   
 - **Run with coverage:**
   ```bash
-  pytest --cov=app tests/
+  uv run pytest --cov=app tests/
   ```
 
 ### Code Quality
 
 - **Run pre-commit hooks manually:**
   ```bash
-  pre-commit run --all-files
+  uv run pre-commit run --all-files
   ```
   
 - **Install pre-commit hooks locally:**
   ```bash
-  pre-commit install
+  uv run pre-commit install
   ```
   
 - **Format code:**
   ```bash
-  black app/ tests/
-  isort app/ tests/
+  uv run black app/ tests/
+  uv run isort app/ tests/
   ```
   
 - **Lint code:**
   ```bash
-  flake8 app/ tests/
+  uv run flake8 app/ tests/
+  ```
+
+- **Security audit:**
+  ```bash
+  uv run pip-audit
   ```
 
 All checks (`flake8`, `black`, `isort`, `autoflake`, `pip-audit`) run automatically in CI and pre-commit hooks.
@@ -142,7 +149,7 @@ All checks (`flake8`, `black`, `isort`, `autoflake`, `pip-audit`) run automatica
 A dedicated ecosystem test suite checks that all scrapers are working against live sites. This is run daily via GitHub Actions and can be run locally:
 
 ```bash
-pytest --ecosystem
+uv run pytest --ecosystem
 ```
 
 **Important Notes:**
@@ -265,7 +272,7 @@ docker run -p 8080:8000 daily-custard-app
 docker compose up
 ```
 
-- The Dockerfile now uses `pyproject.toml` for dependency management. You do not need `requirements.txt`.
+- The Dockerfile uses `pyproject.toml` for dependency management (via uv). You do not need `requirements.txt`.
 - The image is automatically tagged with the release version and `latest` in CI/CD.
 
 ## Troubleshooting
@@ -281,7 +288,7 @@ docker compose up
 2. **Module import errors**
    ```bash
    # Ensure all dependencies are installed
-   pip install .[dev]
+   uv sync --all-extras
    ```
 
 3. **Encoding issues**
@@ -329,11 +336,11 @@ See the [Scraper Architecture](#scraper-architecture) section above for detailed
 
 3. **Run tests and checks**:
    ```bash
-   pytest tests/ -v                # Run unit tests
-   pytest --ecosystem             # Test against live sites
-   black app/ tests/              # Format code
-   flake8 app/ tests/             # Lint code
-   pre-commit run --all-files     # Run all hooks
+   uv run pytest tests/ -v                # Run unit tests
+   uv run pytest --ecosystem             # Test against live sites
+   uv run black app/ tests/              # Format code
+   uv run flake8 app/ tests/             # Lint code
+   uv run pre-commit run --all-files     # Run all hooks
    ```
 
 4. **Commit with descriptive messages**:
@@ -361,4 +368,4 @@ All contributions are welcome! Please follow these guidelines:
 - **Commit Messages**: Use descriptive commit messages explaining what and why
 - **Pre-commit Hooks**: Install and run pre-commit hooks before committing
 
-Run `pre-commit install` to automatically check code quality before each commit.
+Run `uv run pre-commit install` to automatically check code quality before each commit.
