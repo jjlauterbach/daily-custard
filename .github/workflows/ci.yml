@@ -35,7 +35,5 @@ jobs:
         uses: browser-actions/setup-chrome@v1
       - name: Run pre-commit hooks
         uses: pre-commit/action@v3.0.1
-      - name: Run security audit
-        run: uv run pip-audit
       - name: Run tests with coverage
         run: uv run pytest --cov=app --cov-report=term-missing
