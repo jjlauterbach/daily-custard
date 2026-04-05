@@ -90,7 +90,7 @@ uv sync --all-extras
 uv run python scripts/generate_flavors.py
 
 # Serve the static site
-python -m http.server --directory static 8080
+uv run python -m http.server --directory static 8080
 ```
 
 > **Reproducible builds**: `uv.lock` pins every transitive dependency to an exact version. Run `uv sync --frozen` to install exactly what is in the lock file. Run `uv lock` to regenerate the lock file after changing `pyproject.toml`.
