@@ -34,7 +34,7 @@ jobs:
           uv run pytest --ecosystem --log-level=DEBUG --log-file=ecosystem_test.log
       - name: Upload test log
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ecosystem-test-log
           path: ecosystem_test.log
