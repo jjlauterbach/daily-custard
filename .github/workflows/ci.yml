@@ -33,6 +33,8 @@ jobs:
           sudo apt-get install -y docker-compose
       - name: Install Chrome
         uses: browser-actions/setup-chrome@v2
+      - name: Refresh requirements-audit.txt from lock
+        run: uv export --frozen --no-dev --no-emit-project > requirements-audit.txt
       - name: Run pre-commit hooks
         uses: pre-commit/action@v3.0.1
       - name: Run tests with coverage
