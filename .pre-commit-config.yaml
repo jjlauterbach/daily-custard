@@ -18,8 +18,10 @@ repos:
     hooks:
       - id: autoflake
         args: [--remove-all-unused-imports, --remove-unused-variables, --in-place]
-  - repo: https://github.com/trailofbits/pip-audit
-    rev: v2.10.0
+  - repo: local
     hooks:
       - id: pip-audit
-        args: [--requirement, requirements-audit.txt]
+        name: pip-audit (project deps)
+        language: system
+        entry: bash -c 'uv export --frozen --no-dev --no-emit-project | uv run pip-audit --requirement /dev/stdin'
+        pass_filenames: false
