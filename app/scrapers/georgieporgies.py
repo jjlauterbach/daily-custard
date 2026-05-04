@@ -5,6 +5,7 @@ import re
 from bs4 import BeautifulSoup
 
 from app.scrapers.scraper_base import USER_AGENT, BaseScraper
+from app.scrapers.utils import get_central_date_string
 
 GEORGIE_PORGIES_FORECAST_URL = "https://georgieporgies.com/georgies-flavor-forecast/"
 PAGE_TIMEOUT = 30000  # 30s
@@ -36,13 +37,21 @@ class GeorgiePorgiesScraper(BaseScraper):
                     self.log_error("Failed to get HTML")
                     return []
 
-            flavor_name, description = self._extract_todays_flavor(html)
+            flavor_name, description, extraction_path = self._extract_todays_flavor(html)
+            if extraction_path:
+                self.logger.info(
+                    f"GEORGIEPORGIES: Extracted today's flavor using {extraction_path} path"
+                )
             if not flavor_name:
                 self.logger.warning(
                     "GEORGIEPORGIES: No flavor found; trying Playwright browser fetch"
                 )
                 html = self._try_playwright_browser_fetch(GEORGIE_PORGIES_FORECAST_URL) or html
-                flavor_name, description = self._extract_todays_flavor(html)
+                flavor_name, description, extraction_path = self._extract_todays_flavor(html)
+                if extraction_path:
+                    self.logger.info(
+                        f"GEORGIEPORGIES: Extracted today's flavor using {extraction_path} path"
+                    )
             if not flavor_name:
                 self.log_error("No flavor found for today")
                 return []
@@ -75,12 +84,13 @@ class GeorgiePorgiesScraper(BaseScraper):
 
     def _extract_todays_flavor(self, html):
         """Extract today's flavor name and description from forecast HTML."""
-        heading = html.find(
-            ["h1", "h2", "h3", "h4"],
-            string=lambda text: text and "today" in text.lower() and "flavor" in text.lower(),
-        )
+        flavor_name, description = self._extract_todays_flavor_from_data_date(html)
+        if flavor_name:
+            return flavor_name, description, "data-date"
+
+        heading = self._find_legacy_today_heading(html)
         if not heading:
-            return None, ""
+            return None, "", None
 
         image = heading.find_next("img")
         description = ""
@@ -97,7 +107,41 @@ class GeorgiePorgiesScraper(BaseScraper):
         if not flavor_name:
             flavor_name = self._extract_flavor_from_description(description)
 
+        if flavor_name:
+            return flavor_name, description, "legacy-heading"
+
+        return None, description, None
+
+    def _extract_todays_flavor_from_data_date(self, html):
+        """Extract today's flavor from forecast rows that include a YYYY-MM-DD data-date."""
+        today = get_central_date_string()
+        flavor_item = html.select_one(f'.flavor-item[data-date="{today}"]')
+        if not flavor_item:
+            return None, ""
+
+        name_tag = flavor_item.select_one(".flavor-list-name")
+        desc_tag = flavor_item.select_one(".flavor-list-desc")
+
+        flavor_name = name_tag.get_text(" ", strip=True) if name_tag else ""
+        description = desc_tag.get_text(" ", strip=True) if desc_tag else ""
+        flavor_name = flavor_name.strip(" -\u2014")
+
+        if not flavor_name:
+            return None, description
+        if "closed" in flavor_name.lower():
+            return "Closed", description
+
         return flavor_name, description
+
+    def _find_legacy_today_heading(self, html):
+        """Locate the legacy heading that introduces today's flavor section."""
+        for heading in html.find_all(["h1", "h2", "h3", "h4"]):
+            heading_text = heading.get_text(" ", strip=True).lower()
+            if "flavor of the day" in heading_text or (
+                "today" in heading_text and "flavor" in heading_text
+            ):
+                return heading
+        return None
 
     def _extract_flavor_from_image_alt(self, alt_text):
         """Extract flavor name from image alt text when available."""

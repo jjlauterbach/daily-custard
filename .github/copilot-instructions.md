@@ -204,12 +204,19 @@ All scrapers return list of dicts:
 9. **Use constants** for magic numbers (timeouts, retries, etc.)
 10. **Document complex regex patterns** with examples
 
+## Python Environment (Required)
+- **Always activate the project virtual environment before running any Python-based shell command**.
+- Activation command: `source .venv/bin/activate`
+- This applies to `python`, `pytest`, `black`, `flake8`, `isort`, `pip`, and any script that relies on Python packages.
+- When running one-off commands, prefer chaining activation in the same command, for example:
+    `source .venv/bin/activate && pytest tests/ -v`
+
 ## Commands
-- Run tests: `pytest tests/ -v`
-- Run ecosystem tests: `pytest --ecosystem`
-- Format code: `black app/ tests/`
-- Lint: `flake8 app/ tests/`
-- Sort imports: `isort app/ tests/`
+- Run tests: `source .venv/bin/activate && pytest tests/ -v`
+- Run ecosystem tests: `source .venv/bin/activate && pytest --ecosystem`
+- Format code: `source .venv/bin/activate && black app/ tests/`
+- Lint: `source .venv/bin/activate && flake8 app/ tests/`
+- Sort imports: `source .venv/bin/activate && isort app/ tests/`
 
 ## When Adding New Scrapers
 1. Create scraper class inheriting from `BaseScraper`
