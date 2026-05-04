@@ -51,6 +51,28 @@ def _forecast_html(flavor_alt, description):
     """
 
 
+def _forecast_data_date_html(today_date, flavor_name, description):
+    return f"""
+    <html>
+      <body>
+        <h1>Georgie Porgie's <span>Flavor of the Day</span></h1>
+        <div class="flavor-forecast-section">
+          <h2>May FORECAST</h2>
+          <div class="flavor-master-list">
+            <div class="flavor-item" data-date="{today_date}">
+              <div class="flavor-list-line">
+                <span class="flavor-list-name">{flavor_name}</span>
+                <span class="flavor-list-sep">-</span>
+                <span class="flavor-list-desc">{description}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>
+    """
+
+
 class TestGeorgiePorgiesScraper(unittest.TestCase):
     def setUp(self):
         self.locations_patcher = patch("app.scrapers.scraper_base.get_locations_for_brand")
@@ -78,6 +100,66 @@ class TestGeorgiePorgiesScraper(unittest.TestCase):
             "Vanilla custard, banana slices, waffle pieces, Nutella swirls",
         )
 
+    @patch("app.scrapers.georgieporgies.get_central_date_string")
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
+    def test_scrape_uses_data_date_primary_path(self, mock_get_html, mock_get_date):
+        mock_get_date.return_value = "2026-05-03"
+        mock_get_html.return_value = _make_soup(
+            _forecast_data_date_html(
+                "2026-05-03",
+                "Strawberry Shortcake",
+                "Vanilla custard, strawberries, yellow cake pieces",
+            )
+        )
+
+        results = GeorgiePorgiesScraper().scrape()
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(r["flavor"] == "Strawberry Shortcake" for r in results))
+        self.assertTrue(
+            all(
+                r["description"] == "Vanilla custard, strawberries, yellow cake pieces"
+                for r in results
+            )
+        )
+
+    @patch("app.scrapers.georgieporgies.get_central_date_string")
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
+    def test_scrape_data_date_primary_handles_closed(self, mock_get_html, mock_get_date):
+        mock_get_date.return_value = "2026-05-04"
+        mock_get_html.return_value = _make_soup(
+            _forecast_data_date_html(
+                "2026-05-04",
+                "Closed",
+                "Closed for a day of prayers and rest",
+            )
+        )
+
+        results = GeorgiePorgiesScraper().scrape()
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(r["flavor"] == "Closed" for r in results))
+
+    @patch("app.scrapers.georgieporgies.get_central_date_string")
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
+    def test_scrape_data_date_closed_when_name_blank_and_desc_only(
+        self, mock_get_html, mock_get_date
+    ):
+        """Closed is returned when .flavor-list-name is blank and closure is only in .flavor-list-desc."""
+        mock_get_date.return_value = "2026-05-04"
+        mock_get_html.return_value = _make_soup(
+            _forecast_data_date_html(
+                "2026-05-04",
+                "",
+                "Closed for a Day of Prayer and Rest",
+            )
+        )
+
+        results = GeorgiePorgiesScraper().scrape()
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(r["flavor"] == "Closed" for r in results))
+
     @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
     def test_scrape_returns_closed(self, mock_get_html):
         html = _forecast_html(
@@ -90,6 +172,22 @@ class TestGeorgiePorgiesScraper(unittest.TestCase):
 
         self.assertEqual(len(results), 2)
         self.assertTrue(all(r["flavor"] == "Closed" for r in results))
+
+    @patch("app.scrapers.georgieporgies.get_central_date_string")
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
+    def test_scrape_falls_back_to_legacy_heading_path(self, mock_get_html, mock_get_date):
+        mock_get_date.return_value = "2026-05-03"
+        mock_get_html.return_value = _make_soup(
+            _forecast_html(
+                "Flavor of the Day - Mint Chocolate Chip",
+                "Refreshing mint with chocolate chips",
+            )
+        )
+
+        results = GeorgiePorgiesScraper().scrape()
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(r["flavor"] == "Mint Chocolate Chip" for r in results))
 
     @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper._try_playwright_browser_fetch")
     @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")

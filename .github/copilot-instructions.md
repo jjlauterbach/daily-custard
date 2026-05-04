@@ -9,7 +9,7 @@ A web scraping application that collects daily frozen custard flavors from multi
 - **Scraping**: Playwright (dynamic sites and Facebook), BeautifulSoup (static sites), Selenium (legacy only)
 - **Testing**: pytest with unittest
 - **Formatting**: black, flake8, isort, autoflake
-- **Package Management**: pip with pyproject.toml
+- **Package Management**: uv with pyproject.toml
 
 ## Project Structure
 ```
@@ -204,12 +204,17 @@ All scrapers return list of dicts:
 9. **Use constants** for magic numbers (timeouts, retries, etc.)
 10. **Document complex regex patterns** with examples
 
+## Python Environment (Required)
+- **Always use `uv run` to invoke Python-based shell commands** — do not activate the virtual environment manually.
+- This applies to `python`, `pytest`, `black`, `flake8`, `isort`, and any script that relies on Python packages.
+- Install/sync dependencies with `uv sync --all-extras --frozen` before running commands for the first time.
+
 ## Commands
-- Run tests: `pytest tests/ -v`
-- Run ecosystem tests: `pytest --ecosystem`
-- Format code: `black app/ tests/`
-- Lint: `flake8 app/ tests/`
-- Sort imports: `isort app/ tests/`
+- Run tests: `uv run pytest tests/ -v`
+- Run ecosystem tests: `uv run pytest --ecosystem`
+- Format code: `uv run black app/ tests/`
+- Lint: `uv run flake8 app/ tests/`
+- Sort imports: `uv run isort app/ tests/`
 
 ## When Adding New Scrapers
 1. Create scraper class inheriting from `BaseScraper`
