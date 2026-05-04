@@ -9,7 +9,7 @@ A web scraping application that collects daily frozen custard flavors from multi
 - **Scraping**: Playwright (dynamic sites and Facebook), BeautifulSoup (static sites), Selenium (legacy only)
 - **Testing**: pytest with unittest
 - **Formatting**: black, flake8, isort, autoflake
-- **Package Management**: pip with pyproject.toml
+- **Package Management**: uv with pyproject.toml
 
 ## Project Structure
 ```
@@ -205,18 +205,16 @@ All scrapers return list of dicts:
 10. **Document complex regex patterns** with examples
 
 ## Python Environment (Required)
-- **Always activate the project virtual environment before running any Python-based shell command**.
-- Activation command: `source .venv/bin/activate`
-- This applies to `python`, `pytest`, `black`, `flake8`, `isort`, `pip`, and any script that relies on Python packages.
-- When running one-off commands, prefer chaining activation in the same command, for example:
-    `source .venv/bin/activate && pytest tests/ -v`
+- **Always use `uv run` to invoke Python-based shell commands** — do not activate the virtual environment manually.
+- This applies to `python`, `pytest`, `black`, `flake8`, `isort`, and any script that relies on Python packages.
+- Install/sync dependencies with `uv sync --all-extras --frozen` before running commands for the first time.
 
 ## Commands
-- Run tests: `source .venv/bin/activate && pytest tests/ -v`
-- Run ecosystem tests: `source .venv/bin/activate && pytest --ecosystem`
-- Format code: `source .venv/bin/activate && black app/ tests/`
-- Lint: `source .venv/bin/activate && flake8 app/ tests/`
-- Sort imports: `source .venv/bin/activate && isort app/ tests/`
+- Run tests: `uv run pytest tests/ -v`
+- Run ecosystem tests: `uv run pytest --ecosystem`
+- Format code: `uv run black app/ tests/`
+- Lint: `uv run flake8 app/ tests/`
+- Sort imports: `uv run isort app/ tests/`
 
 ## When Adding New Scrapers
 1. Create scraper class inheriting from `BaseScraper`
