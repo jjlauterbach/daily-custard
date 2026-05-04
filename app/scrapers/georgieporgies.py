@@ -127,6 +127,8 @@ class GeorgiePorgiesScraper(BaseScraper):
         flavor_name = flavor_name.strip(" -\u2014")
 
         if not flavor_name:
+            if description and "closed" in description.lower():
+                return "Closed", description
             return None, description
         if "closed" in flavor_name.lower():
             return "Closed", description

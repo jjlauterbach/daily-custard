@@ -140,6 +140,26 @@ class TestGeorgiePorgiesScraper(unittest.TestCase):
         self.assertEqual(len(results), 2)
         self.assertTrue(all(r["flavor"] == "Closed" for r in results))
 
+    @patch("app.scrapers.georgieporgies.get_central_date_string")
+    @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
+    def test_scrape_data_date_closed_when_name_blank_and_desc_only(
+        self, mock_get_html, mock_get_date
+    ):
+        """Closed is returned when .flavor-list-name is blank and closure is only in .flavor-list-desc."""
+        mock_get_date.return_value = "2026-05-04"
+        mock_get_html.return_value = _make_soup(
+            _forecast_data_date_html(
+                "2026-05-04",
+                "",
+                "Closed for a Day of Prayer and Rest",
+            )
+        )
+
+        results = GeorgiePorgiesScraper().scrape()
+
+        self.assertEqual(len(results), 2)
+        self.assertTrue(all(r["flavor"] == "Closed" for r in results))
+
     @patch("app.scrapers.georgieporgies.GeorgiePorgiesScraper.get_html")
     def test_scrape_returns_closed(self, mock_get_html):
         html = _forecast_html(
