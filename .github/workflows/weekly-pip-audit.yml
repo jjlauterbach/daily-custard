@@ -1,0 +1,41 @@
+name: Weekly Dependency Audit
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  pip-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: uv sync --all-extras --frozen
+
+      - name: Run pip-audit
+        run: uv run pip-audit
+
+      - name: Send ntfy notification on failure
+        if: failure()
+        run: |
+          curl -H "Authorization: Bearer ${{ secrets.NTFY_TOKEN}}" \
+               -H "Title: Daily Custard Scraper - pip audit failed" \
+               -H "Priority: urgent" \
+               -d "Pip audit failed. Check logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}" \
+               ${{ secrets.NTFY_TOPIC_URL }}

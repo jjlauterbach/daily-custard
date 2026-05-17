@@ -57,7 +57,7 @@ A web scraping application that collects daily flavor information from frozen cu
   - Unit tests
   - Integration tests
   - Ecosystem tests against live sites
-- **CI/CD** with linting, formatting, security, and coverage checks
+- **CI/CD** with linting, formatting, coverage checks, and a weekly dependency security audit
 - **Pre-commit hooks** for code quality
 
 ## Quick Start
@@ -142,7 +142,7 @@ uv run python -m http.server --directory static 8080
   uv run pip-audit
   ```
 
-All checks (`flake8`, `black`, `isort`, `autoflake`, `pip-audit`) run automatically in CI and pre-commit hooks.
+Code quality checks (`flake8`, `black`, `isort`, `autoflake`) run automatically in CI and pre-commit hooks. `pip-audit` runs in a weekly GitHub Actions workflow.
 
 ## Ecosystem Testing
 
@@ -230,7 +230,8 @@ The skill is instruction-driven (no Python template script) and should:
 ## Continuous Integration
 
 - GitHub Actions workflow runs on PRs and main branch:
-  - Linting, formatting, security audit, and test coverage
+  - Linting, formatting, and test coverage
+- A separate weekly GitHub Actions workflow runs dependency security audits (`pip-audit`)
 
 ## Cloudflare Pages Deployment
 
@@ -361,7 +362,7 @@ This project includes GitHub Copilot instructions at `.github/copilot-instructio
 
 All contributions are welcome! Please follow these guidelines:
 
-- **Code Quality**: All code must pass linting (flake8), formatting (black, isort), and security checks (pip-audit)
+- **Code Quality**: All code must pass linting (flake8) and formatting (black, isort); dependency security checks (`pip-audit`) run weekly in GitHub Actions
 - **Testing**: Write comprehensive unit tests (40+ tests for new scrapers) and ensure all tests pass
 - **Documentation**: Update README and docstrings for any new features
 - **Feature Branches**: All changes must go through pull requests - no direct commits to main

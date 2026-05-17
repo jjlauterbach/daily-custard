@@ -46,7 +46,7 @@ oscars:
     lat: 43.048866520029634
     lng: -88.17456781376536
     url: "https://www.oscarscustard.com/index.php/flavors"
-    enabled: false
+    enabled: true
     
   - id: oscars-milwaukee
     name: "Oscar's Frozen Custard (West Allis)"
