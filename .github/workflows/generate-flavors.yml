@@ -37,7 +37,7 @@ jobs:
           chrome-version: stable
 
       - name: Install ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
+        uses: nanasess/setup-chromedriver@v3
 
       - name: Install uv
         uses: astral-sh/setup-uv@v7
