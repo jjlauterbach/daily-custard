@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  issues: write
 
 jobs:
   ecosystem-test:
@@ -42,6 +43,91 @@ jobs:
         with:
           name: ecosystem-test-log
           path: ecosystem_test.log
+
+      - name: Create or update failure issue
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const label = "ecosystem-test-failure";
+            const runUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`;
+            const titlePrefix = "Ecosystem scraper test failure";
+
+            const openIssues = await github.paginate(github.rest.issues.listForRepo, {
+              owner,
+              repo,
+              state: "open",
+              labels: label,
+              per_page: 100,
+            });
+
+            const existing = openIssues.find(
+              (issue) => !issue.pull_request && issue.title.startsWith(titlePrefix)
+            );
+
+            if (existing) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: existing.number,
+                body: [
+                  "A new ecosystem test failure was detected.",
+                  "",
+                  `- Workflow run: ${runUrl}`,
+                  `- Commit: ${context.sha}`,
+                  `- Triggered by: ${context.eventName}`,
+                ].join("\n"),
+              });
+
+              core.info(`Updated existing issue #${existing.number}`);
+              return;
+            }
+
+            const today = new Date().toISOString().slice(0, 10);
+            const created = await github.rest.issues.create({
+              owner,
+              repo,
+              title: `${titlePrefix} (${today})`,
+              body: [
+                "The scheduled ecosystem scraper test failed.",
+                "",
+                `- Workflow run: ${runUrl}`,
+                `- Commit: ${context.sha}`,
+                `- Triggered by: ${context.eventName}`,
+                "- Artifact: ecosystem-test-log",
+                "",
+                "This issue was opened automatically by the workflow.",
+              ].join("\n"),
+              labels: ["bug", label],
+            });
+
+            let assigned = false;
+            for (const login of ["copilot", "copilot-swe-agent"]) {
+              try {
+                await github.rest.issues.addAssignees({
+                  owner,
+                  repo,
+                  issue_number: created.data.number,
+                  assignees: [login],
+                });
+                assigned = true;
+                core.info(`Assigned issue #${created.data.number} to ${login}`);
+                break;
+              } catch (error) {
+                core.warning(`Could not assign ${login}: ${error.message}`);
+              }
+            }
+
+            if (!assigned) {
+              await github.rest.issues.createComment({
+                owner,
+                repo,
+                issue_number: created.data.number,
+                body: "Automatic Copilot assignment failed in this repository. Please verify Copilot coding agent is enabled and assign manually if needed.",
+              });
+            }
 
       - name: Send ntfy notification on failure
         if: failure()
