@@ -4,7 +4,7 @@ version = "1.0.1"
 description = "Daily frozen custard flavor scraper and web UI"
 requires-python = ">=3.11"
 dependencies = [
-    "beautifulsoup4>=4.12.3,<5.0.0",
+    "beautifulsoup4>=4.15.0,<5.0.0",
     "requests>=2.34.2,<3.0.0",
     "selenium>=4.44.0,<5.0.0",
     "undetected-chromedriver>=3.5.5,<4.0.0",
