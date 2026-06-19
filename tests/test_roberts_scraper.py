@@ -136,7 +136,7 @@ class TestRobertsScrape(unittest.TestCase):
     @patch("app.scrapers.roberts.get_central_time")
     @patch("app.scrapers.roberts.RobertsScraper.get_html")
     def test_scrape_empty_when_today_missing(self, mock_get_html, mock_central_time):
-        """Falls back to the nearest available flavor when today's date is missing."""
+        """Returns [] when no flavor exists for today's date."""
         mock_central_time.return_value = datetime.datetime(2026, 3, 20, 8, 0, 0)
         html = _make_flavor_calendar_html(
             ("Rice Krispie Crunch", "Mon, March 9, 2026"),
@@ -145,25 +145,7 @@ class TestRobertsScrape(unittest.TestCase):
         mock_get_html.return_value = _make_soup(html)
 
         results = RobertsScraper().scrape()
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["flavor"], "French Silk Pie")
-        self.assertEqual(results[0]["date"], "2026-03-10")
-
-    @patch("app.scrapers.roberts.get_central_time")
-    @patch("app.scrapers.roberts.RobertsScraper.get_html")
-    def test_scrape_falls_back_to_earliest_future_when_no_past(self, mock_get_html, mock_central_time):
-        """If all calendar entries are in the future, use the earliest one."""
-        mock_central_time.return_value = datetime.datetime(2026, 3, 8, 8, 0, 0)
-        html = _make_flavor_calendar_html(
-            ("Rice Krispie Crunch", "Mon, March 9, 2026"),
-            ("French Silk Pie", "Tue, March 10, 2026"),
-        )
-        mock_get_html.return_value = _make_soup(html)
-
-        results = RobertsScraper().scrape()
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["flavor"], "Rice Krispie Crunch")
-        self.assertEqual(results[0]["date"], "2026-03-09")
+        self.assertEqual(results, [])
 
     @patch("app.scrapers.roberts.RobertsScraper.get_html")
     def test_scrape_handles_exception(self, mock_get_html):

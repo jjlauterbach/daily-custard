@@ -36,14 +36,8 @@ class RobertsScraper(BaseScraper):
 
             flavor_name, flavor_date = self._extract_todays_flavor(html)
             if not flavor_name:
-                flavor_name, flavor_date = self._extract_nearest_flavor(html)
-                if not flavor_name:
-                    self.log_error("No flavor found for today")
-                    return []
-                self.logger.warning(
-                    "No flavor found for today; using nearest calendar flavor from %s",
-                    flavor_date,
-                )
+                self.log_error("No flavor found for today")
+                return []
 
             self.log_flavor(location_name, flavor_name, flavor_date)
             flavor_entry = self.create_flavor(
@@ -88,36 +82,6 @@ class RobertsScraper(BaseScraper):
                 return flavor, entry_date.strftime("%Y-%m-%d")
 
         return None, None
-
-    def _extract_nearest_flavor(self, html):
-        """Extract the nearest available flavor date when today's entry is missing."""
-        today = get_central_time().date()
-
-        calendar_heading = html.find("h1", string=lambda s: s and "flavor calendar" in s.lower())
-        if not calendar_heading:
-            return None, None
-
-        calendar_list = calendar_heading.find_next("ul")
-        if not calendar_list:
-            return None, None
-
-        entries = []
-        for item in calendar_list.find_all("li"):
-            flavor, entry_date = self._parse_calendar_item(item)
-            if not flavor or not entry_date:
-                continue
-            entries.append((entry_date, flavor))
-
-        if not entries:
-            return None, None
-
-        past_or_today = [entry for entry in entries if entry[0] <= today]
-        if past_or_today:
-            chosen_date, chosen_flavor = max(past_or_today, key=lambda entry: entry[0])
-        else:
-            chosen_date, chosen_flavor = min(entries, key=lambda entry: entry[0])
-
-        return chosen_flavor, chosen_date.strftime("%Y-%m-%d")
 
     def _parse_calendar_item(self, item):
         """Parse a single calendar <li> into (flavor, date)."""
