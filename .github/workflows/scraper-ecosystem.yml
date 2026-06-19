@@ -91,7 +91,7 @@ jobs:
               repo,
               title: `${titlePrefix} (${today})`,
               body: [
-                "The scheduled ecosystem scraper test failed.",
+                "The ecosystem scraper test failed.",
                 "",
                 `- Workflow run: ${runUrl}`,
                 `- Commit: ${context.sha}`,
