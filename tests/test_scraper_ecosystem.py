@@ -10,6 +10,7 @@ from app.scrapers.kraverz import scrape_kraverz
 from app.scrapers.leducs import scrape_leducs
 from app.scrapers.murfs import scrape_murfs
 from app.scrapers.oscars import scrape_oscars
+from app.scrapers.roberts import scrape_roberts
 from conftest import ecosystem
 
 
@@ -41,6 +42,11 @@ class TestScraperEcosystem(unittest.TestCase):
                     self.assertIn("date", flavor, f"{name} date missing")
                     self.assertIn("description", flavor, f"{name} description missing")
                     self.assertIn("brand", flavor, f"{name} brand missing")
+
+    @ecosystem
+    @unittest.skip("Robert's scraper is temporarily disabled due to known failures")
+    def test_roberts_scraper_disabled(self):
+        scrape_roberts()
 
 
 if __name__ == "__main__":
