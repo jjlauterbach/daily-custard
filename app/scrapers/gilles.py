@@ -91,13 +91,9 @@ class GillesScraper(BaseScraper):
                                     flavor_html = self.get_html(flavor_url)
                                     if flavor_html:
                                         # Look for description in common locations
-                                        desc_div = flavor_html.find(
-                                            "div", class_="field-name-body"
-                                        )
+                                        desc_div = flavor_html.find("div", class_="field-name-body")
                                         if desc_div:
-                                            desc_content = desc_div.find(
-                                                "div", class_="field-item"
-                                            )
+                                            desc_content = desc_div.find("div", class_="field-item")
                                             if desc_content:
                                                 description = desc_content.get_text(strip=True)
                                 except Exception as e:

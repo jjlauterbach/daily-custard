@@ -3,7 +3,6 @@ import unittest
 from app.scrapers.bubbas import scrape_bubbas
 from app.scrapers.culvers import scrape_culvers
 from app.scrapers.georgieporgies import scrape_georgieporgies
-from app.scrapers.gilles import scrape_gilles
 from app.scrapers.hefners import scrape_hefners
 from app.scrapers.kopps import scrape_kopps
 from app.scrapers.kraverz import scrape_kraverz
@@ -24,7 +23,6 @@ class TestScraperEcosystem(unittest.TestCase):
             ("Murfs", scrape_murfs),
             ("Oscars", scrape_oscars),
             ("Bubbas", scrape_bubbas),
-            ("Gilles", scrape_gilles),
             ("Georgie Porgie's", scrape_georgieporgies),
             ("Hefner's", scrape_hefners),
             ("Kraverz", scrape_kraverz),
@@ -47,6 +45,13 @@ class TestScraperEcosystem(unittest.TestCase):
     @unittest.skip("Robert's scraper is temporarily disabled due to known failures")
     def test_roberts_scraper_disabled(self):
         scrape_roberts()
+
+    @ecosystem
+    @unittest.skip("Gilles scraper is temporarily disabled due to known site availability failures")
+    def test_gilles_scraper_disabled(self):
+        from app.scrapers.gilles import scrape_gilles
+
+        scrape_gilles()
 
 
 if __name__ == "__main__":
