@@ -116,6 +116,22 @@ def _make_calendar_html_with_reordered_classes_and_direct_title(flavor_name="Tur
     """
 
 
+def _make_calendar_html_with_today_only(flavor_name="Turtle"):
+    """Build calendar HTML where today's cell has no single-day class."""
+    return f"""
+    <html><body>
+      <table>
+        <td class="today">
+          <div class="views-field-title">
+            Flavor of the day:
+            <a href="/flavor/{flavor_name.lower().replace(' ', '-')}/">{flavor_name}</a>
+          </div>
+        </td>
+      </table>
+    </body></html>
+    """
+
+
 class TestGillesScraperFlavor(unittest.TestCase):
     """Unit tests for Gilles flavor extraction."""
 
@@ -146,6 +162,18 @@ class TestGillesScraperFlavor(unittest.TestCase):
     def test_scrape_handles_reordered_today_classes(self, mock_get_html):
         """scrape() tolerates class reordering and flatter title nesting."""
         html = _make_calendar_html_with_reordered_classes_and_direct_title("Turtle")
+        mock_get_html.return_value = _make_soup(html)
+
+        scraper = GillesScraper()
+        results = scraper.scrape()
+
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["flavor"], "Turtle")
+
+    @patch("app.scrapers.gilles.GillesScraper.get_html")
+    def test_scrape_handles_today_cell_without_single_day_class(self, mock_get_html):
+        """scrape() finds today's table cell when it only has the 'today' class."""
+        html = _make_calendar_html_with_today_only("Turtle")
         mock_get_html.return_value = _make_soup(html)
 
         scraper = GillesScraper()
