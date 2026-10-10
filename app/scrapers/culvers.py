@@ -1,3 +1,7 @@
+import time
+
+from requests.exceptions import RequestException
+
 from app.scrapers.scraper_base import BaseScraper
 
 
@@ -5,6 +9,8 @@ class CulversScraper(BaseScraper):
     """Scraper for Culver's locations using the locator API."""
 
     API_URL = "https://www.culvers.com/api/locator/getLocations?lat=43.07970271852549&long=-88.22235303770586&radius=600000&limit=100"
+    API_MAX_RETRIES = 2
+    API_RETRY_DELAY = 1
 
     def __init__(self):
         super().__init__("culvers", "Culver's")
@@ -15,8 +21,16 @@ class CulversScraper(BaseScraper):
         flavors = []
 
         try:
-            response = self.session.get(self.API_URL, timeout=10)
-            response.raise_for_status()
+            for attempt in range(self.API_MAX_RETRIES):
+                try:
+                    response = self.session.get(self.API_URL, timeout=10)
+                    response.raise_for_status()
+                    break
+                except RequestException:
+                    if attempt == self.API_MAX_RETRIES - 1:
+                        raise
+                    time.sleep(self.API_RETRY_DELAY * (2**attempt))
+
             data = response.json()
 
             geofences = data.get("data", {}).get("geofences", [])
