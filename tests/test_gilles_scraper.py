@@ -228,6 +228,23 @@ class TestGillesScraperFlavor(unittest.TestCase):
         self.assertIn("Closed", flavor_names)
 
     @patch("app.scrapers.gilles.GillesScraper.get_html")
+    def test_scrape_finds_today_cell_by_date_attribute(self, mock_get_html):
+        """scrape() falls back to a date attribute when no 'today' class exists."""
+        from datetime import datetime
+        from zoneinfo import ZoneInfo
+
+        today = datetime.now(ZoneInfo("America/Chicago")).strftime("%Y-%m-%d")
+        html = _make_calendar_html_with_flavor("Turtle").replace(
+            'class="single-day today"', f'class="single-day" data-date="{today}"'
+        )
+        mock_get_html.return_value = _make_soup(html)
+
+        scraper = GillesScraper()
+        results = scraper.scrape()
+
+        self.assertEqual(results[0]["flavor"], "Turtle")
+
+    @patch("app.scrapers.gilles.GillesScraper.get_html")
     def test_scrape_returns_empty_when_no_today_cell(self, mock_get_html):
         """scrape() returns [] when today's cell is not found."""
         html = "<html><body><table></table></body></html>"

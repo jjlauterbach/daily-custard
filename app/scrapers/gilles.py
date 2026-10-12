@@ -1,4 +1,6 @@
+from datetime import datetime
 from urllib.parse import urljoin
+from zoneinfo import ZoneInfo
 
 from app.scrapers.scraper_base import BaseScraper
 
@@ -8,6 +10,26 @@ class GillesScraper(BaseScraper):
 
     def __init__(self):
         super().__init__("gilles", "Gilles")
+
+    @staticmethod
+    def _find_cell_by_date(html):
+        """Find today's calendar cell by a date attribute when no 'today' class exists.
+
+        Matches cells whose data-date, datetime, id or headers contain today's
+        Central-time date, e.g. ``2026-10-12``.
+        """
+        today = datetime.now(ZoneInfo("America/Chicago")).strftime("%Y-%m-%d")
+        for cell in html.find_all("td"):
+            values = [cell.get(attr) for attr in ("data-date", "datetime", "id", "headers")]
+            for value in values:
+                text = " ".join(value) if isinstance(value, list) else value
+                if text and today in text:
+                    return cell
+            if cell.find(attrs={"data-date": today}) or cell.find(
+                "time", attrs={"datetime": today}
+            ):
+                return cell
+        return None
 
     def scrape(self):
         """Scrape Gilles Frozen Custard calendar page."""
@@ -38,6 +60,7 @@ class GillesScraper(BaseScraper):
                 html.select_one("td.single-day.today")
                 or html.select_one(".single-day.today")
                 or html.select_one("td.today")
+                or self._find_cell_by_date(html)
             )
             if not today_cell:
                 self.logger.warning("⚠️ GILLES: Could not find today's calendar cell")

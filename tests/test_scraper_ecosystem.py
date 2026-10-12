@@ -20,6 +20,7 @@ class TestScraperEcosystem(unittest.TestCase):
         """Test that each scraper returns at least one flavor with required fields."""
         scrapers = [
             ("Culvers", scrape_culvers),
+            ("Gilles", scrape_gilles),
             ("Kopps", scrape_kopps),
             ("Murfs", scrape_murfs),
             ("Oscars", scrape_oscars),
@@ -41,11 +42,6 @@ class TestScraperEcosystem(unittest.TestCase):
                     self.assertIn("date", flavor, f"{name} date missing")
                     self.assertIn("description", flavor, f"{name} description missing")
                     self.assertIn("brand", flavor, f"{name} brand missing")
-
-    @ecosystem
-    @unittest.skip("Temporarily disabled until Gilles' live calendar markup exposes today's cell")
-    def test_gilles_scraper_disabled(self):
-        scrape_gilles()
 
     @ecosystem
     @unittest.skip("Robert's scraper is temporarily disabled due to known failures")

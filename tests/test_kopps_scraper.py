@@ -43,8 +43,7 @@ class TestKoppsFlavorExtraction(unittest.TestCase):
 
     def test_extract_flavors_from_primary_section(self):
         """Extracts flavors and date from original wp-block-todays-flavors section."""
-        html = _make_soup(
-            """
+        html = _make_soup("""
             <div class="wp-block-todays-flavors">
               <h2>TODAY'S FLAVORS – MARCH 15, 2026</h2>
               <h3>BUTTER PECAN</h3>
@@ -54,8 +53,7 @@ class TestKoppsFlavorExtraction(unittest.TestCase):
               <h3>SHAKE OF THE MONTH</h3>
               <h3>SUNDAE OF THE MONTH</h3>
             </div>
-            """
-        )
+            """)
 
         date_str, rows = self.scraper._extract_flavors(html)
 
@@ -67,8 +65,7 @@ class TestKoppsFlavorExtraction(unittest.TestCase):
 
     def test_extract_flavors_heading_fallback_when_class_missing(self):
         """Falls back to heading-order extraction when section class is missing."""
-        html = _make_soup(
-            """
+        html = _make_soup("""
             <main>
               <h2>TODAY’S FLAVORS –MARCH 15, 2026</h2>
               <h3>BUTTER PECAN</h3>
@@ -76,8 +73,7 @@ class TestKoppsFlavorExtraction(unittest.TestCase):
               <h3>SHAKE OF THE MONTH</h3>
               <h4>IRISH MINT SHAKE</h4>
             </main>
-            """
-        )
+            """)
 
         date_str, rows = self.scraper._extract_flavors(html)
 
@@ -111,16 +107,14 @@ class TestKoppsScrape(unittest.TestCase):
     @patch("app.scrapers.kopps.KoppsScraper.get_html")
     def test_scrape_uses_heading_fallback_and_returns_all_locations(self, mock_get_html):
         """Fallback extraction returns one entry per flavor per location."""
-        mock_get_html.return_value = _make_soup(
-            """
+        mock_get_html.return_value = _make_soup("""
             <html><body>
               <h2>TODAY'S FLAVORS - March 15, 2026</h2>
               <h3>BUTTER PECAN</h3>
               <h3>SONG SUNG BLUEBERRY</h3>
               <h3>SHAKE OF THE MONTH</h3>
             </body></html>
-            """
-        )
+            """)
 
         results = KoppsScraper().scrape()
 
@@ -146,15 +140,13 @@ class TestKoppsScrape(unittest.TestCase):
     ):
         """When get_html returns None, scraper falls back to Playwright and returns flavors."""
         mock_get_html.return_value = None
-        mock_try_playwright.return_value = _make_soup(
-            """
+        mock_try_playwright.return_value = _make_soup("""
             <html><body>
               <h2>TODAY'S FLAVORS - March 15, 2026</h2>
               <h3>BUTTER PECAN</h3>
               <h3>SHAKE OF THE MONTH</h3>
             </body></html>
-            """
-        )
+            """)
 
         results = KoppsScraper().scrape()
 
@@ -171,15 +163,13 @@ class TestKoppsScrape(unittest.TestCase):
         mock_get_html.return_value = _make_soup(
             "<html><body><h1>Just a moment...</h1></body></html>"
         )
-        mock_try_playwright.return_value = _make_soup(
-            """
+        mock_try_playwright.return_value = _make_soup("""
             <html><body>
               <h2>TODAY'S FLAVORS - March 15, 2026</h2>
               <h3>BUTTER PECAN</h3>
               <h3>SHAKE OF THE MONTH</h3>
             </body></html>
-            """
-        )
+            """)
 
         results = KoppsScraper().scrape()
 
@@ -203,14 +193,12 @@ class TestKoppsPlaywrightFetch(unittest.TestCase):
     @patch("app.scrapers.kopps.KoppsScraper._get_html_playwright")
     def test_try_playwright_browser_fetch_returns_html_when_markers_present(self, mock_playwright):
         """Playwright HTML is returned when it contains flavor markers."""
-        mock_playwright.return_value = _make_soup(
-            """
+        mock_playwright.return_value = _make_soup("""
             <html><body>
               <h2>TODAY'S FLAVORS - March 15, 2026</h2>
               <h3>BUTTER PECAN</h3>
             </body></html>
-            """
-        )
+            """)
 
         html = self.scraper._try_playwright_browser_fetch("https://www.kopps.com")
 

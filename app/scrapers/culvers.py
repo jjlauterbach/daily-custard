@@ -1,6 +1,6 @@
 import time
 
-from requests.exceptions import RequestException
+from requests.exceptions import HTTPError, RequestException
 
 from app.scrapers.scraper_base import BaseScraper
 
@@ -11,6 +11,7 @@ class CulversScraper(BaseScraper):
     API_URL = "https://www.culvers.com/api/locator/getLocations?lat=43.07970271852549&long=-88.22235303770586&radius=600000&limit=100"
     API_MAX_RETRIES = 2
     API_RETRY_DELAY = 1
+    RETRYABLE_STATUS_CODES = frozenset({408, 429, 500, 502, 503, 504})
 
     def __init__(self):
         super().__init__("culvers", "Culver's")
@@ -26,8 +27,14 @@ class CulversScraper(BaseScraper):
                     response = self.session.get(self.API_URL, timeout=10)
                     response.raise_for_status()
                     break
-                except RequestException:
-                    if attempt == self.API_MAX_RETRIES - 1:
+                except RequestException as e:
+                    status = (
+                        e.response.status_code
+                        if isinstance(e, HTTPError) and e.response is not None
+                        else None
+                    )
+                    non_retryable = status is not None and status not in self.RETRYABLE_STATUS_CODES
+                    if non_retryable or attempt == self.API_MAX_RETRIES - 1:
                         raise
                     time.sleep(self.API_RETRY_DELAY * (2**attempt))
 
