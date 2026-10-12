@@ -34,8 +34,10 @@ class GillesScraper(BaseScraper):
 
             # Gilles uses a calendar view.
             # Use CSS selectors so class order and extra classes do not break matching.
-            today_cell = html.select_one("td.single-day.today") or html.select_one(
-                ".single-day.today"
+            today_cell = (
+                html.select_one("td.single-day.today")
+                or html.select_one(".single-day.today")
+                or html.select_one("td.today")
             )
             if not today_cell:
                 self.logger.warning("⚠️ GILLES: Could not find today's calendar cell")
