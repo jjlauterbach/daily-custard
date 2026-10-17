@@ -6,10 +6,11 @@ A web scraping application that collects daily frozen custard flavors from multi
 ## Technology Stack
 - **Language**: Python 3.12+
 - **Web Framework**: FastAPI (for future API endpoints)
-- **Scraping**: Playwright (dynamic sites and Facebook), BeautifulSoup (static sites), Selenium (legacy only)
+- **Scraping**: Playwright (dynamic sites and Facebook), BeautifulSoup (static sites), Selenium (legacy only), pytesseract/Pillow (OCR for calendar-image-only sites like Gilles)
 - **Testing**: pytest with unittest
 - **Formatting**: black, flake8, isort, autoflake
 - **Package Management**: uv with pyproject.toml
+- **System dependency**: `tesseract-ocr` must be installed locally (e.g. `brew install tesseract` on macOS) for the Gilles scraper's OCR to run
 
 ## Project Structure
 ```

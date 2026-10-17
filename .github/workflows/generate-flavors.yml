@@ -50,6 +50,9 @@ jobs:
       - name: Install Playwright browsers
         run: uv run playwright install chromium
 
+      - name: Install tesseract-ocr
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+
       - name: Generate flavors.json
         run: uv run python scripts/generate_flavors.py
 
