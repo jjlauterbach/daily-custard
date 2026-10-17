@@ -2,10 +2,12 @@ FROM python:3.12
  
 WORKDIR /code
 
-# Install Chromium and ChromeDriver (works on both amd64 and arm64)
+# Install Chromium and ChromeDriver (works on both amd64 and arm64), plus
+# tesseract-ocr for the Gilles scraper's calendar-image OCR.
 RUN apt-get update && apt-get install -y \
     chromium \
     chromium-driver \
+    tesseract-ocr \
     && rm -rf /var/lib/apt/lists/*
 
 COPY ./pyproject.toml /code/pyproject.toml

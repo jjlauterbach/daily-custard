@@ -1,11 +1,13 @@
-"""Unit tests for Gilles Frozen Custard scraper."""
+"""Unit tests for Gilles Frozen Custard scraper (OCR-based calendar image parsing)."""
 
 import unittest
 from unittest.mock import patch
 
 from bs4 import BeautifulSoup
+from PIL import Image
 
 from app.scrapers.gilles import GillesScraper, scrape_gilles
+from app.scrapers.utils import get_central_time
 
 TEST_LOCATION = {
     "id": "gilles-main",
@@ -19,117 +21,34 @@ TEST_LOCATION = {
 }
 
 
-def _make_soup(html):
-    return BeautifulSoup(html, "html.parser")
+def _week_range_for_today():
+    """Return (start_day, end_day) for a 7-day window containing today."""
+    today = get_central_time().day
+    start = max(1, today - 3)
+    return start, start + 6
 
 
-def _make_calendar_html_with_flavor(flavor_name="Butter Pecan"):
-    """Build minimal calendar HTML with a flavor link in today's cell."""
-    return f"""
-    <html><body>
-      <table>
-        <td class="single-day today">
-          <div class="flavor">
-            <div class="views-field-title">
-              Flavor of the day:
-              <a href="/flavor/{flavor_name.lower().replace(' ', '-')}/">{flavor_name}</a>
-            </div>
-          </div>
-          <div class="flavor">
-            <div class="views-field-title">
-              Flavor of the month:
-              <a href="/flavor/mint-chocolate-chip/">Mint Chocolate Chip</a>
-            </div>
-          </div>
-        </td>
-      </table>
-    </body></html>
-    """
+def _make_page_html(start_day=None, end_day=None, month_name=None, matching=True):
+    """Build minimal page HTML with an <img> pointing at a weekly calendar graphic."""
+    today = get_central_time()
+    if start_day is None or end_day is None:
+        start_day, end_day = _week_range_for_today()
+    month_name = month_name or today.strftime("%B")
+    if not matching:
+        # Shift the range so today's day-of-month falls outside it.
+        start_day, end_day = 90, 96
+    filename = f"{month_name}-{start_day}-{end_day}.png"
+    src = (
+        "https://static.wixstatic.com/media/6dbc8c_abc123~mv2.png"
+        f"/v1/fill/w_976,h_381,al_c,q_85,enc_avif,quality_auto/{filename}"
+    )
+    return BeautifulSoup(
+        f'<html><body><img src="{src}" alt="{filename}"></body></html>', "html.parser"
+    )
 
 
-def _make_calendar_html_closed():
-    """Build calendar HTML showing today's cell as closed (no flavor links)."""
-    return """
-    <html><body>
-      <table>
-        <td class="single-day today">
-          Closed
-        </td>
-      </table>
-    </body></html>
-    """
-
-
-def _make_calendar_html_closed_link():
-    """Build calendar HTML where today's flavor link text is 'Closed'."""
-    return """
-    <html><body>
-      <table>
-        <td class="single-day today">
-          <div class="flavor">
-            <div class="views-field-title">
-              Flavor of the day:
-              <a href="/flavor/closed/">Closed</a>
-            </div>
-          </div>
-        </td>
-      </table>
-    </body></html>
-    """
-
-
-def _make_calendar_html_closed_text_with_month_flavor():
-    """Build calendar HTML where today is closed (text only) but has a flavor-of-month link.
-
-    This tests that the 'Closed' entry is still emitted even when other entries exist.
-    """
-    return """
-    <html><body>
-      <table>
-        <td class="single-day today">
-          Closed
-          <div class="flavor">
-            <div class="views-field-title">
-              Flavor of the month:
-              <a href="/flavor/mint-chocolate-chip/">Mint Chocolate Chip</a>
-            </div>
-          </div>
-        </td>
-      </table>
-    </body></html>
-    """
-
-
-def _make_calendar_html_with_reordered_classes_and_direct_title(flavor_name="Turtle"):
-    """Build calendar HTML that varies class order and nesting."""
-    return f"""
-    <html><body>
-      <table>
-        <td class="today single-day odd">
-          <div class="views-field-title">
-            Flavor of the day:
-            <a href="/flavor/{flavor_name.lower().replace(' ', '-')}/">{flavor_name}</a>
-          </div>
-        </td>
-      </table>
-    </body></html>
-    """
-
-
-def _make_calendar_html_with_today_only(flavor_name="Turtle"):
-    """Build calendar HTML where today's cell has no single-day class."""
-    return f"""
-    <html><body>
-      <table>
-        <td class="today">
-          <div class="views-field-title">
-            Flavor of the day:
-            <a href="/flavor/{flavor_name.lower().replace(' ', '-')}/">{flavor_name}</a>
-          </div>
-        </td>
-      </table>
-    </body></html>
-    """
+def _make_image():
+    return Image.new("RGB", (700, 100), color="white")
 
 
 class TestGillesScraperFlavor(unittest.TestCase):
@@ -143,95 +62,84 @@ class TestGillesScraperFlavor(unittest.TestCase):
     def tearDown(self):
         self.locations_patcher.stop()
 
+    @patch("app.scrapers.gilles.pytesseract.image_to_string")
+    @patch("app.scrapers.gilles.GillesScraper._download_image")
     @patch("app.scrapers.gilles.GillesScraper.get_html")
-    def test_scrape_returns_flavor(self, mock_get_html):
-        """scrape() returns flavor when calendar contains flavor link."""
-        html = _make_calendar_html_with_flavor("Turtle")
-        mock_get_html.return_value = _make_soup(html)
-
-        scraper = GillesScraper()
-        results = scraper.scrape()
-
-        self.assertGreaterEqual(len(results), 1)
-        flavors = [entry["flavor"] for entry in results]
-        self.assertIn("Turtle", flavors)
-        self.assertTrue(all(entry["location"] == "Gilles Frozen Custard" for entry in results))
-        self.assertTrue(all(entry["brand"] == "Gilles" for entry in results))
-
-    @patch("app.scrapers.gilles.GillesScraper.get_html")
-    def test_scrape_handles_reordered_today_classes(self, mock_get_html):
-        """scrape() tolerates class reordering and flatter title nesting."""
-        html = _make_calendar_html_with_reordered_classes_and_direct_title("Turtle")
-        mock_get_html.return_value = _make_soup(html)
+    def test_scrape_returns_flavor(self, mock_get_html, mock_download, mock_ocr):
+        """scrape() returns today's flavor read from the calendar image via OCR."""
+        mock_get_html.return_value = _make_page_html()
+        mock_download.return_value = _make_image()
+        mock_ocr.return_value = "Turtle\n\nContains: Vanilla, Fudge swirl, Pecans"
 
         scraper = GillesScraper()
         results = scraper.scrape()
 
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["flavor"], "Turtle")
-
-    @patch("app.scrapers.gilles.GillesScraper.get_html")
-    def test_scrape_handles_today_cell_without_single_day_class(self, mock_get_html):
-        """scrape() finds today's table cell when it only has the 'today' class."""
-        html = _make_calendar_html_with_today_only("Turtle")
-        mock_get_html.return_value = _make_soup(html)
-
-        scraper = GillesScraper()
-        results = scraper.scrape()
-
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["flavor"], "Turtle")
-
-    @patch("app.scrapers.gilles.GillesScraper.get_html")
-    def test_scrape_returns_closed_when_closed(self, mock_get_html):
-        """scrape() returns 'Closed' flavor when today's cell shows closed."""
-        html = _make_calendar_html_closed()
-        mock_get_html.return_value = _make_soup(html)
-
-        scraper = GillesScraper()
-        results = scraper.scrape()
-
-        self.assertEqual(len(results), 1)
-        self.assertEqual(results[0]["flavor"], "Closed")
+        self.assertEqual(results[0]["description"], "Vanilla, Fudge swirl, Pecans")
         self.assertEqual(results[0]["location"], "Gilles Frozen Custard")
+        self.assertEqual(results[0]["brand"], "Gilles")
 
+    @patch("app.scrapers.gilles.pytesseract.image_to_string")
+    @patch("app.scrapers.gilles.GillesScraper._download_image")
     @patch("app.scrapers.gilles.GillesScraper.get_html")
-    def test_scrape_closed_link_skips_detail_page_fetch(self, mock_get_html):
-        """scrape() returns 'Closed' and does NOT fetch a detail page when the
-        flavor link text is 'Closed' (i.e. <a href="/flavor/closed/">Closed</a>)."""
-        html = _make_calendar_html_closed_link()
-        mock_get_html.return_value = _make_soup(html)
+    def test_scrape_returns_closed_when_closed(self, mock_get_html, mock_download, mock_ocr):
+        """scrape() returns 'Closed' when OCR reads the closed-day column."""
+        mock_get_html.return_value = _make_page_html()
+        mock_download.return_value = _make_image()
+        mock_ocr.return_value = "CLOSED"
 
         scraper = GillesScraper()
         results = scraper.scrape()
 
         self.assertEqual(len(results), 1)
         self.assertEqual(results[0]["flavor"], "Closed")
-        # Only the calendar page should have been fetched; no detail-page call
-        self.assertEqual(mock_get_html.call_count, 1)
+        self.assertEqual(results[0]["description"], "")
 
+    @patch("app.scrapers.gilles.pytesseract.image_to_string")
+    @patch("app.scrapers.gilles.GillesScraper._download_image")
     @patch("app.scrapers.gilles.GillesScraper.get_html")
-    def test_scrape_closed_text_with_month_flavor_adds_closed_entry(self, mock_get_html):
-        """'Closed' entry is included even when a flavor-of-month link is present.
-
-        This guards against the `if not flavors:` gate silently swallowing the
-        closed status whenever any other parsable entry exists in today's cell.
-        """
-        html = _make_calendar_html_closed_text_with_month_flavor()
-        # Return the same soup for both the calendar page and any detail-page fetch.
-        mock_get_html.return_value = _make_soup(html)
+    def test_scrape_strips_leading_ocr_noise(self, mock_get_html, mock_download, mock_ocr):
+        """scrape() drops stray lowercase/symbol tokens OCR picks up from the photo."""
+        mock_get_html.return_value = _make_page_html()
+        mock_download.return_value = _make_image()
+        mock_ocr.return_value = "\u2122\u00bb Black Raspberry\n\nContains: Black raspberry"
 
         scraper = GillesScraper()
         results = scraper.scrape()
 
-        flavor_names = [r["flavor"] for r in results]
-        self.assertIn("Closed", flavor_names)
+        self.assertEqual(results[0]["flavor"], "Black Raspberry")
 
     @patch("app.scrapers.gilles.GillesScraper.get_html")
-    def test_scrape_returns_empty_when_no_today_cell(self, mock_get_html):
-        """scrape() returns [] when today's cell is not found."""
-        html = "<html><body><table></table></body></html>"
-        mock_get_html.return_value = _make_soup(html)
+    def test_scrape_no_matching_week_image(self, mock_get_html):
+        """scrape() returns [] when no calendar image covers today's date."""
+        mock_get_html.return_value = _make_page_html(matching=False)
+
+        scraper = GillesScraper()
+        results = scraper.scrape()
+
+        self.assertEqual(results, [])
+
+    @patch("app.scrapers.gilles.pytesseract.image_to_string")
+    @patch("app.scrapers.gilles.GillesScraper._download_image")
+    @patch("app.scrapers.gilles.GillesScraper.get_html")
+    def test_scrape_returns_empty_when_ocr_unreadable(self, mock_get_html, mock_download, mock_ocr):
+        """scrape() returns [] when OCR produces no usable text."""
+        mock_get_html.return_value = _make_page_html()
+        mock_download.return_value = _make_image()
+        mock_ocr.return_value = "   \n\n  "
+
+        scraper = GillesScraper()
+        results = scraper.scrape()
+
+        self.assertEqual(results, [])
+
+    @patch("app.scrapers.gilles.GillesScraper._download_image")
+    @patch("app.scrapers.gilles.GillesScraper.get_html")
+    def test_scrape_image_download_failure(self, mock_get_html, mock_download):
+        """scrape() returns [] when the calendar image fails to download."""
+        mock_get_html.return_value = _make_page_html()
+        mock_download.side_effect = RuntimeError("network error")
 
         scraper = GillesScraper()
         results = scraper.scrape()
@@ -266,6 +174,52 @@ class TestGillesScraperFlavor(unittest.TestCase):
         self.assertEqual(results, [])
 
 
+class TestGillesColumnParsing(unittest.TestCase):
+    """Unit tests for the column-cropping and OCR-block parsing helpers."""
+
+    def setUp(self):
+        self.locations_patcher = patch("app.scrapers.scraper_base.get_locations_for_brand")
+        self.mock_get_locations = self.locations_patcher.start()
+        self.mock_get_locations.return_value = [TEST_LOCATION]
+        self.scraper = GillesScraper()
+
+    def tearDown(self):
+        self.locations_patcher.stop()
+
+    def test_crop_day_column_picks_correct_slice(self):
+        """_crop_day_column() isolates the column matching the requested day."""
+        image = Image.new("RGB", (700, 100))
+        pixels = image.load()
+        # Paint each of the 7 columns (100px wide) a distinct shade of red.
+        for col in range(7):
+            for x in range(col * 100, (col + 1) * 100):
+                for y in range(100):
+                    pixels[x, y] = (col * 30, 0, 0)
+
+        cropped = self.scraper._crop_day_column(image, day=13, start_day=11, end_day=17)
+
+        self.assertEqual(cropped.size, (100, 100))
+        self.assertEqual(cropped.getpixel((50, 50)), (2 * 30, 0, 0))
+
+    def test_parse_day_column_splits_name_and_description(self):
+        """_parse_day_column() separates the flavor name from the description."""
+        with patch("app.scrapers.gilles.pytesseract.image_to_string") as mock_ocr:
+            mock_ocr.return_value = "Pumpkin Deluxe\n\nPumpkin Real pumpkin puree,\nPecans"
+            name, description = self.scraper._parse_day_column(Image.new("RGB", (10, 10)))
+
+        self.assertEqual(name, "Pumpkin Deluxe")
+        self.assertEqual(description, "Pumpkin Real pumpkin puree, Pecans")
+
+    def test_parse_day_column_empty_text_returns_none(self):
+        """_parse_day_column() returns (None, '') when OCR finds nothing."""
+        with patch("app.scrapers.gilles.pytesseract.image_to_string") as mock_ocr:
+            mock_ocr.return_value = ""
+            name, description = self.scraper._parse_day_column(Image.new("RGB", (10, 10)))
+
+        self.assertIsNone(name)
+        self.assertEqual(description, "")
+
+
 class TestScrapeGillesFunction(unittest.TestCase):
     """Tests for module-level scrape_gilles()."""
 
@@ -277,17 +231,19 @@ class TestScrapeGillesFunction(unittest.TestCase):
     def tearDown(self):
         self.locations_patcher.stop()
 
+    @patch("app.scrapers.gilles.pytesseract.image_to_string")
+    @patch("app.scrapers.gilles.GillesScraper._download_image")
     @patch("app.scrapers.gilles.GillesScraper.get_html")
-    def test_scrape_gilles_function(self, mock_get_html):
+    def test_scrape_gilles_function(self, mock_get_html, mock_download, mock_ocr):
         """scrape_gilles() delegates to GillesScraper.scrape()."""
-        html = _make_calendar_html_with_flavor("Red Raspberry")
-        mock_get_html.return_value = _make_soup(html)
+        mock_get_html.return_value = _make_page_html()
+        mock_download.return_value = _make_image()
+        mock_ocr.return_value = "Red Raspberry\n\nContains: Raspberry"
 
         results = scrape_gilles()
 
-        self.assertGreaterEqual(len(results), 1)
-        flavors = [entry["flavor"] for entry in results]
-        self.assertIn("Red Raspberry", flavors)
+        self.assertEqual(len(results), 1)
+        self.assertEqual(results[0]["flavor"], "Red Raspberry")
 
 
 if __name__ == "__main__":
